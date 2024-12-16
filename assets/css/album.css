@@ -1,0 +1,29 @@
+
+.hero{
+    box-shadow: 0px 50px 100px 50px #DC3545;
+}
+h2, .hero p, .hero img{
+    padding: 10px;
+}
+#imgAlbum{
+    width: 50vw;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+#imgBand{
+    width: 10%;
+    max-width: 90px;
+    border-radius: 50px;
+    display: inline-block;
+}
+#imgSong{
+    width: 5%;
+    max-width: 40px;
+    border-radius: 50px;
+    display: inline-block;
+}
+.dropdown-item:hover{
+    background-color: grey;
+}
