@@ -1,5 +1,5 @@
-// const IdClient = "4f1b2e091d6c46228401483cabb9b916";
-// const SecretClient = "3a21d0dac02c4e629b9c3110a090741b";
+// const IdClient = "75023370ae47498eae5b110f6ec8ff52";
+// const SecretClient = "7c7a6b5f53444ffca5931d034e16b2d2";
 const tokenUrl = "https://accounts.spotify.com/api/token";
 let tokenData = "";
 //let TokenAuth = "Bearer "+ getToken();
@@ -24,7 +24,7 @@ async function getToken() {
             headers:{
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: `grant_type=client_credentials&client_id=4f1b2e091d6c46228401483cabb9b916&client_secret=3a21d0dac02c4e629b9c3110a090741b`,
+            body: `grant_type=client_credentials&client_id=75023370ae47498eae5b110f6ec8ff52&client_secret=7c7a6b5f53444ffca5931d034e16b2d2`,
 
         });
         let data = await response.json();
