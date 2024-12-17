@@ -73,120 +73,86 @@ const albums = [
   "From Zero",
 ];
 
-// https://api.spotify.com/v1/search?q=pop&type=playlist&market=IT&limit=5&include_external=audio
+let artistArray = [];
+let newArtistArray =[];
 
-//'https://api.spotify.com/v1/search?q=${genereUno}&type=playlist&market=IT&limit=5&include_external=audio'
-//https://api.spotify.com/v1/search?q=Rock&type=playlist&limit=5
-
-// https://api.spotify.com/v1/browse/new-releases?limit=10
-let newArtistArray = [];
 let newAlbumArray = [];
-let newReleaseArray = [];
 
-window.addEventListener("load", init());
-
-function init() {
-  getToken();
-}
-
-async function getToken() {
-  try {
-    let response = await fetch(tokenUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `grant_type=client_credentials&client_id=75023370ae47498eae5b110f6ec8ff52&client_secret=7c7a6b5f53444ffca5931d034e16b2d2`,
-    });
-    let data = await response.json();
-    let tokenData = data.access_token;
-    let TokenAuth = `Bearer ${tokenData}`;
-    //console.log(TokenAuth);
-    getNewReleases(TokenAuth);
-    //getGenderLikes(TokenAuth);
-    //getLastResearch();        ANDRA FATTO IL GET ITEM DAL LOCAL STORAGE
-  } catch (error) {
-    console.log("ERROR: " + error);
-  }
-}
-
-let newReleasAlbum = [];
-async function getNewReleases(token) {
-  try {
-    let response = await fetch(newReleaseUrl, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
-    let data = await response.json();
-    let newReleasData = data.albums.items;
-    newReleasAlbum = newReleasData.map((item) => item.name);
-    //  console.log(newReleasAlbum)
-    newReleasAlbum.forEach((element) => striveNewReleases(element));
-    console.log(newReleaseArray);
-    printNewRelease(newReleaseArray)
-    //striveNewReleases(newReleasAlbum)
-    //console.log(newReleasData);
-    //console.log(newReleasAlbum);
-  } catch (error) {
-    console.log("ERRORE GET : " + error);
-  }
-}
-
-class NewRelease {
-  constructor(_albumId, _albumCover, _albumTitle, _artistName, _artistId) {
+class NewObject {
+  constructor(_albumId, _albumCover, _albumTitle, _artistName, _artistId, _artistCover) {
     this.albumId = _albumId;
     this.albumCover = _albumCover;
     this.albumTitle = _albumTitle;
     this.artistName = _artistName;
     this.artistId = _artistId;
+    this.artistCover = _artistCover;
   }
 }
 
-async function striveNewReleases(item) {
-  let object = {};
-  item = item.replaceAll(" ", "-");
-  searchUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${item}`;
-  //console.log(searchUrl)
-  try {
-    let response = await fetch(searchUrl, {
-      method: "GET",
-    });
-    let data = await response.json();
-    let object = data.data[0];
-    newReleaseArray.push(
-      new NewRelease(
-        object.album.id,
-        object.album.cover_small,
-        object.album.title,
-        object.artist.name,
-        object.artist.id
-      )
-    );
+window.addEventListener("load", init());
 
-    if (response.ok) {
-      return newReleaseArray
-    }
-    //printNewRelease(newReleaseArray);
-
-    // console.log(data);
-  } catch (error) {
-    console.log("ERRORE GET : " + error);
-  }
+function init() {
+  getArtist();
+  getAlbum();
+  
 }
 
+
+async function getArtist(){
+  let array = shuffle(artist, artistArray)
+  for(let i = 0; i < array.length; i++){
+    item = array[i].replaceAll(" ","-");
+      let artistUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${item}`;
+      try{
+        let response = await fetch(artistUrl,{
+          method: "GET",
+          headers:{
+            "Content-Type": "application/json"
+          },
+        });
+        let data = await response.json();
+        let object = data.data[0];
+        //console.log(object);
+        newArtistArray.push(new NewObject(
+          object.album.id,
+          object.album.cover_medium,
+          object.album.title,
+          object.artist.name,
+          object.artist.id,
+          object.artist.picture_medium
+          
+
+        ));
+        
+      }catch(error){
+        console.log("Error: "+  error);
+      }
+      
+  }
+  if(newArtistArray.length == 6){
+    let cardContainer = document.getElementById("cardContainer");
+    //printCard(newArtistArray, cardContainer);
+  }else{
+    getArtist();
+  }
+  
+};
+
+
+async function getAlbum(){
+
+};
+
+
+
+//FUNZIONE PER RANDOMICIZZARE UNO DEI DUE ARRAY (artisti o album) PER LA PRINT DELLA PRIMA PAGINA
 function shuffle(array, destinazione) {
   array.sort(() => Math.random() - 0.5);
   for(let i = 0; i< 6; i++){
     destinazione.push(array[i]);
   }
   return destinazione;
-}
-
-console.log(shuffle(artist,newArtistArray));
-
-
+};
 
 //Funzione per aggiungere o togliere la classe expanded alla sidebar
 function toggleMenu() {
@@ -194,9 +160,49 @@ function toggleMenu() {
   sidebar.classList.toggle("expanded");
 }
 
-function printNewRelease(item) {
+function printCard(item, container) {
   console.log(item)
-  item.forEach(element => {
+  container.innerHTML = "";
+for(let i = 0 ; i < item.length; i++){
+  let cardWrapper = document.createElement("div");
+  let card = document.createElement("div");
+  let cardImage = document.createElement("img");
+  let cardBody = document.createElement("div");
+  let cardTitle = document.createElement("p");
 
-  })
+  cardWrapper.classList.add("col-2");
+
+  card.classList.add("card","bg-dark","border-0");
+
+  cardImage.classList.add("card-img-top","img-fluid");
+  cardImage.setAttribute("src",item[i].artistCover);
+  cardImage.setAttribute("alt","Logo Artista")
+
+  cardBody.classList.add("card-body", "bg-dark","text-light");
+
+  cardTitle.classList.add("card-text","fs-2");
+  cardTitle.innerText = `${item[i].artistName}`;
+
+  cardBody.appendChild(cardTitle);
+  card.append(cardImage,cardBody);
+  cardWrapper.appendChild(card);
+
+  container.appendChild(cardWrapper);
 }
+}
+
+
+
+/*   TEMPLATE CARTE JS
+<div id="cardwrapper" class="col-2">
+<div class="card bg-dark border-0">
+  <img
+    src="assets/imgs/main/image-13.jpg"
+    class="card-img-top img-fluid"
+    alt="..."
+  />
+  <div class="card-body bg-dark text-light">
+    <p class="card-text">Some quick example text.</p>
+  </div>
+</div>
+</div> */
