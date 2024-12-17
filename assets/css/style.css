@@ -181,3 +181,26 @@ button:hover .grey-icon {
 .lastNotes {
   font-size: 0.9rem;
 }
+
+.card-text{
+  display: -webkit-box;
+  -webkit-box-direction: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 4rem;
+}
+
+.card-figlio{
+  width: 80%;
+}
+
+.card-padre{
+  width: 95%;
+}
+.card-padre:hover{
+  background-color: #1f1f1f;
+  cursor: pointer;
+  border-radius: 30px; 
+}
+
