@@ -1,5 +1,5 @@
 {
     "liveServer.settings.port": 5501,
     "indentRainbow.colorOnWhiteSpaceOnly": false,
-    "indentRainbow.indicatorStyle": "light"
+    "indentRainbow.indicatorStyle": "classic"
 }
