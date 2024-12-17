@@ -79,60 +79,19 @@ const albums = [
 //https://api.spotify.com/v1/search?q=Rock&type=playlist&limit=5
 
 // https://api.spotify.com/v1/browse/new-releases?limit=10
-let newReleaseArray = [];
+
+let newArtistArray = [];
+let newAlbumArray = [];
+let albumArray;
+const container = document.getElementById("album");
 
 window.addEventListener("load", init());
 
 function init() {
-  getToken();
+  getAlbum();
+  //console.log(newAlbumArray);
 }
-
-async function getToken() {
-  try {
-    let response = await fetch(tokenUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `grant_type=client_credentials&client_id=75023370ae47498eae5b110f6ec8ff52&client_secret=7c7a6b5f53444ffca5931d034e16b2d2`,
-    });
-    let data = await response.json();
-    let tokenData = data.access_token;
-    let TokenAuth = `Bearer ${tokenData}`;
-    //console.log(TokenAuth);
-    getNewReleases(TokenAuth);
-    //getGenderLikes(TokenAuth);
-    //getLastResearch();        ANDRA FATTO IL GET ITEM DAL LOCAL STORAGE
-  } catch (error) {
-    console.log("ERROR: " + error);
-  }
-}
-
-let newReleasAlbum = [];
-async function getNewReleases(token) {
-  try {
-    let response = await fetch(newReleaseUrl, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
-    let data = await response.json();
-    let newReleasData = data.albums.items;
-    newReleasAlbum = newReleasData.map((item) => item.name);
-    //  console.log(newReleasAlbum)
-    newReleasAlbum.forEach((element) => striveNewReleases(element));
-    console.log(newReleaseArray);
-    printNewRelease(newReleaseArray)
-    //striveNewReleases(newReleasAlbum)
-    //console.log(newReleasData);
-    //console.log(newReleasAlbum);
-  } catch (error) {
-    console.log("ERRORE GET : " + error);
-  }
-}
-
-class NewRelease {
+class NewObject {
   constructor(_albumId, _albumCover, _albumTitle, _artistName, _artistId) {
     this.albumId = _albumId;
     this.albumCover = _albumCover;
@@ -142,43 +101,49 @@ class NewRelease {
   }
 }
 
-async function striveNewReleases(item) {
-  let object = {};
-  item = item.replaceAll(" ", "-");
-  searchUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${item}`;
-  //console.log(searchUrl)
-  try {
-    let response = await fetch(searchUrl, {
-      method: "GET",
-    });
-    let data = await response.json();
-    let object = data.data[0];
-    newReleaseArray.push(
-      new NewRelease(
-        object.album.id,
-        object.album.cover_small,
-        object.album.title,
-        object.artist.name,
-        object.artist.id
-      )
-    );
-    
-    if(response.ok){
-       return newReleaseArray
+async function getAlbum() {
+  let albumShuffle = shuffle(albums, newAlbumArray);
+  let albumCardInfo = []
+  for (let i = 0; i < albumShuffle.length; i++) {
+    let Url = albumShuffle[i].replaceAll(" ", "-");
+    let albumUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${Url}`;
+    try {
+      let response = await fetch(albumUrl, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch album: ${response.status}`);
+      }
+
+      let data = await response.json();
+      let object = data.data[0];
+      albumCardInfo.push(
+        new NewObject(
+          object.album.id,
+          object.album.cover_medium,
+          object.album.title,
+          object.artist.name,
+          object.artist.id
+        )
+      );
+    } catch (error) {
+      console.log("ERRORE GET : " + error);
     }
-    //printNewRelease(newReleaseArray);
-
-    // console.log(data);
-  } catch (error) {
-    console.log("ERRORE GET : " + error);
   }
+ printCard(albumCardInfo) ;
+
 }
 
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+function shuffle(array, destinazione) {
+  array.sort(() => Math.random() - 0.5);
+  for (let i = 0; i < 6; i++) {
+    destinazione.push(array[i]);
+  }
+  return destinazione;
 }
-
-shuffle(artist);
 
 //Funzione per aggiungere o togliere la classe expanded alla sidebar
 function toggleMenu() {
@@ -186,9 +151,36 @@ function toggleMenu() {
   sidebar.classList.toggle("expanded");
 }
 
-function printNewRelease(item) {
-  console.log(item)
-  item.forEach(element=>{
-    
-  })
+function printCard(item) {
+  const container = document.getElementById("album");
+  container.innerHTML = "";
+  for (let i = 0; i < item.length; i++) {
+    const element = item[i];
+    const col = document.createElement("div");
+    col.className = "col";
+    container.appendChild(col);
+
+    const card = document.createElement("div");
+    card.className = "card  mb-3";
+    col.appendChild(card);
+
+    const imgContainer = document.createElement("div");
+    imgContainer.className = "img-container";
+    card.appendChild(imgContainer);
+
+    const img = document.createElement("img");
+    img.className = "card-img-top";
+    img.setAttribute("src", element.albumCover);
+    img.setAttribute("alt", element.albumTitle);
+    imgContainer.appendChild(img);
+
+    const cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+    card.appendChild(cardBody);
+
+    const title = document.createElement("h5");
+    title.className = "card-title";
+    title.textContent = element.albumTitle;
+    cardBody.appendChild(title);
+  }
 }
