@@ -1,364 +1,481 @@
 <!DOCTYPE html>
 <html lang="it">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artist- Spotify</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <!-- Bootstrap icons !-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/album.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-dark text-light">
-    <!--bottone-->
-    <!--fine bottone-->
-    <div class="container mt-4 ms-2">
-        <div class="row mt-4">
-            <div class="col-md-3 mb-3 d-flex flex-row">
-                <a href="#" class="btn btn-light rounded-pill option-link me-2">Tutto</a>
-                <a href="#" class="btn btn-light rounded-pill option-link me-2">Musica</a>
-                <a href="#" class="btn btn-light rounded-pill option-link">Podcast</a>
-            </div>
+  <body class="container-fluid">
+    <header class="navbar bg-black py-3 row row-cols-3 sticky-top">
+      <div class="flex-start col-4">
+        <a class="navbar-brand p-2" href="./index.html">
+          <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
+        </a>
+      </div>
+      <div class="d-flex col-4">
+        <button class="btn" type="button">
+          <i class="bi bi-house-door grey-icon"></i>
+        </button>
+        <form class="search-container">
+          <button class="btn" type="button">
+            <i class="bi bi-search grey-icon"></i>
+          </button>
+          <input type="text" placeholder="Cosa vuoi ascoltare?" />
+          <button class="btn" type="button">
+            <i class="bi bi-folder-symlink-fill grey-icon"></i>
+          </button>
+        </form>
+      </div>
+      <div class="d-flex col-4 justify-content-end">
+        <div class="dropdown">
+          <button class="btn" data-bs-toggle="dropdown" type="button">
+            <i class="bi bi-bell grey-icon"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end bg-dark">
+            <li>
+              <a class="dropdown-item" href="#">Nessuna nuova notifica</a>
+            </li>
+          </ul>
         </div>
-    </div>
-    <div>
-        <h2>Creato per te</h2>
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-1.jpeg " alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+
+        <div class="dropdown user">
+          <button
+            class="btn"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-person-circle grey-icon"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end bg-dark">
+            <li><a class="dropdown-item" href="#">Account</a></li>
+            <li><a class="dropdown-item" href="#">Profilo</a></li>
+            <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Esci</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main class="container-fluid bg-black p-0">
+      <section class="d-flex justify-content-between gap-2">
+        <div
+          class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3"
+          id="sidebar"
+        >
+          <div class="menu-header" onclick="toggleMenu()">
+            <i class="bi bi-music-note-list"></i> <span>La tua Libreria</span>
+          </div>
+
+          <form class="library-search-container">
+            <button class="btn" type="button">
+              <i class="bi bi-search library-icon"></i>
+            </button>
+            <input type="text" placeholder="Cerca in la Tua Libreria" />
+          </form>
+
+          <div id="library-container"></div>
+        </div>
+
+        <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
+          <div class="container-fluid flex-grow-1 p-0 m-0" id="main-Container">
+            <!--Da inserire i contenuti delle pagine Album, Artist, Homepage-->
+            <div class="container-fluid bg-dark main">
+              <div class="container mt-4 ms-2">
+                <div class="row mt-4">
+                  <div class="col-md-3 mb-3 d-flex flex-row">
+                    <a
+                      href="#"
+                      class="btn btn-light rounded-pill option-link me-2"
+                      >Tutto</a
+                    >
+                    <a
+                      href="#"
+                      class="btn btn-light rounded-pill option-link me-2"
+                      >Musica</a
+                    >
+                    <a href="#" class="btn btn-light rounded-pill option-link"
+                      >Podcast</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h2>Creato per te</h2>
+                <div class="row">
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-1.jpeg "
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 1</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
-                        </a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-10.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-10.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 2</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-2.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-2.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 3</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-17.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-17.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 4</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-
-        </div>
-
-    </div>
-    <div>
-        <h2>I Tuoi mix</h2>
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-23.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+              </div>
+              <div>
+                <h2>I Tuoi mix</h2>
+                <div class="row">
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-23.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 5</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
-                        </a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-13.jpeg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-13.jpeg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 6</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-29.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-29.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 7</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-41.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-41.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 8</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-
-        </div>
-
-    </div>
-    <div>
-        <h2>Album e singoli popolari</h2>
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-46.jpeg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+              </div>
+              <div>
+                <h2>Album e singoli popolari</h2>
+                <div class="row">
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-46.jpeg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 9</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
-                        </a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-12.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-12.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 10</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-47.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-47.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 11</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-30.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="card" style="width: 20vw; height: auto">
+                      <img
+                        src="./assets/imgs/search/image-30.jpg"
+                        alt=""
+                        class="card-img-top img-fluid rounded"
+                        style="width: 20vw; height: auto"
+                      />
+                      <div class="card-body">
                         <h5 class="card-title">Album 12</h5>
                         <p class="card-text">Descrizione dell'album.</p>
                         <a href="#" class="btn btn-primary">Ascolta</a>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
+              <hr />
+              <footer class="bg-dark text-light py-4">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <h5>Azienda</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Chi siamo</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Opportunità di Lavoro</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >For the Record</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-3">
+                      <h5>Community</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Per Artisti</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Sviluppatori</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Pubblicità</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Investitori</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Venditori</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-3">
+                      <h5>Link Utili</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Assistenza</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >App per cellulare gratuita</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Diritti del Consumatore</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-3">
+                      <h5>Piani Spotify</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Individual</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Duo</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Family</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Student</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Spotify Free</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </footer>
             </div>
-
+          </div>
         </div>
+      </section>
 
-    </div>
-    <div>
-        <h2>In base a ciò che hai ascoltato</h2>
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-50.jpg " alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 13</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-51.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 14</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-11.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 15</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-19.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 16</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-
+      <section class="navbar bg-black row row-cols-3" id=" player-Container">
+        <div class="col-4">
+          <div id="playerCoverContainer"></div>
+          <div>
+            <h6 id="titlePlayer"></h6>
+            <p id="authPlayer"></p>
+          </div>
+          <button class="btn" id="likePlayer" type="button">
+            <i class="bi bi-heart payer-icon" id="likePlayer"></i>
+          </button>
         </div>
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+      </section>
+    </main>
 
-    </div>
-    <div>
-        <h2></h2>
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-21.jpg " alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 17</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-48.jpeg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 18</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-19.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 19</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-40.jpg" alt="" class="card-img-top  img-fluid rounded"
-                        style="width: 20vw; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 20</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-    <div>
-        <h2>Artisti più popolari</h2>
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-51.jpg" alt="" class="card-img-top img-fluid rounded-circle"
-                        style="width: 20vw; height: 20vw;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 21</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-13.jpeg" alt="" class="card-img-top img-fluid rounded-circle"
-                        style="width: 20vw; height: 20vw;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 22</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-26.jpg" alt="" class="card-img-top img-fluid rounded-circle"
-                        style="width: 20vw; height: 20vw;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 23</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card" style="width: 20vw; height: auto;">
-                    <img src="./assets/imgs/search/image-38.jpg" alt="" class="card-img-top img-fluid rounded-circle"
-                        style="width: 20vw; height: 20vw;">
-                    <div class="card-body">
-                        <h5 class="card-title">Album 24</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Volume !-->
-    <nav class="navbar navbar-light bg-light fixed-bottom">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center">
-
-                <a href="#" class="btn btn-light me-2"><i class="bi bi-skip-start"></i></a>
-
-                <a href="#" class="btn btn-light me-2"><i class="bi bi-play-circle"></i></a>
-
-                <a href="#" class="btn btn-light me-2"><i class="bi bi-skip-end"></i></a>
-
-                <input type="range" value="50" class="form-range me-2" style="width: 200px;">
-
-                <a href="#" class="btn btn-light me-2"><i class="bi bi-volume-down"></i></a>
-                <input type="range" value="50" class="form-range" style="width: 100px;">
-                <a href="#" class="btn btn-light"><i class="bi bi-volume-up"></i></a>
-            </div>
-        </div>
-    </nav>
-
-    <script>
-        src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity = "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin = "anonymous"</script>
-</body>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="assets/js/artist.js"></script>
+  </body>
 </html>
