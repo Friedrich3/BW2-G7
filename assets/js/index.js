@@ -79,6 +79,8 @@ const albums = [
 //https://api.spotify.com/v1/search?q=Rock&type=playlist&limit=5
 
 // https://api.spotify.com/v1/browse/new-releases?limit=10
+let newArtistArray = [];
+let newAlbumArray = [];
 let newReleaseArray = [];
 
 window.addEventListener("load", init());
@@ -162,9 +164,9 @@ async function striveNewReleases(item) {
         object.artist.id
       )
     );
-    
-    if(response.ok){
-       return newReleaseArray
+
+    if (response.ok) {
+      return newReleaseArray
     }
     //printNewRelease(newReleaseArray);
 
@@ -174,11 +176,17 @@ async function striveNewReleases(item) {
   }
 }
 
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+function shuffle(array, destinazione) {
+  array.sort(() => Math.random() - 0.5);
+  for(let i = 0; i< 6; i++){
+    destinazione.push(array[i]);
+  }
+  return destinazione;
 }
 
-shuffle(artist);
+console.log(shuffle(artist,newArtistArray));
+
+
 
 //Funzione per aggiungere o togliere la classe expanded alla sidebar
 function toggleMenu() {
@@ -188,7 +196,7 @@ function toggleMenu() {
 
 function printNewRelease(item) {
   console.log(item)
-  item.forEach(element=>{
-    
+  item.forEach(element => {
+
   })
 }
