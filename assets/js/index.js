@@ -75,7 +75,7 @@ const albums = [
 
 let artistArray = [];
 let newArtistArray =[];
-
+let albumArray = [];
 let newAlbumArray = [];
 
 class NewObject {
@@ -92,11 +92,49 @@ class NewObject {
 window.addEventListener("load", init());
 
 function init() {
-  getArtist();
   getAlbum();
+  getArtist();
   
 }
 
+async function getAlbum(){
+  let array = shuffle(albums, albumArray)
+  for(let i = 0; i < array.length; i++){
+    item = array[i].replaceAll(" ","-");
+      let albumUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${item}`;
+      try{
+        let response = await fetch(albumUrl,{
+          method: "GET",
+          headers:{
+            "Content-Type": "application/json"
+          },
+        });
+        let data = await response.json();
+        let object = data.data[0];
+        //console.log(object);
+        newAlbumArray.push(new NewObject(
+          object.album.id,
+          object.album.cover_medium,
+          object.album.title,
+          object.artist.name,
+          object.artist.id,
+          object.artist.picture_medium
+          
+
+        ));
+        
+      }catch(error){
+        console.log("Error: "+  error);
+      }
+      
+  }
+  if(newAlbumArray.length == 6){
+    printAlbumCard(newAlbumArray);
+  }else{
+    getAlbum();
+  }
+  
+};
 
 async function getArtist(){
   let array = shuffle(artist, artistArray)
@@ -130,20 +168,12 @@ async function getArtist(){
       
   }
   if(newArtistArray.length == 6){
-    let cardContainer = document.getElementById("artistContainer");
-    //printCard(newArtistArray, cardContainer);
+    printArtistCard(newArtistArray);
   }else{
     getArtist();
   }
   
 };
-
-
-async function getAlbum(){
-
-};
-
-
 
 //FUNZIONE PER RANDOMICIZZARE UNO DEI DUE ARRAY (artisti o album) PER LA PRINT DELLA PRIMA PAGINA
 function shuffle(array, destinazione) {
@@ -154,9 +184,10 @@ function shuffle(array, destinazione) {
   return destinazione;
 };
 
-function printCard(item, container) {
-  console.log(item)
-  container.innerHTML = "";
+//STAMPA DELLE CARTE ALBUM
+function printAlbumCard(item){
+  let cardContainer = document.getElementById("album");
+  cardContainer.innerHTML = "";
 for(let i = 0 ; i < item.length; i++){
   let cardWrapper = document.createElement("div");
   let cardPadre = document.createElement("div");
@@ -168,25 +199,78 @@ for(let i = 0 ; i < item.length; i++){
   let cardTitle = document.createElement("p");
 
   cardWrapper.classList.add("col","bg-schede", "d-flex", "justify-content-center", "card-prova", "g-0");
+  cardPadre.classList.add("d-flex","justify-content-center","pt-4","card-padre");
+  card.classList.add("card","bg-transparent","border-0","card-figlio");
 
-  card.classList.add("card","bg-dark","border-0");
+  cardImageLink.setAttribute("href",`album.html?id=${item[i].albumId}`);
 
-  cardImage.classList.add("card-img-top","img-fluid");
+  cardImage.classList.add("card-img-top","img-fluid","rounded-5");
+  cardImage.setAttribute("src",item[i].albumCover);
+  cardImage.setAttribute("alt","Logo Album");
+
+  cardBody.classList.add("card-body");
+
+  cardTitleLink.classList.add("text-light","link-card");
+  cardTitleLink.setAttribute("href",`album.html?id=${item[i].albumId}`);
+
+  cardTitle.classList.add("card-text","fs-5");
+  cardTitle.innerText = `${item[i].albumTitle}`;
+
+  cardTitleLink.appendChild(cardTitle);
+  cardBody.appendChild(cardTitleLink);
+  cardImageLink.appendChild(cardImage);
+  
+
+  card.append(cardImageLink,cardBody);
+  cardPadre.appendChild(card);
+  cardWrapper.appendChild(cardPadre);
+
+  cardContainer.appendChild(cardWrapper);
+}};
+
+//STAMPA DELLE CARTE ARTISTA
+function printArtistCard(item) {
+  let cardContainer = document.getElementById("artist");
+  cardContainer.innerHTML = "";
+for(let i = 0 ; i < item.length; i++){
+  let cardWrapper = document.createElement("div");
+  let cardPadre = document.createElement("div");
+  let card = document.createElement("div");
+  let cardImageLink = document.createElement("a");
+  let cardImage = document.createElement("img");
+  let cardBody = document.createElement("div");
+  let cardTitleLink = document.createElement("a");
+  let cardTitle = document.createElement("p");
+
+  cardWrapper.classList.add("col","bg-schede", "d-flex", "justify-content-center", "card-prova", "g-0");
+  cardPadre.classList.add("d-flex","justify-content-center","pt-4","card-padre");
+  card.classList.add("card","bg-transparent","border-0","card-figlio");
+
+  cardImageLink.setAttribute("href",`artist.html?id=${item[i].artistId}`);
+
+  cardImage.classList.add("card-img-top","img-fluid","rounded-circle");
   cardImage.setAttribute("src",item[i].artistCover);
-  cardImage.setAttribute("alt","Logo Artista")
+  cardImage.setAttribute("alt","Logo Artista");
 
-  cardBody.classList.add("card-body", "bg-dark","text-light");
+  cardBody.classList.add("card-body");
 
-  cardTitle.classList.add("card-text","fs-2");
+  cardTitleLink.classList.add("text-light","link-card");
+  cardTitleLink.setAttribute("href",`artist.html?id=${item[i].artistId}`);
+
+  cardTitle.classList.add("card-text","fs-5");
   cardTitle.innerText = `${item[i].artistName}`;
 
-  cardBody.appendChild(cardTitle);
-  card.append(cardImage,cardBody);
-  cardWrapper.appendChild(card);
+  cardTitleLink.appendChild(cardTitle);
+  cardBody.appendChild(cardTitleLink);
+  cardImageLink.appendChild(cardImage);
+  
 
-  container.appendChild(cardWrapper);
-}
-}
+  card.append(cardImageLink,cardBody);
+  cardPadre.appendChild(card);
+  cardWrapper.appendChild(cardPadre);
+
+  cardContainer.appendChild(cardWrapper);
+}};
 
 
  //Funzione per aggiungere o togliere la classe expanded alla sidebar

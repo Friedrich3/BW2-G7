@@ -203,4 +203,10 @@ button:hover .grey-icon {
   cursor: pointer;
   border-radius: 30px; 
 }
+.link-card{
+  text-decoration: none;
+}
+.link-card:hover{
+  text-decoration: underline;
+}
 
