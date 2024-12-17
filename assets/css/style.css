@@ -72,6 +72,26 @@ button:hover .grey-icon {
   padding-left: 0.6em;
 }
 
+.custom-select { 
+  background-color: transparent; 
+  color: white; 
+  border: none; 
+} 
+.custom-select option { 
+  background-color: #1f1f1f; 
+  color: white; 
+} 
+.custom-select:focus { 
+  border-color: transparent; 
+  box-shadow: none;
+  background-color: #1f1f1f;
+ } 
+ .custom-select option:hover, 
+ .custom-select option:focus {
+  background-color: #1f1f1f; 
+  color: white; 
+}
+
 .search-container input:focus ~ .search-container {
   border: 1px #fefefe; /* Colore del bordo quando si scrive (verde, ad esempio) */
 }
