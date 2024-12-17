@@ -16,7 +16,7 @@
 <body class="container-fluid">
   <header class="navbar bg-black py-3 row row-cols-3 sticky-top ">
     <div class="flex-start col-4">
-      <a class="navbar-brand" href="./index.html">
+      <a class="navbar-brand p-2" href="./index.html">
         <i class="bi bi-spotify" style="font-size: 2.3rem; color:white"></i>
       </a>
     </div>
@@ -63,9 +63,9 @@
     </div>
   </header>
 
-  <main class="container-fluid bg-dark">
-    <section class="d-flex justify-content-between">
-      <div class="sidebar align-items-start sticky-top top-custom" id="sidebar">
+  <main class="container-fluid bg-black p-0 ">
+    <section class="d-flex justify-content-between gap-2">
+      <div class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3" id="sidebar">
 
         <div class="menu-header" onclick="toggleMenu()">
           <i class="bi bi-music-note-list"></i> <span>La tua Libreria</span>
@@ -82,17 +82,20 @@
         <div id="library-container"></div>
       </div>
 
-<div class="container-fluid overflow-hidden p-0">
+<div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
         <div class="container-fluid flex-grow-1 p-0 m-0" id=" main-Container">
-            <div class="row">
+            <div class="row main">
               <div class="col-12 text-light">
-                <section class="hero bg-danger order-0">
+                <section class="hero bg-danger order-0 d-flex ">
+                    <div>
                   <img
                     src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
                     alt="img copertina"
                     id="imgAlbum"
                     class="pt-3"
                   />
+                  </div>
+                  <div class="align-content-end">
                   <h2>Esempio titolo</h2>
                   <img
                     src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
@@ -101,6 +104,7 @@
                   />
                   <p class="d-inline-block"><b>Nome della band</b></p>
                   <p class="opacity-75">album-2017</p>
+                  </div>
                 </section>
                 <button
                   class="btn bg-success rounded-circle text-black ms-2"
