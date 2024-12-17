@@ -130,7 +130,7 @@ async function getArtist(){
       
   }
   if(newArtistArray.length == 6){
-    let cardContainer = document.getElementById("cardContainer");
+    let cardContainer = document.getElementById("artistContainer");
     //printCard(newArtistArray, cardContainer);
   }else{
     getArtist();
@@ -159,12 +159,15 @@ function printCard(item, container) {
   container.innerHTML = "";
 for(let i = 0 ; i < item.length; i++){
   let cardWrapper = document.createElement("div");
+  let cardPadre = document.createElement("div");
   let card = document.createElement("div");
+  let cardImageLink = document.createElement("a");
   let cardImage = document.createElement("img");
   let cardBody = document.createElement("div");
+  let cardTitleLink = document.createElement("a");
   let cardTitle = document.createElement("p");
 
-  cardWrapper.classList.add("col-2");
+  cardWrapper.classList.add("col","bg-schede", "d-flex", "justify-content-center", "card-prova", "g-0");
 
   card.classList.add("card","bg-dark","border-0");
 
