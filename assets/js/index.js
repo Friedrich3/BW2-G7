@@ -154,12 +154,6 @@ function shuffle(array, destinazione) {
   return destinazione;
 };
 
-//Funzione per aggiungere o togliere la classe expanded alla sidebar
-function toggleMenu() {
-  const sidebar = document.getElementById("sidebar");
-  sidebar.classList.toggle("expanded");
-}
-
 function printCard(item, container) {
   console.log(item)
   container.innerHTML = "";
@@ -192,17 +186,18 @@ for(let i = 0 ; i < item.length; i++){
 }
 
 
+ //Funzione per aggiungere o togliere la classe expanded alla sidebar
+function toggleMenu() {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("expanded");
+}
 
-/*   TEMPLATE CARTE JS
-<div id="cardwrapper" class="col-2">
-<div class="card bg-dark border-0">
-  <img
-    src="assets/imgs/main/image-13.jpg"
-    class="card-img-top img-fluid"
-    alt="..."
-  />
-  <div class="card-body bg-dark text-light">
-    <p class="card-text">Some quick example text.</p>
-  </div>
-</div>
-</div> */
+function searchSelect() { 
+    const selectContainer = document.getElementById("selectContainer"); 
+    if (selectContainer.style.display === "none" || selectContainer.style.display === "") { 
+        selectContainer.style.display = "block"; } 
+        else { 
+            selectContainer.style.display = "none"; 
+        } 
+    }
+
