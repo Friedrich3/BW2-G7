@@ -63,4 +63,11 @@ function toggleMenu() {
     sidebar.classList.toggle('expanded'); 
 }
 
-
+function searchSelect() { 
+    const selectContainer = document.getElementById("selectContainer"); 
+    if (selectContainer.style.display === "none" || selectContainer.style.display === "") { 
+        selectContainer.style.display = "block"; } 
+        else { 
+            selectContainer.style.display = "none"; 
+        } 
+    }
