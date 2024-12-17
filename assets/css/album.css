@@ -37,7 +37,9 @@ ol li {
 ol li p{
     margin-left: 20%;
 }
-
+#sidebar{
+    display: none;
+}
 
 @media screen and (min-width:768px){
     ol li{
@@ -48,6 +50,9 @@ ol li p{
     }
     .more{
         display: none;
+    }
+    #sidebar{
+        display: block;
     }
 }
 @media screen and (min-width:992px){
