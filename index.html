@@ -86,12 +86,19 @@
       <section class="d-flex justify-content-between gap-2">
         <div
           class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3"
-          id="sidebar"
-        >
-          <div class="menu-header" onclick="toggleMenu()">
-            <i class="bi bi-music-note-list fs-4 me-2"></i>
-            <span class="fw-bold">La tua Libreria</span>
-            <span><i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i></span>
+          id="sidebar">
+          
+          <div class="d-flex">
+            <div class="menu-header" onclick="toggleMenu()">
+              <i class="bi bi-music-note-list fs-4 me-2"></i>
+              <span class="hydeLibrary">La tua Libreria</span>
+            </div>
+            <div class="hydeLibrary ms-3">
+              <i class="bi bi-plus-lg grey-icon fs-5 ms-5"></i>
+            </div>
+          </div>
+
+          <div>
             <form class="library-search-container">
               <button class="btn" type="button"></button>
               <input type="text" placeholder="Cerca in la Tua Libreria" />
@@ -155,18 +162,17 @@
             class="container-fluid flex-grow-1 p-0 m-0 bg-schede main"
             id="main-Container"
           >
-          <h2>Albums</h2>
-          <!--Cambiato ID senza "container" per matchare il print in js-->
+            <h2>Albums</h2>
+            <!--Cambiato ID senza "container" per matchare il print in js-->
             <div
               class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
               id="album"
             >
-            
               <!--QUI SCHEDE JS RELATIVE AGLI ALBUMS
-              VA AGGIUNTO TITOLO DELLA SEZIONE --> 
+              VA AGGIUNTO TITOLO DELLA SEZIONE -->
 
               <!-- ELIMINARE DA QUA-->
-             <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
+              <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
                 <div class="card-padre d-flex justify-content-center pt-4">
                 <div class="card bg-transparent border-0 card-figlio">
                   <a href=""><img
@@ -183,7 +189,6 @@
               </div>-->
 
               <!--A QUA-->
-              
             </div>
             <h2>Artists</h2>
             <!--Cambiato ID senza "container" per matchare il print in js-->
@@ -193,7 +198,6 @@
             >
               <!--QUI SCHEDE JS RELATIVE AGLI ARTISTI
               VA AGGIUNTO TITOLO DELLA SEZIONE -->
-              
             </div>
             <h2>Last Research</h2>
             <div
