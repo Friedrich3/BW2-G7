@@ -86,12 +86,21 @@
       <section class="d-flex justify-content-between gap-2">
         <div
           class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3"
-          id="sidebar"
-        >
-          <div class="menu-header" onclick="toggleMenu()">
+          id="sidebar">
+          <div class="d-flex">
+             <div class="menu-header" onclick="toggleMenu()">
+
             <i class="bi bi-music-note-list fs-4 me-2"></i>
             <span class="fw-bold">La tua Libreria</span>
-            <span><i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i></span>
+          </div>
+          <div class="hydeLibrary ms-3"> 
+            <i class="bi bi-plus-lg grey-icon fs-5 ms-3"></i>
+            <i class="bi bi-arrow-right grey-icon fs-5 ms-2"></i>
+          </div>
+          </div>
+          
+          
+          <div>
             <form class="library-search-container">
               <button class="btn" type="button"></button>
               <input type="text" placeholder="Cerca in la Tua Libreria" />
@@ -150,200 +159,231 @@
         </div>
 
         <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
-          <!--MAIN CONTAINER CON OVERFLOW HIDDEN-->
-          <div
-            class="container-fluid flex-grow-1 p-0 m-0 bg-schede main"
-            id="main-Container"
-          >
-          <h2>Albums</h2>
-          <!--Cambiato ID senza "container" per matchare il print in js-->
-            <div
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-              id="album"
-            >
-            
-              <!--QUI SCHEDE JS RELATIVE AGLI ALBUMS
-              VA AGGIUNTO TITOLO DELLA SEZIONE --> 
 
-              <!-- ELIMINARE DA QUA-->
-             <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
-                <div class="card-padre d-flex justify-content-center pt-4">
-                <div class="card bg-transparent border-0 card-figlio">
-                  <a href=""><img
-                    src="assets/imgs/main/image-13.jpg"
-                    class="card-img-top img-fluid rounded-circle"
-                    alt="..."
-                  /></a>
-                  <div class="card-body">
-                    <a href="" class="text-light link-card"><p class="card-text fs-5">ARTISTA</p></a>
+          <div class="container-fluid flex-grow-1 p-0 m-0" id="main-Container">
+            <div class="container-fluid bg-dark main">
+              <div class="row">
+                <div class="col-md-9 col-sm-12 albums bg-dark">
+                  <h2>Album List</h2>
+                  <div class="row">
+                    <h4 class="text-light">Creato per Te</h4>
+                    <div class="col-sm-4">
+                      <div class="card bg-dark border-0" style="width: 10rem">
+                        <img
+                          src="assets/imgs/main/image-15.jpg"
+                          class="card-img-top"
+                          alt="..."
+                        />
+                        <div class="card-body bg-dark text-light">
+                          <p class="card-text">Some quick example text.</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <h4 class="text-light">Creato per Te</h4>
+                        <div class="col-sm-4">
+                          <div
+                            class="card bg-dark border-0"
+                            style="width: 10rem"
+                          >
+                            <img
+                              src="assets/imgs/main/image-12.jpg"
+                              class="card-img-top"
+                              alt="..."
+                            />
+                            <div class="card-body bg-dark text-light">
+                              <p class="card-text">Some quick example text.</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <h4 class="text-light">Creato per Te</h4>
+                            <div class="col-sm-4">
+                              <div
+                                class="card bg-dark border-0"
+                                style="width: 10rem"
+                              >
+                                <img
+                                  src="assets/imgs/main/image-10.jpg"
+                                  class="card-img-top"
+                                  alt="..."
+                                />
+                                <div class="card-body bg-dark text-light">
+                                  <p class="card-text">
+                                    Some quick example text.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                </div>
+              </div>
 
-              </div>-->
+              <hr />
+              <footer class="bg-dark text-light py-4">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-2 m-2">
+                      <h5>Azienda</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Chi siamo</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Opportunità di Lavoro</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >For the Record</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-2 m-2">
+                      <h5>Community</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Per Artisti</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Sviluppatori</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Pubblicità</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Investitori</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Venditori</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-2 m-2">
+                      <h5>Link Utili</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Assistenza</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >App per cellulare gratuita</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Diritti del Consumatore</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-2 m-2">
+                      <h5>Piani Spotify</h5>
+                      <ul class="list-unstyled">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Individual</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Duo</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Family</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Premium Student</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="text-light text-decoration-none"
+                            >Spotify Free</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-3 text-center me-0">
+                      <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
+                      <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
+                      <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
+                    </div>
+                    <hr />
+                    <div class="row text-light py-2 lastNotes">
+                      <div class="col-md-2 text-center">
+                        <p>Informativa sulla Privacy</p>
+                      </div>
+                      <div class="col-md-2 text-center">
+                        <p>Note Legali</p>
+                      </div>
+                      <div class="col-md-2 text-center">
+                        <p>Impostazioni dei Cookies</p>
+                      </div>
+                      <div class="col-md-2 text-center">
+                        <p>Accessibilità</p>
+                      </div>
+                      <div class="col-md-2 text-center">
+                        <p>Info Annunci</p>
+                      </div>
+                      <div class="col-md-2 text-center">
+                        <p>&copy;2024 Spotify AB</p>
+                      </div>
+                    </div>
 
-              <!--A QUA-->
-              
-            </div>
-            <h2>Artists</h2>
-            <!--Cambiato ID senza "container" per matchare il print in js-->
-            <div
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-              id="artist"
-            >
-              <!--QUI SCHEDE JS RELATIVE AGLI ARTISTI
-              VA AGGIUNTO TITOLO DELLA SEZIONE -->
-              
-            </div>
-            <h2>Last Research</h2>
-            <div
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-              id="cronologiaContainer"
-            >
-              <!--QUI SCHEDE JS RELATIVE ALLA CRONOLOGIA
-              VA AGGIUNTO TITOLO DELLA SEZIONE -->
-            </div>
-
-            <!--QUA CI STAVA L'HR-->
-            <footer class="bg-schede text-light py-4 mt-5">
-              <div class="container-fluid">
-                <div class="row row-cols-md-5 mx-5 px-5">
-                  <div class="col">
-                    <h5>Azienda</h5>
-                    <ul class="list-unstyled">
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Chi siamo</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Opportunità di Lavoro</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >For the Record</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col">
-                    <h5>Community</h5>
-                    <ul class="list-unstyled">
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Per Artisti</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Sviluppatori</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Pubblicità</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Investitori</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Venditori</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col">
-                    <h5>Link Utili</h5>
-                    <ul class="list-unstyled">
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Assistenza</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >App per cellulare gratuita</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Diritti del Consumatore</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col">
-                    <h5>Piani Spotify</h5>
-                    <ul class="list-unstyled">
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Individual</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Duo</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Family</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Student</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Spotify Free</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col text-center me-0">
-                    <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
-                    <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
-                    <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
                   </div>
                 </div>
 
