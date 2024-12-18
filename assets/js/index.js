@@ -64,7 +64,9 @@ const albums = [
   "From Zero",
 ];
 
+
 let newArtistArray = [];
+
 let newAlbumArray = [];
 
 class NewObject {
@@ -88,8 +90,8 @@ class NewObject {
 window.addEventListener("load", init());
 
 function init() {
-  getArtist();
   getAlbum();
+
 }
 
 async function getArtist() {
@@ -130,6 +132,7 @@ async function getArtist() {
     printArtistCard(newArtistArray);
   } else {
     console.log("Dati insufficienti per gli artisti, riprovo...");
+
     getArtist();
   }
 }
@@ -240,6 +243,7 @@ function printAlbumCard(item) {
     cardContainer.appendChild(cardWrapper);
   }
 }
+
 
 //STAMPA DELLE CARTE ARTISTA
 function printArtistCard(item) {
