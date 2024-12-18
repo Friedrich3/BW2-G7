@@ -23,9 +23,9 @@ h2, .hero p, .hero img{
     border-radius: 50px;
     display: inline-block;
 }
-#imgSong{
+.imgSong{
     max-width: 40px;
-    border-radius: 50px;
+    border-radius: 8px;
     display: inline-block;
 }
 .dropdown-item:hover{
@@ -49,7 +49,7 @@ ol li p{
     ol li{
         font-size: larger;
     }
-    #visual, #time{
+    .visual, .time{
         display: inline-block !important;
     }
     .more{
@@ -69,4 +69,9 @@ ol li p{
     #imgAlbum{
         max-width: 300px;
     }
+}
+
+
+.col-index{
+    width: 1em;
 }

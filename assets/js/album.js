@@ -13,7 +13,6 @@ window.addEventListener("load", init());
 function init() {
   getAlbum();
 
-
 };
 
 async function getAlbum() {
@@ -27,7 +26,7 @@ async function getAlbum() {
     let data = await response.json();
     album = { ...data };
     arraySong = data.tracks.data;
-    console.log(album);
+    console.log(arraySong);
     printHero(album);
     printSong(arraySong);
 
@@ -69,14 +68,11 @@ function printHero(album) {
 
   //albumInfo.innerHTML = `${anno.innerText} • ${numTrack.innerHTML} • ${durata.innerHTML}.`
   albumInfo.append(anno,numTrack,durata);
-
-  //ANno  BOLD
-  //numeroBrani BOLD
-  //Durata Spento
-
-
-
 };
+
+function printSong(array){
+
+}
 
 
 //Funzione per aggiungere o togliere la classe expanded alla sidebar
