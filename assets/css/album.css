@@ -75,3 +75,13 @@ ol li p{
 .col-index{
     width: 1em;
 }
+/*GESTISCE LA VISIBILITA DELLA SECONDA CLASSE QUANDO PASSANO IN OVER SUI FRATELLI DELLA STESSA*/
+.hover-custom:hover ~ .icon-hover{
+    visibility: visible;
+}
+.icon-hover{
+    visibility: hidden;
+}
+
+
+
