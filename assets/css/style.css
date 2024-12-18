@@ -143,7 +143,7 @@ button:hover .grey-icon {
     margin-left: 10px;
 }
 
-.library-search-container, span, .hydeLibrary{
+.library-search-container, .hydeLibrary{
     display: none;
     white-space: nowrap;
 }
@@ -199,9 +199,9 @@ button:hover .grey-icon {
   width: 95%;
 }
 .card-padre:hover{
-  background-color: #1f1f1f;
+  background-color: #1f1f1f7a;
   cursor: pointer;
-  border-radius: 30px; 
+  border-radius: 16px; 
 }
 .link-card{
   text-decoration: none;
