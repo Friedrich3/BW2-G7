@@ -9,8 +9,9 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: black;
   color: white;
+  margin: 0;
+  padding: 0;
 }
-
 .bg-custom {
   background-color: #1e1e1e;
 }
@@ -92,7 +93,7 @@ button:hover .grey-icon {
   color: white; 
 }
 
-.search-container input:focus ~ .search-container {
+.search-container input:focus .search-container {
   border: 1px #fefefe; /* Colore del bordo quando si scrive (verde, ad esempio) */
 }
 
@@ -213,4 +214,39 @@ button:hover .grey-icon {
 .img{
   object-fit: cover;
   object-position: top;
+}
+
+.col-index{
+width: 1em;
+}
+
+.icon-hover{
+  visibility: hidden;
+}
+
+.hover-custom:hover .icon-hover{
+  visibility: visible;
+}
+
+.fs-custom{
+  font-size: 0.9em
+}
+
+.card-Track{
+  background-color: #1f1f1f7a;
+  cursor: pointer;
+  border-radius: 12px; 
+}
+
+.card-Track:hover{
+  background-color: #1f1f1f;
+}
+
+.list-hover{
+  cursor: pointer;
+  border-radius: 12px; 
+}
+
+.list-hover:hover{
+  background-color: #1f1f1f7a;
 }

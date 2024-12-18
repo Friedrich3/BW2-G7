@@ -336,8 +336,9 @@ async function searchQuery(query) {
       artistId: item.artist.id,
       artistName: item.artist.name,
       artistPicture: item.artist.picture_medium,
+      duration: item.duration,
     }));
-    console.log(queryResult);
+    console.log(data);
     printSearch(queryResult);
     //let queryResult = data.data;
     //console.log(queryResult);
@@ -349,7 +350,168 @@ async function searchQuery(query) {
   }
 }
 
+function convertToMinSec(seconds, boolean) {
+  let testo = "";
+  const minutes = Math.floor(seconds / 60);
+  let remainingSeconds = seconds % 60;
+  if (remainingSeconds < 10) {
+    remainingSeconds = `0${remainingSeconds}`;
+  }
+
+  if (boolean) {
+    testo = `${minutes}min ${remainingSeconds}sec`;
+  } else {
+    testo = `${minutes}:${remainingSeconds}`;
+  }
+
+  return testo;
+}
+
 function printSearch(item) {
+  //STAMPA SOLO DEL PRIMO ITEM
   const mainContainer = document.getElementById("main-Container");
   mainContainer.innerHTML = "";
+
+  const firstAlbumCover = document.getElementById("firstAlbum");
+  console.log(firstAlbumCover);
+  firstAlbumCover.setAttribute("src", item[0].albumCover);
+
+  const firstTrack = document.getElementById("firstTrack");
+  firstTrack.innerText = item[0].trackTitle;
+
+  const duration = document.getElementById("duration");
+  duration.innerText = convertToMinSec(item[0].duration, true);
+
+  const firstArtist = document.getElementById("firstArtistPic");
+  firstArtist.setAttribute("src", item[0].artistPicture);
+
+  const firstArtistName = document.getElementById("firstArtistName");
+  firstArtistName.innerText = item[0].artistName;
+
+  //ORA INIZIARE A STAMPRE NELLA TERZA COLONNA CON LE CANZONI PIù POPOLARI
+  const popularTracks = document.getElementById("popularTracks");
+  const songList = document.getElementById("songList");
+
+  //STAMPA DEI RISULTATI PIù INERENTI CON LA RICERCA
+  for (let i = 0; i < 5; i++) {
+    //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
+    const popRow = document.createElement("div");
+    popRow.className = "row row-cols-4 mb-3 py-2 hover-custom list-hover";
+    popularTracks.appendChild(popRow);
+
+    const popularContainer = document.createElement("div");
+    popularContainer.className = "col-index d-flex text-end ms-3 ";
+    popularContainer.innerext = item[i].trackTitle;
+    popRow.appendChild(popularContainer);
+
+    //PRIMA SEZIONE: P
+    const popRank = document.createElement("p");
+    popRank.className = "m-0 p-0 align-self-center";
+    popRank.innerText = i + 1; //???? da controllare
+    popularContainer.appendChild(popRank);
+
+    //SECONDA SEZIONE
+    const popularBody = document.createElement("div");
+    popularBody.className = "col-8 d-flex d-flex";
+    popRow.appendChild(popularBody);
+
+    //SECONDA SEZIONE: COVER ALBUM + TITOLO
+    const popCover = document.createElement("img");
+    popCover.setAttribute("src", item[i].albumCover);
+    popCover.setAttribute("width", "30px");
+    popularBody.appendChild(popCover);
+
+    const popTitle = document.createElement("p");
+    popTitle.className = "m-0 ps-2 align-self-center";
+    popTitle.innerText = item[i].trackTitle;
+    popularBody.appendChild(popTitle);
+
+    const popIconContainer = document.createElement("div");
+    popIconContainer.className =
+      "col-2 text-end align-content-center icon-hover";
+    popIconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i>
+                        <i class="bi bi-plus-lg mx-2"></i>`;
+    popRow.appendChild(popIconContainer);
+
+    const popDurataContainer = document.createElement("div");
+    popDurataContainer.className = "col-1 text-end d-flex";
+    popRow.appendChild(popDurataContainer);
+
+    const popDurata = document.createElement("p");
+    popDurata.className = "m-0 p-0 align-self-center";
+    popDurata.innerText = convertToMinSec(item[i].duration, false);
+    popDurataContainer.appendChild(popDurata);
+  }
+
+  const collapseContainer = document.createElement("div");
+  collapseContainer.className = "collapse";
+  collapseContainer.id = "collapseList";
+
+  //ORA LA PARTE SOTTO A TUTTA LARGHEZZA
+  for (let i = 0; i < item.length; i++) {
+    //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
+    const popRow = document.createElement("div");
+    popRow.className =
+      "row row-cols-4 mb-3 py-2 justify-content-between hover-custom list-hover";
+
+    if (i < 7) {
+      songList.appendChild(popRow);
+    } else {
+      collapseContainer.appendChild(popRow);
+    }
+
+    const popularContainer = document.createElement("div");
+    popularContainer.className = "col-index d-flex text-end ms-3 ";
+    popularContainer.innerext = item[i].trackTitle;
+    popRow.appendChild(popularContainer);
+
+    //PRIMA SEZIONE: P
+    const popRank = document.createElement("p");
+    popRank.className = "m-0 p-0 align-self-center";
+    popRank.innerText = i + 1; //???? da controllare
+    popularContainer.appendChild(popRank);
+
+    //SECONDA SEZIONE
+    const popularBody = document.createElement("div");
+    popularBody.className = "col-8 d-flex d-flex";
+    popRow.appendChild(popularBody);
+
+    //SECONDA SEZIONE: COVER ALBUM + TITOLO
+    const popCover = document.createElement("img");
+    popCover.setAttribute("src", item[i].albumCover);
+    popCover.setAttribute("width", "30px");
+    popularBody.appendChild(popCover);
+
+    const popTitle = document.createElement("p");
+    popTitle.className = "m-0 ps-2 align-self-center";
+    popTitle.innerText = item[i].trackTitle;
+    popularBody.appendChild(popTitle);
+
+    const popIconContainer = document.createElement("div");
+    popIconContainer.className =
+      "col-2 text-end align-content-center icon-hover";
+    popIconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i>
+                      <i class="bi bi-plus-lg mx-2"></i>`;
+    popRow.appendChild(popIconContainer);
+
+    const popDurataContainer = document.createElement("div");
+    popDurataContainer.className = "col-1 text-end d-flex";
+    popRow.appendChild(popDurataContainer);
+
+    const popDurata = document.createElement("p");
+    popDurata.className = "m-0 p-0 align-self-center";
+    popDurata.innerText = convertToMinSec(item[i].duration, false);
+    popDurataContainer.appendChild(popDurata);
+  }
+
+  songList.appendChild(collapseContainer);
+
+  const show = document.createElement("button");
+  show.className = "btn mt-3";
+  show.setAttribute("type", "button");
+  show.setAttribute("sata-bs-toggle", "collapse");
+  show.setAttribute("data-bs-target", "collapseList");
+  show.innerText = "Mostra altro";
+
+  songList.appendChild(show);
 }
