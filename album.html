@@ -1,348 +1,364 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Album</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/album.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
 
-  <body class="container-fluid">
-    <header class="navbar bg-black py-3 row row-cols-3 sticky-top">
-      <div class="flex-start col-4">
-        <a class="navbar-brand p-2" href="./index.html">
-          <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
-        </a>
-      </div>
-      <div class="d-flex col-4">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Album</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/album.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="container-fluid">
+  <header class="navbar bg-black py-3 row row-cols-3 sticky-top">
+    <div class="flex-start col-4">
+      <a class="navbar-brand p-2" href="./index.html">
+        <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
+      </a>
+    </div>
+    <div class="d-flex col-4">
+      <button class="btn" type="button">
+        <i class="bi bi-house-door grey-icon"></i>
+      </button>
+      <form class="search-container">
         <button class="btn" type="button">
-          <i class="bi bi-house-door grey-icon"></i>
+          <i class="bi bi-search grey-icon"></i>
         </button>
-        <form class="search-container">
+        <input type="text" placeholder="Cosa vuoi ascoltare?" />
+        <button class="btn" type="button">
+          <i class="bi bi-folder-symlink-fill grey-icon"></i>
+        </button>
+      </form>
+    </div>
+    <div class="d-flex col-4 justify-content-end">
+      <div class="dropdown">
+        <button class="btn" data-bs-toggle="dropdown" type="button">
+          <i class="bi bi-bell grey-icon"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end bg-dark">
+          <li>
+            <a class="dropdown-item" href="#">Nessuna nuova notifica</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dropdown user">
+        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle grey-icon"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end bg-dark">
+          <li><a class="dropdown-item" href="#">Account</a></li>
+          <li><a class="dropdown-item" href="#">Profilo</a></li>
+          <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li><a class="dropdown-item" href="#">Esci</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-fluid bg-black p-0">
+    <section class="d-flex justify-content-between gap-2">
+      <div class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3" id="sidebar">
+        <div class="menu-header" onclick="toggleMenu()">
+          <i class="bi bi-music-note-list"></i> <span>La tua Libreria</span>
+        </div>
+
+        <form class="library-search-container">
           <button class="btn" type="button">
-            <i class="bi bi-search grey-icon"></i>
+            <i class="bi bi-search library-icon"></i>
           </button>
-          <input type="text" placeholder="Cosa vuoi ascoltare?" />
-          <button class="btn" type="button">
-            <i class="bi bi-folder-symlink-fill grey-icon"></i>
-          </button>
+          <input type="text" placeholder="Cerca in la Tua Libreria" />
         </form>
+
+        <div id="library-container"></div>
       </div>
-      <div class="d-flex col-4 justify-content-end">
-        <div class="dropdown">
-          <button class="btn" data-bs-toggle="dropdown" type="button">
-            <i class="bi bi-bell grey-icon"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end bg-dark">
-            <li>
-              <a class="dropdown-item" href="#">Nessuna nuova notifica</a>
-            </li>
-          </ul>
-        </div>
 
-        <div class="dropdown user">
-          <button
-            class="btn"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="bi bi-person-circle grey-icon"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end bg-dark">
-            <li><a class="dropdown-item" href="#">Account</a></li>
-            <li><a class="dropdown-item" href="#">Profilo</a></li>
-            <li><a class="dropdown-item" href="#">Impostazioni</a></li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li><a class="dropdown-item" href="#">Esci</a></li>
-          </ul>
-        </div>
-      </div>
-    </header>
-
-    <main class="container-fluid bg-black p-0">
-      <section class="d-flex justify-content-between gap-2">
-        <div
-          class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3"
-          id="sidebar"
-        >
-          <div class="menu-header" onclick="toggleMenu()">
-            <i class="bi bi-music-note-list"></i> <span>La tua Libreria</span>
-          </div>
-
-          <form class="library-search-container">
-            <button class="btn" type="button">
-              <i class="bi bi-search library-icon"></i>
-            </button>
-            <input type="text" placeholder="Cerca in la Tua Libreria" />
-          </form>
-
-          <div id="library-container"></div>
-        </div>
-
-        <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
-          <div class="container-fluid flex-grow-1 p-0 m-0" id=" main-Container">
-            <div class="row main">
-              <div class="col-12 p-0 text-light">
-                <section class="hero bg-danger order-0 d-flex">
-                  <!--INIZIA QUI-->
-                  <div class="container d-lg-flex">
-                    <div>
-                      <img
-                        src=""
-                        alt="Copertina Album"
-                        id="imgAlbum"
-                        class="mt-3"
-                      />
-                    </div>
-                    <div class="align-content-end ps-lg-3">
-                      <h2 id="title" class="titolo"></h2>
-                      <a href="" id="imgBandLink"
-                        ><img src="" alt="Logo Band" id="imgBand"
-                      /></a>
-                      <a class="fw-bold text-light" href="" id="bandNameLink"
-                        ><p class="d-inline-block" id="bandName"></p
-                      ></a>
-                      <p class="" id="albumInfo"></p>
-                    </div>
+      <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
+        <div class="container-fluid flex-grow-1 p-0 m-0" id=" main-Container">
+          <div class="row main">
+            <div class="col-12 p-0 text-light">
+              <section class="hero bg-danger order-0 d-flex">
+                <div class="container d-lg-flex">
+                  <div>
+                    <img src="" alt="Copertina Album" id="imgAlbum" class="mt-3" />
                   </div>
-                </section>
-                <!--fiNISCE QUI-->
-                <div class="container mb-4">
-                  <button
-                    class="btn bg-success rounded-circle text-black ms-2"
-                    id="btnPlay"
-                  >
-                    <i class="bi bi-play-fill"></i>
+                  <div class="align-content-end ps-lg-3">
+                    <h2 id="title" class="titolo"></h2>
+                    <a href="" id="imgBandLink"><img src="" alt="Logo Band" id="imgBand" /></a>
+                    <a class="fw-bold text-light" href="" id="bandNameLink">
+                      <p class="d-inline-block" id="bandName"></p>
+                    </a>
+                    <p class="" id="albumInfo"></p>
+                  </div>
+                </div>
+              </section>
+              <div class="container mb-4">
+                <button class="btn bg-success rounded-circle text-black ms-2" id="btnPlay">
+                  <i class="bi bi-play-fill"></i>
+                </button>
+                <button class="btn border-1 border-light bg-transparent rounded-5 text-light ms-3">
+                  Segui
+                </button>
+                <div class="dropdown d-inline-block">
+                  <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
                   </button>
-                  <button
-                    class="btn border-1 border-light bg-transparent rounded-5 text-light ms-3"
-                  >
-                    Segui
-                  </button>
-                  <div class="dropdown d-inline-block">
-                    <button
-                      class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu bg-black">
+                  <ul class="dropdown-menu bg-black">
+                    <li>
+                      <a class="dropdown-item text-light" href="#"><i class="bi bi-person-add"></i> Follow</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-light" href="#"><i class="bi bi-share"></i> Share</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-light" href="#"><i class="bi bi-ban"></i> Block</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="container">
+                <div class="row row-cols-4 justify-content-between opacity-75">
+                  <div class="col-index align-content-center text-end ms-3">
+                    <p class="mb-1">#</p>
+                  </div>
+                  <div class="col-7 align-content-center">
+                    <p class="mb-1">Titolo</p>
+                  </div>
+                  <div class="col-2 text-end align-content-center"></div>
+                  <div class="col-2 text-end align-content-center">
+                    <p class="mb-1"><i class="bi bi-clock"></i></p>
+                  </div>
+                </div>
+                <hr class="bg-secondary mt-0" />
+                <!--LISTA CANZONI-->
+                <div class="mt-3 gap-5" id="songList">
+                  <!--CARTE COMPILATE CON JS DA QUA
+                  <div class="row row-cols-4 justify-content-between hover-custom">
+                    <div class="col-index align-content-center text-end ms-3">
+                      <p>1.</p>
+                    </div>
+                    <div class="col-7 d-flex align-content-center ">
+                      <p>
+                        <img        RIMOSSA POICHE TUTTE UGUALI SU OGNI ALBUM
+                          src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
+                          alt="img copertina" class="imgSong" />
+                          <span>Titolo</span>
+                          Titolo
+                      </p>
+                    </div>
+                    <div class="col-2 text-end align-content-center icon-hover">
+                        <i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>
+                    </div>
+                    <div class="col-2 text-end align-content-center ">
+                      <p>Durata</p>
+                    </div>
+                  </div>-->
+                  
+                </div>
+                
+              </div>
+            </div>
+            
+            <!--INSERIRE QUI SOPRA PER ALTRO CODICE-->
+            <footer class="bg-schede text-light py-4 mt-5">
+              <div class="container-fluid">
+                <div class="row row-cols-md-5 mx-5 px-5">
+                  <div class="col">
+                    <h5>Azienda</h5>
+                    <ul class="list-unstyled">
                       <li>
-                        <a class="dropdown-item text-light" href="#"
-                          ><i class="bi bi-person-add"></i> Follow</a
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Chi siamo</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item text-light" href="#"
-                          ><i class="bi bi-share"></i> Share</a
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Opportunità di Lavoro</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item text-light" href="#"
-                          ><i class="bi bi-ban"></i> Block</a
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >For the Record</a
                         >
                       </li>
                     </ul>
                   </div>
+                  <div class="col">
+                    <h5>Community</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Per Artisti</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Sviluppatori</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Pubblicità</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Investitori</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Venditori</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col">
+                    <h5>Link Utili</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Assistenza</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >App per cellulare gratuita</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Diritti del Consumatore</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col">
+                    <h5>Piani Spotify</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Premium Individual</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Premium Duo</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Premium Family</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Premium Student</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="text-light text-decoration-none"
+                          >Spotify Free</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col text-center me-0">
+                    <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
+                    <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
+                    <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
+                  </div>
                 </div>
 
-                <!--LI da eliminare
-                  <li>
-                      <img
-                        src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                        alt="img copertina"
-                        class="imgSong"
-                      /><a href="javascript:void(0)" class="text-light ms-2" id="track">Nome Brano</a>
-                    <p class="d-none visual" id="">Agg.Preferiti<i class="bi bi-eye"></i></p>
-                    <p class="d-none time" id="">DURATA<i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0 "><i class="more bi bi-three-dots-vertical"></i>
-                </li>-->
-                <!--Inizio sezione lista canzoni-->
-                <div class="container">
-                  <div
-                    class="row row-cols-4 justify-content-between opacity-75"
-                  >
-                    <div class="col-index align-content-center text-end ms-3">
-                      <p class="mb-1">#</p>
-                    </div>
-                    <div class="col-7 align-content-center">
-                      <p class="mb-1">Titolo</p>
-                    </div>
-                    <div class="col-2 text-end align-content-center"></div>
-                    <div class="col-2 text-end align-content-center">
-                      <p class="mb-1"><i class="bi bi-clock"></i></p>
-                    </div>
-                  </div>
-                  <hr class="bg-secondary mt-0" />
-                  <!--LISTA CANZONI-->
-                  <div class="mt-3" id="songList">
-                    <!--CARTE COMPILATE CON JS DA QUA-->
-                    <div class="row row-cols-4 justify-content-between ">
-                      <div class="col-index align-content-center text-end ms-3 hover-custom">
-                        <p>1.</p>
-                      </div>
-                      <div class="col-7 align-content-center hover-custom">
-                        <p>
-                          <img
-                            src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                            alt="img copertina"
-                            class="imgSong"
-                          />TITOLO
-                        </p>
-                      </div>
-                      <div class="col-2 text-end align-content-center icon-hover">
-                        <p>
-                          <i class="bi bi-heart mx-2 text-success"></i
-                          ><i class="bi bi-plus-lg mx-2"></i></i>
-                        </p>
-                      </div>
-                      <div class="col-2 text-end align-content-center hover-custom">
-                        <p>Durata</p>
-                      </div>
-                    </div>
-                  </div>
-                  <!--A QUA-->
+                <hr />
+                <div class="container-fluid text-light p-0 py-2 lastNotes">
+                  <ul class="row row-cols-md-5 mx-5 px-5 list-unstyled">
+                    <li class="">
+                      <p>Informativa sulla Privacy</p>
+                    </li>
+                    <li class="">
+                      <p>Note Legali</p>
+                    </li>
+                    <li class="">
+                      <p>Impostazioni dei Cookies</p>
+                    </li>
+                    <li class="">
+                      <p>Info Annunci</p>
+                    </li>
+                    <li class="text-center">
+                      <p>&copy;2024 Spotify AB</p>
+                    </li>
+                  </ul>
                 </div>
-                <!--QUA
-                  <li>
-                    <div>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </div>
-                </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  <li>
-                    <img
-                      src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                      alt="img copertina"
-                      id="imgSong"
-                    /><a href="javascript:void(0)" class="text-light ms-2" id="track">Brano</a>
-                    <p class="d-none" id="visual">1234 <i class="bi bi-eye"></i></p>
-                    <p class="d-none" id="time">3:46 <i class="bi bi-clock"></i></p>
-                    <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"><i class="more bi bi-three-dots-vertical"></button></i>
-                  </li>
-                  
-                </ol>-->
               </div>
-              <!--QUA-->
-            </div>
-            <div class="col-12"></div>
+            </footer>
           </div>
+          <div class="col-12"></div>
+          
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="navbar bg-black row row-cols-3" id=" player-Container">
-        <div class="col-4">
-          <div id="playerCoverContainer"></div>
-          <div>
-            <h6 id="titlePlayer"></h6>
-            <p id="authPlayer"></p>
-          </div>
-          <button class="btn" id="likePlayer" type="button">
-            <i class="bi bi-heart payer-icon" id="likePlayer"></i>
-          </button>
+    <section class="navbar bg-black row row-cols-3" id=" player-Container">
+      <div class="col-4">
+        <div id="playerCoverContainer"></div>
+        <div>
+          <h6 id="titlePlayer"></h6>
+          <p id="authPlayer"></p>
         </div>
-        <div class="col-4"></div>
-        <div class="col-4"></div>
-      </section>
-    </main>
+        <button class="btn" id="likePlayer" type="button">
+          <i class="bi bi-heart payer-icon" id="likePlayer"></i>
+        </button>
+      </div>
+      <div class="col-4"></div>
+      <div class="col-4"></div>
+    </section>
+  </main>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="assets/js/album.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="assets/js/album.js"></script>
+</body>
+
 </html>

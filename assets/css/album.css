@@ -76,11 +76,14 @@ ol li p{
     width: 1em;
 }
 /*GESTISCE LA VISIBILITA DELLA SECONDA CLASSE QUANDO PASSANO IN OVER SUI FRATELLI DELLA STESSA*/
-.hover-custom:hover ~ .icon-hover{
+.hover-custom:hover .icon-hover{
     visibility: visible;
 }
 .icon-hover{
     visibility: hidden;
+}
+#songList p{
+    margin-bottom: 0px;
 }
 
 

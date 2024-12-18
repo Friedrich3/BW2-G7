@@ -64,14 +64,46 @@ function printHero(album) {
   numTrack.classList.add("fw-bold", "text-light","d-inline");
   numTrack.innerText = `${album.nb_tracks} brani • `;
   durata.classList.add("opacity-75","d-inline");
-  durata.innerText = convertToMinSec(album.duration);
+  durata.innerText = convertToMinSec(album.duration,true);
 
   //albumInfo.innerHTML = `${anno.innerText} • ${numTrack.innerHTML} • ${durata.innerHTML}.`
   albumInfo.append(anno,numTrack,durata);
 };
 
 function printSong(array){
+let songList = document.getElementById("songList");
+songList.innerHTML = "";
+for(let i = 0; i< array.length; i++){
+let songRow = document.createElement("div");
+songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom","py-2","mb-3","card-padre");
 
+let songIndexCont = document.createElement("div");
+let songIndexPar = document.createElement("p");
+songIndexCont.classList.add("col-index", "align-items-center", "text-end", "ms-3");
+songIndexPar.innerText = `${i + 1}.`;
+songIndexCont.appendChild(songIndexPar);
+
+let songTitleCont = document.createElement("div");
+let songTitlePar = document.createElement("p");
+songTitleCont.classList.add("col-7", "d-flex", "align-items-center");
+songTitlePar.innerText = array[i].title;
+songTitleCont.appendChild(songTitlePar);
+
+let iconCont = document.createElement("div");     //QUA ANDRANNO INSERITE LE ICONE IN InnerHTML
+iconCont.classList.add("col-2", "text-end", "align-items-center","icon-hover");
+iconCont.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
+
+let songDurationCont = document.createElement("div");
+let songDurationPar = document.createElement("p");
+songDurationCont.classList.add("col-2","text-end", "align-items-center");
+songDurationPar.innerText = convertToMinSec(array[i].duration,false);
+songDurationCont.appendChild(songDurationPar);
+
+songRow.append(songIndexCont,songTitleCont,iconCont,songDurationCont);
+songList.appendChild(songRow);
+
+
+}
 }
 
 
@@ -81,8 +113,16 @@ function toggleMenu() {
   sidebar.classList.toggle('expanded');
 };
 
-function convertToMinSec(seconds) {
+
+//Funzione Per il titolo
+function convertToMinSec(seconds,boolean) {
+  let testo = "";
   const minutes = Math.floor(seconds / 60); // ottieni i minuti
   const remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
-  return `${minutes}min ${remainingSeconds}sec`;
+  if(boolean){
+  testo =  `${minutes}min ${remainingSeconds}sec`;
+  }else{
+  testo = `${minutes}:${remainingSeconds}`;
+  }
+  return testo
 }
