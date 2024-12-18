@@ -91,6 +91,7 @@ window.addEventListener("load", init());
 
 function init() {
   getAlbum();
+  getArtist();
 
 }
 
@@ -170,7 +171,6 @@ async function getAlbum() {
     .map((result) => result.value);
 
   if (newAlbumArray.length >= 6) {
-    const cardContainer = document.getElementById("album");
     printAlbumCard(newAlbumArray);
   } else {
     console.log("Dati insufficienti per gli album");
