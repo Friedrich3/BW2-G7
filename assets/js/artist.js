@@ -141,10 +141,46 @@ function filterAlbum(object) {
             //console.log("E' presente all'interno");
         }
 
-        console.log(newObjectArray);
-        console.log(controlArray);
+        //console.log(newObjectArray);
+let listDiscografia = document.getElementById("listDiscografia");
+        listDiscografia.innerHTML="";
 
-        for (let i = 0; i < newObjectArray.length; i++) {
+    for (let i = 0; i < newObjectArray.length; i++) {
+            let cardWrapper = document.createElement("div");
+            cardWrapper.className = "col-1 bg-schede d-flex justify-content-center card-prova g-0";
+            
+            let cardContainer = document.createElement("div");
+            cardContainer.className = "card-padre d-flex justify-content-center pt-4";
+            let card = document.createElement("div");
+            card.className = "card bg-transparent border-0 card-figlio";
+
+            let linkImage = document.createElement("a");
+            linkImage.setAttribute("href",`album.html?id=${newObjectArray[i].album.id}`);
+            let albumImage = document.createElement("img");
+            albumImage.className = "card-img-top img-fluid rounded-4";
+            albumImage.setAttribute("src",`${newObjectArray[i].album.cover_medium}`);
+            albumImage.setAttribute("alt","Cover Album");
+
+            let cardBody = document.createElement("div");
+            cardBody.className = "card-body";
+            let linkTitle = document.createElement("a");
+            linkTitle.className = "text-light link-card";
+            linkTitle.setAttribute("href",`album.html?id=${newObjectArray[i].album.id}`);
+            let albumTitle = document.createElement("p");
+            albumTitle.className = "card-text";
+            albumTitle.innerText = newObjectArray[i].album.title;
+
+            linkTitle.appendChild(albumTitle);
+            cardBody.appendChild(linkTitle);
+
+            linkImage.appendChild(albumImage);
+
+            card.append(linkImage,cardBody);
+            cardContainer.appendChild(card);
+            cardWrapper.appendChild(cardContainer);
+
+            listDiscografia.appendChild(cardWrapper);
+            
 
 
         }
