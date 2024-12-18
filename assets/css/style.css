@@ -173,7 +173,7 @@ span {
   transition: background-color 0.2s ease-in-out;
 }
 
-.artist-card:hover{
+.artist-card:hover {
   background-color: #525252;
 }
 
@@ -194,4 +194,46 @@ span {
 
 .artist-card:hover .card-play-btn {
   opacity: 1;
+}
+
+.player-btn {
+  background-color: red;
+}
+
+.progress {
+  height: 0.5em;
+}
+
+#progress-container {
+  width: 60%;
+}
+
+.progress-bar {
+  color: #a1a1a1
+}
+
+#music-player i {
+  color: #a1a1a1;
+  font-size: 150%;
+}
+
+#music-player i:hover {
+  color: white;
+}
+
+footer {
+  margin-bottom: 5em;
+}
+
+#song-title {
+  font-size: 100%;
+}
+
+#artist-name {
+  font-size: 70%;
+  color: #a1a1a1
+}
+
+#current-song-img {
+  width: 40%;
 }
