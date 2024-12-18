@@ -289,3 +289,9 @@ ol li p{
 #songList p{
   margin-bottom: 0px;
 }
+.icon-hover{
+  visibility: hidden;
+}
+.hover-custom:hover .icon-hover{
+  visibility: visible;
+}

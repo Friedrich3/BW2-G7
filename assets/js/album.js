@@ -26,7 +26,7 @@ async function getAlbum() {
     let data = await response.json();
     album = { ...data };
     arraySong = data.tracks.data;
-    console.log(arraySong);
+    console.log(album);
     printHero(album);
     printSong(arraySong);
 
