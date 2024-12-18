@@ -20,7 +20,7 @@ async function getArtist() {
             },
         });
         let data = await response.json();
-        let object = {...data};
+        let object = { ...data };
         printHero(object);
         getDatas(data.name)
     } catch (error) {
@@ -41,91 +41,120 @@ async function getDatas(name) {
         console.log(object);
         printSongList(object);
         printRecomendedAlbum(object[0]);
-        printDiscografia(object)
-        
-        } catch (error) {
+        filterAlbum(object)
+
+    } catch (error) {
         console.log("Error: " + error)
     }
 };
 
-function printHero(object){
+function printHero(object) {
     let heroSection = document.getElementById("heroSection");
     let verifiedArtist = document.getElementById("verifiedArtist");
     let heroArtistName = document.getElementById("heroArtistName");
     let heroArtistView = document.getElementById("heroArtistView");
 
-    heroSection.setAttribute("style",`background-image: url(${object.picture_xl})`);
+    heroSection.setAttribute("style", `background-image: url(${object.picture_xl})`);
     verifiedArtist.innerHTML = `<i class="bi bi-patch-check-fill text-info fs-4"></i><span>&nbsp;Artista Verificato</span>`;
     heroArtistName.innerText = object.name;
     heroArtistView.innerText = `${fixNumber(object.nb_fan)} Ascoltatori Mensili`;
 }
 
-function printSongList(object){
+function printSongList(object) {
     let artistSongList = document.getElementById("artistSongList");
     let songListDue = document.getElementById("songListDue");
 
-    
 
-    for(let i = 0; i< object.length;i++){
+
+    for (let i = 0; i < object.length; i++) {
         let songContainer = document.createElement("div");
         songContainer.className = "row row-cols-4 justify-content-between hover-custom card-padre w-100 py-1";
 
-        if(i < 5){
+        if (i < 5) {
             artistSongList.appendChild(songContainer);
-        }else{
+        } else {
             songListDue.appendChild(songContainer);
         }
 
         let indexContainer = document.createElement("div");
         let indexPar = document.createElement("p");
         indexContainer.className = "col-index align-content-center text-end ms-3";
-        indexPar.innerText= `${i+1}.`;
+        indexPar.innerText = `${i + 1}.`;
         indexContainer.appendChild(indexPar);
 
         let titleContainer = document.createElement("div");
         titleContainer.className = "col-7 d-flex align-items-center";
         let titleImage = document.createElement("img");
         titleImage.className = "imgSong";
-        titleImage.setAttribute("alt","Cover")
-        titleImage.setAttribute("src",`${object[i].album.cover_small}`)
+        titleImage.setAttribute("alt", "Cover")
+        titleImage.setAttribute("src", `${object[i].album.cover_small}`)
         let titlePar = document.createElement("p");
-        titlePar.className= "ps-2"
+        titlePar.className = "ps-2"
         titlePar.innerText = `${object[i].title}`;
-        titleContainer.append(titleImage,titlePar);
+        titleContainer.append(titleImage, titlePar);
 
         let iconContainer = document.createElement("div");
         iconContainer.className = "col-2 text-end align-content-center icon-hover";
-        iconContainer.innerHTML =`<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
-        
+        iconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
+
         let durataContainer = document.createElement("div");
-        durataContainer.className= "col-2 text-end align-content-center";
+        durataContainer.className = "col-2 text-end align-content-center";
         let durataPar = document.createElement("p");
-        durataPar.innerText = `${convertToMinSec(object[i].duration,false)}`;
+        durataPar.innerText = `${convertToMinSec(object[i].duration, false)}`;
         durataContainer.appendChild(durataPar);
 
-        songContainer.append(indexContainer,titleContainer,iconContainer,durataContainer);
+        songContainer.append(indexContainer, titleContainer, iconContainer, durataContainer);
     }
 
 };
-function printRecomendedAlbum(object){
+function printRecomendedAlbum(object) {
     let artistSelection = document.getElementById("artistSelection");
+    let artistAlbumLink = document.createElement("a");
+    artistAlbumLink.setAttribute("href", `./album.html?id=${object.album.id}`);
     let albumCover = document.createElement("img");
-    albumCover.setAttribute("src",`${object.album.cover_medium}`);
+    albumCover.setAttribute("src", `${object.album.cover_medium}`);
     albumCover.className = "rounded-4"
     let newBadge = document.createElement("span");
     newBadge.className = "badge text-bg-danger position-absolute top-0 start-0"
-    newBadge.innerText="New!"
+    newBadge.innerText = "New!"
     let titleBadge = document.createElement("span");
     titleBadge.className = "badge text-bg-dark position-absolute bottom-0 start-0"
     titleBadge.innerText = `${object.album.title} - out Now!`;
 
-    artistSelection.append(newBadge,titleBadge)
-    artistSelection.appendChild(albumCover);
+    artistAlbumLink.append(newBadge, titleBadge, albumCover);
+    artistSelection.appendChild(artistAlbumLink);
 };
 
-function printDiscografia(object){
-            
+function filterAlbum(object) {
+    let newObjectArray = [];
+    let controlArray = [];
+
+    for (let i = 0; i < object.length; i++) {
+        if (newObjectArray.length === 0) {
+            newObjectArray.push(object[i]);
+            controlArray.push(object[i].album.id);
+
+        } else if (!controlArray.includes(object[i].album.id)) {
+            newObjectArray.push(object[i]);
+            controlArray.push(object[i].album.id)
+        } else {
+            //console.log("E' presente all'interno");
+        }
+
+        console.log(newObjectArray);
+        console.log(controlArray);
+
+        for (let i = 0; i < newObjectArray.length; i++) {
+
+
+        }
+    }
+
+
+
+
 }
+
 
 
 //Funzione per aggiungere o togliere la classe expanded alla sidebar
@@ -136,20 +165,20 @@ function toggleMenu() {
 
 
 //FUNZIONE che usa una regex(internetFounded) per inserire uno spacer ogni 3 digit
-function fixNumber(element){
+function fixNumber(element) {
     return element.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
-function convertToMinSec(seconds,boolean) {
+function convertToMinSec(seconds, boolean) {
     let testo = "";
     const minutes = Math.floor(seconds / 60); // ottieni i minuti
     let remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
-    if(remainingSeconds < 10){
+    if (remainingSeconds < 10) {
         remainingSeconds = `0${remainingSeconds}`;
     }
-    if(boolean){
-    testo =  `${minutes}min ${remainingSeconds}sec`;
-    }else{
-    testo = `${minutes}:${remainingSeconds}`;
+    if (boolean) {
+        testo = `${minutes}min ${remainingSeconds}sec`;
+    } else {
+        testo = `${minutes}:${remainingSeconds}`;
     }
     return testo
 }
