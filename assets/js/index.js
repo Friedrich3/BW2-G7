@@ -63,6 +63,8 @@ const albums = [
   "Austin",
   "From Zero",
 ];
+const mainContainer = document.getElementById("main-Container");
+const searchContainer = document.getElementById("second-main-Container");
 
 let newArtistArray = [];
 let newAlbumArray = [];
@@ -85,15 +87,20 @@ class NewObject {
   }
 }
 
+searchContainer.classList.add("d-none");
+
 window.addEventListener("load", init());
 
 function init() {
+  console.log(window.location.href)
   const param = new URLSearchParams(window.location.search).get("search");
-
+const currentUrl = window.location.href
   if (!param) {
     getAlbum();
     getArtist();
   } else {
+    mainContainer.classList.add("d-none");
+    searchContainer.classList.remove("d-none");
     searchQuery(param);
   }
 
@@ -107,6 +114,10 @@ function init() {
     history.pushState(null, "", newUrl);
     searchQuery(query);
   });
+}
+
+function url(){
+  return window.location.href
 }
 
 async function getArtist() {
@@ -338,10 +349,10 @@ async function searchQuery(query) {
       artistPicture: item.artist.picture_medium,
       duration: item.duration,
     }));
-    console.log(data);
+    //console.log(data);
     printSearch(queryResult);
     //let queryResult = data.data;
-    //console.log(queryResult);
+    console.log(queryResult);
     if (response.ok) {
       return queryResult;
     }
@@ -369,7 +380,9 @@ function convertToMinSec(seconds, boolean) {
 
 function printSearch(item) {
   //STAMPA SOLO DEL PRIMO ITEM
-  const mainContainer = document.getElementById("main-Container");
+  mainContainer.classList.add("d-none");
+  searchContainer.classList.remove("d-none");
+
   mainContainer.innerHTML = "";
 
   const firstAlbumCover = document.getElementById("firstAlbum");
@@ -391,7 +404,8 @@ function printSearch(item) {
   //ORA INIZIARE A STAMPRE NELLA TERZA COLONNA CON LE CANZONI PIù POPOLARI
   const popularTracks = document.getElementById("popularTracks");
   const songList = document.getElementById("songList");
-
+  songList.innerHTML = "";
+  popularTracks.innerHTML = "";
   //STAMPA DEI RISULTATI PIù INERENTI CON LA RICERCA
   for (let i = 0; i < 5; i++) {
     //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
@@ -412,7 +426,7 @@ function printSearch(item) {
 
     //SECONDA SEZIONE
     const popularBody = document.createElement("div");
-    popularBody.className = "col-8 d-flex d-flex";
+    popularBody.className = "col-8 d-flex";
     popRow.appendChild(popularBody);
 
     //SECONDA SEZIONE: COVER ALBUM + TITOLO
@@ -509,9 +523,12 @@ function printSearch(item) {
   const show = document.createElement("button");
   show.className = "btn mt-3";
   show.setAttribute("type", "button");
-  show.setAttribute("sata-bs-toggle", "collapse");
-  show.setAttribute("data-bs-target", "collapseList");
+  show.setAttribute("data-bs-toggle", "collapse");
+  show.setAttribute("data-bs-target", "#collapseList");
   show.innerText = "Mostra altro";
 
   songList.appendChild(show);
 }
+
+
+
