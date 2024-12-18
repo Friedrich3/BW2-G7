@@ -149,7 +149,7 @@ button:hover .grey-icon {
 }
 
 
-.sidebar.expanded span, .sidebar.expanded .hydeLibrary {
+.sidebar.expanded span, .sidebar.expanded .hydeLibrary,.sidebar.expanded .library-search-container{
     display: inline;
 }
 
@@ -210,3 +210,7 @@ button:hover .grey-icon {
   text-decoration: underline;
 }
 
+.img{
+  object-fit: cover;
+  object-position: top;
+}

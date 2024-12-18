@@ -64,9 +64,7 @@ const albums = [
   "From Zero",
 ];
 
-
 let newArtistArray = [];
-
 let newAlbumArray = [];
 
 class NewObject {
@@ -90,9 +88,25 @@ class NewObject {
 window.addEventListener("load", init());
 
 function init() {
-  getAlbum();
-  getArtist();
+  const param = new URLSearchParams(window.location.search).get("search");
 
+  if (!param) {
+    getAlbum();
+    getArtist();
+  } else {
+    searchQuery(param);
+  }
+
+  document.getElementById("searchBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    const input = document.getElementById("searchInput");
+    const query = input.value;
+    const newUrl = `./index.html?search=${encodeURIComponent(
+      query.replaceAll(" ", "-")
+    )}`;
+    history.pushState(null, "", newUrl);
+    searchQuery(query);
+  });
 }
 
 async function getArtist() {
@@ -244,7 +258,6 @@ function printAlbumCard(item) {
   }
 }
 
-
 //STAMPA DELLE CARTE ARTISTA
 function printArtistCard(item) {
   let cardContainer = document.getElementById("artist");
@@ -299,4 +312,44 @@ function printArtistCard(item) {
 
     cardContainer.appendChild(cardWrapper);
   }
+}
+
+let queryResult;
+
+async function searchQuery(query) {
+  const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
+    " ",
+    "-"
+  )}`;
+  try {
+    const response = await fetch(queryUrl, {
+      method: "GET",
+    });
+    let data = await response.json();
+
+    queryResult = data.data.map((item) => ({
+      trackId: item.id,
+      trackTitle: item.title,
+      albumId: item.album.id,
+      albumTitle: item.album.title,
+      albumCover: item.album.cover_medium,
+      artistId: item.artist.id,
+      artistName: item.artist.name,
+      artistPicture: item.artist.picture_medium,
+    }));
+    console.log(queryResult);
+    printSearch(queryResult);
+    //let queryResult = data.data;
+    //console.log(queryResult);
+    if (response.ok) {
+      return queryResult;
+    }
+  } catch (error) {
+    console.log("Error:" + error);
+  }
+}
+
+function printSearch(item) {
+  const mainContainer = document.getElementById("main-Container");
+  mainContainer.innerHTML = "";
 }
