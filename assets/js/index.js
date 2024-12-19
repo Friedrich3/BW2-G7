@@ -617,6 +617,7 @@ function addMusic(object) {
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
     localStorage.setItem("InfoCanzone", canzone);
+    listenedSong(object);
     return;
   } else {
     audioPlayer.pause();
@@ -627,6 +628,7 @@ function addMusic(object) {
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
     localStorage.setItem("InfoCanzone", canzone);
+    listenedSong(object);
     return;
   }
 }
@@ -696,4 +698,40 @@ function printLibrary() {
     b.innerText = element.trackTitle;
     info.appendChild(b);
   });
-}
+};
+
+
+//FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
+function listenedSong(canzone) {
+  console.log(canzone);
+  if (!localStorage.getItem("CanzoniRecenti")) {
+      recentSongs.push(canzone);
+      localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+      return;
+  } else {
+      recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+      if (recentSongs.length > 10) {
+          recentSongs = recentSongs.splice(0, 10);
+      }
+      const boolean = recentSongs.find((item) => item.trackId === canzone.trackId); //SE è TRUE l'ha trovata
+      if (!boolean) { //SE non viene trovata
+          recentSongs.unshift(canzone);
+          localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+          return;
+      } else {
+          //SE POSIZIONE INDEX CANZONE = 0 RETURN ELSE FAI POP DI QUELLA CANZONE E UNSHIFT
+          let index = recentSongs.findIndex((item) => item.trackId === canzone.trackId);
+          if (index == 0) {
+              return;
+          } else {
+              recentSongs.splice(index, 1);
+              console.log(canzone);
+              recentSongs.unshift(canzone);
+              localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+              return;
+          }
+
+
+      }
+  }
+};

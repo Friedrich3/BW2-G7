@@ -283,7 +283,7 @@ function playPause() {
   }
 }
 
-
+//FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
 function listenedSong(canzone){
   console.log(canzone);
   if(!localStorage.getItem("CanzoniRecenti")){
@@ -293,7 +293,7 @@ function listenedSong(canzone){
   }else{
     recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
     if(recentSongs.length > 10){
-      recentSongs.splice(11,-1);
+      recentSongs = recentSongs.splice(0,10);
     }
     const boolean = recentSongs.find((item) => item.trackId === canzone.trackId); //SE è TRUE l'ha trovata
     if(!boolean){ //SE non viene trovata
@@ -306,9 +306,10 @@ function listenedSong(canzone){
       if(index == 0 ){
         return;
       }else{
-        let canzoneTrovata = recentSongs.splice(index,0);
-        console.log(canzoneTrovata);
-        recentSongs.unshift(canzoneTrovata);
+        recentSongs.splice(index,1);
+        console.log(canzone);
+        recentSongs.unshift(canzone);
+        localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
         return;
       }
       
