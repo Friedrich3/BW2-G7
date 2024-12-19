@@ -9,6 +9,23 @@ let btnPlayPause = document.getElementById("playPause");    //bottone di play/pa
 let arraySong = [];
 let album = {};
 
+class NewItem{
+  constructot (_trackId, _trackTitle, _albumId, _albumTitle, _albumCover, _artistId , _artistName , _artistCover, _duration ,_preview){
+      this.trackId = _trackId;
+      this.trackTitle = _trackTitle;
+      this.albumId = _albumId;
+      this.albumTitle = _albumTitle;
+      this.albumCover = _albumCover;
+      this.artistId = _artistId;
+      this.artistName = _artistName;
+      this.artistCover = _artistCover;
+      this.duration = _duration;
+      this.preview = _preview;
+  } 
+}
+
+let queryResult;
+
 window.addEventListener("load", init());
 
 function init() {
@@ -24,11 +41,25 @@ async function getAlbum() {
       },
     });
     let data = await response.json();
+    
     album = { ...data };
     arraySong = data.tracks.data;
+
+      queryResult = arraySong.map((item) => ({
+      trackId: item.id,
+      trackTitle: item.title,
+      albumId: item.album.id,
+      albumTitle: item.album.title,
+      albumCover: item.album.cover_small,
+      artistId: item.artist.id,
+      artistName: item.artist.name,
+      artistCover: item.artist.picture_medium,
+      duration: item.duration,
+      preview: item.preview,
+    }));
     //console.log(arraySong);
     printHero(album);
-    printSong(arraySong);
+    printSong(queryResult);
 
   } catch (error) {
     console.log("Error: " + error);
@@ -84,7 +115,6 @@ function printHero(album) {
 };
 
 function printSong(array) {
-
   let songList = document.getElementById("songList");
   songList.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
@@ -102,7 +132,7 @@ function printSong(array) {
     let songTitlePar = document.createElement("p");
     songTitleCont.classList.add("col-8", "d-flex", "align-items-center");
     songTitleCont.setAttribute("onclick", `addMusic(${music})`);
-    songTitlePar.innerText = array[i].title;
+    songTitlePar.innerText = array[i].trackTitle;
     songTitleCont.appendChild(songTitlePar);
 
     let iconCont = document.createElement("div");     //QUA ANDRANNO INSERITE LE ICONE IN InnerHTML
@@ -203,13 +233,12 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
 
 //ARRIVA IN INPUT L'URL della canzone da eseguire
 function addMusic(object) {
-
   let currentSongImg = document.getElementById("current-song-img");
-  currentSongImg.setAttribute("src", `${object.album.cover_small}`);
+  currentSongImg.setAttribute("src", `${object.albumCover}`);
   let songTitle = document.getElementById("song-title");
-  songTitle.innerText = object.title_short;
+  songTitle.innerText = object.trackTitle;
   let artistName = document.getElementById("artist-name");
-  artistName.innerText = object.artist.name;
+  artistName.innerText = object.artistName;
   let songDuration = document.getElementById("songDuration");
   songDuration.innerText = "0:30";
   let likeSongButton = document.getElementById("likeSongButton");
