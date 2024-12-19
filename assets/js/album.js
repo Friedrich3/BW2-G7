@@ -6,6 +6,9 @@ const albumUrl = `https://striveschool-api.herokuapp.com/api/deezer/album/${para
 let audioPlayer = document.getElementById("audioPlayer");   //VARIABILE GLOBALE PER IL PLAYER
 let btnPlayPause = document.getElementById("playPause");    //bottone di play/pause
 
+let musicElement = [];
+let preferiti = JSON.parse(localStorage.getItem("Like")) || [];
+
 let arraySong = [];
 let album = {};
 
@@ -17,6 +20,7 @@ window.addEventListener("load", init());
 
 function init() {
   getAlbum();
+  printLibrary()
 };
 
 async function getAlbum() {
@@ -52,7 +56,6 @@ async function getAlbum() {
     console.log("Error: " + error);
   }
 };
-
 
 
 function printHero(album) {
@@ -124,7 +127,21 @@ function printSong(array) {
 
     let iconCont = document.createElement("div");     //QUA ANDRANNO INSERITE LE ICONE IN InnerHTML
     iconCont.classList.add("col-2", "text-end", "align-items-center", "icon-hover");
-    iconCont.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
+    iconCont.innerHTML = `<i class="bi bi-plus-lg mx-2"></i>`;
+
+    const heartButton = document.createElement("button");
+    heartButton.className = "btn";
+    heartButton.setAttribute("type", "button");
+    heartButton.setAttribute("onclick", `likeFeature(${music})`);
+    iconCont.appendChild(heartButton);
+
+    const heart = document.createElement("i");
+    heart.className = "bi bi-heart mx-2 text-success";
+    heart.setAttribute("id", array[i].trackId);
+    heartButton.appendChild(heart);
+    //console.log(item[i])
+
+
 
     let songDurationCont = document.createElement("div");
     let songDurationPar = document.createElement("p");
@@ -266,6 +283,7 @@ function playPause() {
   }
 }
 
+
 function listenedSong(canzone){
   console.log(canzone);
   if(!localStorage.getItem("CanzoniRecenti")){
@@ -275,4 +293,58 @@ function listenedSong(canzone){
     recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
     
   }
+  };
+
+
+function likeFeature(element) {
+  //console.log(item);
+  const song = preferiti.find((item) => item.trackId === element.trackId);
+
+  if (!song) {
+    preferiti.push(element);
+    const fill = document.getElementById(`${element.trackId}`);
+    fill.className = "bi bi-heart-fill mx-2 text-success";
+  } else {
+    preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
+    const fill = document.getElementById(`${element.trackId}`);
+    fill.className = "bi bi-heart mx-2 text-success";
+  }
+  localStorage.setItem("Like", JSON.stringify(preferiti));
+  printLibrary();
 }
+
+function printLibrary() {
+  const libraryList = document.getElementById("libraryList");
+  libraryList.innerHTML = "";
+  //console.log(preferiti)
+  preferiti.forEach((element) => {
+    let music = JSON.stringify(element);
+
+    const popularBody = document.createElement("div");
+    popularBody.className = "d-flex mb-2 hover-custom";
+    popularBody.setAttribute("onclick", `addMusic(${music})`);
+    libraryList.appendChild(popularBody);
+
+    //SECONDA SEZIONE: COVER ALBUM + TITOLO
+    const popCover = document.createElement("img");
+
+    popCover.setAttribute("src", element.albumCover);
+    popCover.setAttribute("width", "25px");
+    popCover.setAttribute("height", "25px");
+    popularBody.appendChild(popCover);
+
+    const info = document.createElement("div");
+    info.className = "m-0 ps-2";
+    popularBody.appendChild(info);
+
+    const a = document.createElement("p");
+    a.className = "m-0 ps-2 fs-small";
+    a.innerText = element.artistName;
+    info.appendChild(a);
+
+    const b = document.createElement("p");
+    b.className = "m-0 ps-2 fs-small";
+    b.innerText = element.trackTitle;
+    info.appendChild(b);
+  });
+

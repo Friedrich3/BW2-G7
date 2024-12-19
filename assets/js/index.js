@@ -479,9 +479,21 @@ function printSearch(item) {
     const popIconContainer = document.createElement("div");
     popIconContainer.className =
       "col-2 text-end align-content-center icon-hover";
-    popIconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i>
-                        <i class="bi bi-plus-lg mx-2"></i>`;
+    popIconContainer.innerHTML = `
+                      <i class="bi bi-plus-lg mx-2"></i>`;
     popRow.appendChild(popIconContainer);
+
+    const heartButton = document.createElement("button");
+    heartButton.className = "btn";
+    heartButton.setAttribute("type", "button");
+    heartButton.setAttribute("onclick", `likeFeature(${music})`);
+    popIconContainer.appendChild(heartButton);
+
+    const heart = document.createElement("i");
+    heart.className = "bi bi-heart mx-2 text-success";
+    heart.setAttribute("id", item[i].trackId);
+    heartButton.appendChild(heart);
+    //console.log(item[i])
 
     const popDurataContainer = document.createElement("div");
     popDurataContainer.className = "col-1 text-end d-flex";
