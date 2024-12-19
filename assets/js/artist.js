@@ -70,7 +70,7 @@ function printSongList(object) {
 
 
     for (let i = 0; i < object.length; i++) {
-    let music = JSON.stringify(object[i]);
+        let music = JSON.stringify(object[i]);
         let songContainer = document.createElement("div");
         songContainer.className = "row row-cols-4 justify-content-between hover-custom card-padre w-100 py-1";
 
@@ -88,7 +88,7 @@ function printSongList(object) {
 
         let titleContainer = document.createElement("div");
         titleContainer.className = "col-8 d-flex align-items-center";
-        titleContainer.setAttribute("onclick" ,`addMusic(${music})`);
+        titleContainer.setAttribute("onclick", `addMusic(${music})`);
         let titleImage = document.createElement("img");
         titleImage.className = "imgSong";
         titleImage.setAttribute("alt", "Cover");

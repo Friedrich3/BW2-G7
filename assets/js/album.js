@@ -29,7 +29,7 @@ async function getAlbum() {
     //console.log(arraySong);
     printHero(album);
     printSong(arraySong);
-  
+
   } catch (error) {
     console.log("Error: " + error);
   }
@@ -47,79 +47,79 @@ function printHero(album) {
   let albumInfo = document.getElementById("albumInfo");
 
   imgAlbum.setAttribute("src", album.cover_medium);
-  imgTitle.innerText =  `${album.title}`;
+  imgTitle.innerText = `${album.title}`;
   sizeh2(album.title.length)
 
   // riduzione size h2
-  function sizeh2(x){
+  function sizeh2(x) {
     //console.log("sono entrato")
-    if(x>=30){
-      title.style.fontSize="40px"
-    }else if(x>=15){
-      title.style.fontSize="55px"
-    }else{}
+    if (x >= 30) {
+      title.style.fontSize = "40px"
+    } else if (x >= 15) {
+      title.style.fontSize = "55px"
+    } else { }
   }
-  
 
-  imgBandLink.setAttribute("href",`artist.html?id=${album.artist.id}`);
+
+  imgBandLink.setAttribute("href", `artist.html?id=${album.artist.id}`);
   bandImage.setAttribute("src", album.artist.picture_medium);
 
-  bandNameLink.setAttribute("href",`artist.html?id=${album.artist.id}`);
+  bandNameLink.setAttribute("href", `artist.html?id=${album.artist.id}`);
   bandName.innerText = `${album.artist.name}`;
 
   let anno = document.createElement("span");
   let numTrack = document.createElement("span");
   let durata = document.createElement("span");
 
-  anno.classList.add("fw-bold", "text-light","d-inline");
-  anno.innerText = `${album.release_date.slice(0,4)} • `; //Confermare come cosa se effettivamente fattibile con gli 0-4 come parametri
-  numTrack.classList.add("fw-bold", "text-light","d-inline");
+  anno.classList.add("fw-bold", "text-light", "d-inline");
+  anno.innerText = `${album.release_date.slice(0, 4)} • `; //Confermare come cosa se effettivamente fattibile con gli 0-4 come parametri
+  numTrack.classList.add("fw-bold", "text-light", "d-inline");
   numTrack.innerText = `${album.nb_tracks} brani • `;
-  durata.classList.add("opacity-75","d-inline");
-  durata.innerText = convertToMinSec(album.duration,true);
+  durata.classList.add("opacity-75", "d-inline");
+  durata.innerText = convertToMinSec(album.duration, true);
 
-  
-  albumInfo.append(anno,numTrack,durata);
-  
+
+  albumInfo.append(anno, numTrack, durata);
+
 };
 
-function printSong(array){
+function printSong(array) {
 
-let songList = document.getElementById("songList");
-songList.innerHTML = "";
-for(let i = 0; i< array.length; i++){
-let music = JSON.stringify(array[i]);
-let songRow = document.createElement("div");
-songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom","py-2","mb-3","card-padre");
+  let songList = document.getElementById("songList");
+  songList.innerHTML = "";
+  for (let i = 0; i < array.length; i++) {
+    let music = JSON.stringify(array[i]);
+    let songRow = document.createElement("div");
+    songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom", "py-2", "mb-3", "card-padre");
 
-let songIndexCont = document.createElement("div");
-let songIndexPar = document.createElement("p");
-songIndexCont.classList.add("col-index", "align-items-center", "text-end", "ms-3");
-songIndexPar.innerText = `${i + 1}.`;
-songIndexCont.appendChild(songIndexPar);
+    let songIndexCont = document.createElement("div");
+    let songIndexPar = document.createElement("p");
+    songIndexCont.classList.add("col-index", "align-items-center", "text-end", "ms-3");
+    songIndexPar.innerText = `${i + 1}.`;
+    songIndexCont.appendChild(songIndexPar);
 
-let songTitleCont = document.createElement("div");
-let songTitlePar = document.createElement("p");
-songTitleCont.classList.add("col-8", "d-flex", "align-items-center");
-songTitleCont.setAttribute("onclick" ,`addMusic(${music})`);
-songTitlePar.innerText = array[i].title;
-songTitleCont.appendChild(songTitlePar);
+    let songTitleCont = document.createElement("div");
+    let songTitlePar = document.createElement("p");
+    songTitleCont.classList.add("col-8", "d-flex", "align-items-center");
+    songTitleCont.setAttribute("onclick", `addMusic(${music})`);
+    songTitlePar.innerText = array[i].title;
+    songTitleCont.appendChild(songTitlePar);
 
-let iconCont = document.createElement("div");     //QUA ANDRANNO INSERITE LE ICONE IN InnerHTML
-iconCont.classList.add("col-2", "text-end", "align-items-center","icon-hover");
-iconCont.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
+    let iconCont = document.createElement("div");     //QUA ANDRANNO INSERITE LE ICONE IN InnerHTML
+    iconCont.classList.add("col-2", "text-end", "align-items-center", "icon-hover");
+    iconCont.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
 
-let songDurationCont = document.createElement("div");
-let songDurationPar = document.createElement("p");
-songDurationCont.classList.add("col-1","text-end", "align-items-center");
-songDurationPar.innerText = convertToMinSec(array[i].duration,false);
-songDurationCont.appendChild(songDurationPar);
+    let songDurationCont = document.createElement("div");
+    let songDurationPar = document.createElement("p");
+    songDurationCont.classList.add("col-1", "text-end", "align-items-center");
+    songDurationPar.innerText = convertToMinSec(array[i].duration, false);
+    songDurationCont.appendChild(songDurationPar);
 
-songRow.append(songIndexCont,songTitleCont,iconCont,songDurationCont);
-songList.appendChild(songRow);
+    songRow.append(songIndexCont, songTitleCont, iconCont, songDurationCont);
+    songList.appendChild(songRow);
 
 
-}
+  }
 }
 
 
@@ -131,17 +131,17 @@ function toggleMenu() {
 
 
 //Funzione Per il titolo
-function convertToMinSec(seconds,boolean) {
+function convertToMinSec(seconds, boolean) {
   let testo = "";
   const minutes = Math.floor(seconds / 60); // ottieni i minuti
   let remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
   if (remainingSeconds < 10) {
     remainingSeconds = `0${remainingSeconds}`;
   }
-  if(boolean){
-  testo =  `${minutes}min ${remainingSeconds}sec`;
-  }else{
-  testo = `${minutes}:${remainingSeconds}`;
+  if (boolean) {
+    testo = `${minutes}min ${remainingSeconds}sec`;
+  } else {
+    testo = `${minutes}:${remainingSeconds}`;
   }
   return testo
 }
@@ -166,9 +166,9 @@ function calcolaMediaColori() {
 
   // Calcola la somma dei colori
   for (let i = 0; i < pixels.length; i += 4) {
-      r += pixels[i];
-      g += pixels[i + 1];
-      b += pixels[i + 2];
+    r += pixels[i];
+    g += pixels[i + 1];
+    b += pixels[i + 2];
   }
 
   // Calcola la media
@@ -176,7 +176,7 @@ function calcolaMediaColori() {
   g = Math.round(g / totalPixels);
   b = Math.round(b / totalPixels);
 
-  let hero=document.getElementById("hero");
+  let hero = document.getElementById("hero");
   hero.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
   hero.style.boxShadow = `0px 80px 200px 150px rgba(${r}, ${g}, ${b}, 0.6)`;
 }
@@ -184,7 +184,7 @@ function calcolaMediaColori() {
 const img = document.getElementById('imgAlbum');
 
 img.addEventListener('load', () => {
-img.onload=calcolaMediaColori();
+  img.onload = calcolaMediaColori();
 });
 
 
@@ -232,7 +232,7 @@ function addMusic(object) {
     btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
-    localStorage.setItem("InfoCanzone",canzone);
+    localStorage.setItem("InfoCanzone", canzone);
     return;
   }
 }

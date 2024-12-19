@@ -66,13 +66,11 @@ const albums = [
 const mainContainer = document.getElementById("main-Container");
 const searchContainer = document.getElementById("second-main-Container");
 
-
-let audioPlayer = document.getElementById("audioPlayer");   //VARIABILE GLOBALE PER IL PLAYER
-let btnPlayPause = document.getElementById("playPause");    //bottone di play/pause
+let audioPlayer = document.getElementById("audioPlayer"); //VARIABILE GLOBALE PER IL PLAYER
+let btnPlayPause = document.getElementById("playPause"); //bottone di play/pause
 
 let musicElement = [];
 let preferiti = JSON.parse(localStorage.getItem("Like")) || [];
-
 
 let newArtistArray = [];
 let newAlbumArray = [];
@@ -240,8 +238,8 @@ function printAlbumCard(item, container) {
     let cardTitleLink = document.createElement("a");
     let cardTitle = document.createElement("p");
 
-
-    cardWrapper.className = "col bg-schede d-flex justify-content-center card-prova g-0";
+    cardWrapper.className =
+      "col bg-schede d-flex justify-content-center card-prova g-0";
 
     cardPadre.className = "d-flex justify-content-center pt-4 card-padre";
 
@@ -409,7 +407,6 @@ function convertToMinSec(seconds, boolean) {
 }
 
 function printSearch(item) {
-
   let singleTrack = JSON.stringify(item[0]);
 
   //STAMPA SOLO DEL PRIMO ITEM
@@ -420,7 +417,7 @@ function printSearch(item) {
   //console.log(firstAlbumCover);
   firstAlbumCover.setAttribute("src", item[0].albumCover);
   const popularSearchSong = document.getElementById("popularSearchSong");
-  popularSearchSong.setAttribute("onclick" ,`addMusic(${singleTrack})`)
+  popularSearchSong.setAttribute("onclick", `addMusic(${singleTrack})`);
 
   const firstTrack = document.getElementById("firstTrack");
   firstTrack.innerText = item[0].trackTitle;
@@ -432,7 +429,6 @@ function printSearch(item) {
   firstArtist.setAttribute("src", item[0].artistCover);
 
   const artistLink = document.getElementById("firstArtistLink");
-
 
   artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 
@@ -508,7 +504,7 @@ function printSearch(item) {
     const popRow = document.createElement("div");
     popRow.className =
       "row row-cols-4 mb-3 py-2 justify-content-between hover-custom list-hover";
-    
+
     if (i < 7) {
       songList.appendChild(popRow);
     } else {
@@ -530,7 +526,7 @@ function printSearch(item) {
     const popularBody = document.createElement("div");
 
     popularBody.className = "col-8 d-flex";
-    popularBody.setAttribute("onclick", `addMusic(${music})`);  //AGGIUNGE LA FUNZIONE PER METTERE LA CANZONE NEL PLAYER
+    popularBody.setAttribute("onclick", `addMusic(${music})`); //AGGIUNGE LA FUNZIONE PER METTERE LA CANZONE NEL PLAYER
 
     popRow.appendChild(popularBody);
 
@@ -618,14 +614,16 @@ function addMusic(object) {
     btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
-    localStorage.setItem("InfoCanzone",canzone);
+    localStorage.setItem("InfoCanzone", canzone);
     return;
   }
 }
 
 function playPause() {
-
-  if (btnPlayPause.innerHTML === `<i class="bi bi-play-circle-fill text-success"></i>`) {
+  if (
+    btnPlayPause.innerHTML ===
+    `<i class="bi bi-play-circle-fill text-success"></i>`
+  ) {
     audioPlayer.play();
     btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
   } else {
@@ -687,6 +685,3 @@ function printLibrary() {
     info.appendChild(b);
   });
 }
-
-
-
