@@ -152,7 +152,7 @@ button:hover .grey-icon {
     margin-left: 10px;
 }
 
-.library-search-container, span, .hydeLibrary{
+.library-search-container, .hydeLibrary{
     display: none;
     white-space: nowrap;
 }
@@ -208,9 +208,9 @@ button:hover .grey-icon {
   width: 95%;
 }
 .card-padre:hover{
-  background-color: #1f1f1f;
+  background-color: #1f1f1f7a;
   cursor: pointer;
-  border-radius: 30px; 
+  border-radius: 16px; 
 }
 .link-card{
   text-decoration: none;
@@ -218,6 +218,7 @@ button:hover .grey-icon {
 .link-card:hover{
   text-decoration: underline;
 }
+
 
 .img{
   object-fit: cover;
@@ -268,5 +269,86 @@ width: 1em;
 .link-card:hover{
   opacity: 1;
   text-decoration: none;
+}
+
+
+/*ALBUM INIZIO*/
+.hero{
+  box-shadow: 0px 50px 100px 50px #DC3545;
+}
+.titolo{
+  font-size: 4.5em;
+  font-weight:900;
+}
+h2, .hero p, .hero img{
+  padding: 10px;
+}
+#imgAlbum{
+  padding: 0;
+  max-width: 250px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  box-shadow: 7px 7px 10px #1f1f1f;
+}
+#imgBand{
+  width: 30%;
+  max-width: 90px;
+  border-radius: 50px;
+  display: inline-block;
+}
+.imgSong{
+  max-width: 40px;
+  border-radius: 8px;
+  display: inline-block;
+}
+.dropdown-item:hover{
+  background-color: grey;
+}
+ol{
+  padding-left: 50px;
+}
+ol li {
+  margin-bottom: 10px;
+  font-size: x-large;
+}
+ol li p{
+  margin-left: 20%;
+}
+#sidebar{
+  display: none;
+}
+
+@media screen and (min-width:768px){
+  ol li{
+      font-size: larger;
+  }
+  .visual, .time{
+      display: inline-block !important;
+  }
+  .more{
+      display: none;
+  }
+  #sidebar{
+      display: block;
+  }
+}
+@media screen and (min-width:992px){
+  ol li{
+      font-size: larger;
+  }
+  #imgBand{
+      width: 40%;
+  }
+  #imgAlbum{
+      max-width: 300px;
+  }
+}
+.col-index{
+  width: 1em;
+}
+/*ALBUM FINE*/
+#songList p{
+  margin-bottom: 0px;
 }
 
