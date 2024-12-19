@@ -289,16 +289,38 @@ function listenedSong(canzone){
   if(!localStorage.getItem("CanzoniRecenti")){
     recentSongs.push(canzone);
     localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+    return;
   }else{
     recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+    if(recentSongs.length > 10){
+      recentSongs.splice(11,-1);
+    }
+    const boolean = recentSongs.find((item) => item.trackId === canzone.trackId); //SE è TRUE l'ha trovata
+    if(!boolean){ //SE non viene trovata
+      recentSongs.unshift(canzone);
+      localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+      return;
+    }else{
+      //SE POSIZIONE INDEX CANZONE = 0 RETURN ELSE FAI POP DI QUELLA CANZONE E UNSHIFT
+      let index = recentSongs.findIndex((item) => item.trackId === canzone.trackId);
+      if(index == 0 ){
+        return;
+      }else{
+        let canzoneTrovata = recentSongs.splice(index,0);
+        console.log(canzoneTrovata);
+        recentSongs.unshift(canzoneTrovata);
+        return;
+      }
+      
     
+    }
   }
   };
 
 
 function likeFeature(element) {
   //console.log(item);
-  const song = preferiti.find((item) => item.trackId === element.trackId);
+  const song = preferiti.find((item) => item.trackId === element.trackId);     //PER cercare un id dentro un array
 
   if (!song) {
     preferiti.push(element);
