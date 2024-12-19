@@ -99,6 +99,19 @@
           </div>
 
           <div>
+          id="sidebar">
+
+          <div class="d-flex">
+            <div class="menu-header" onclick="toggleMenu()">
+            <i class="bi bi-music-note-list fs-4 me-1"></i>
+            <span class="fw-bold fs-6">La tua Libreria</span>
+          </div>  
+            <div> 
+              <i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i>
+            </div> 
+          </div>
+
+          <div>
             <form class="library-search-container">
               <button class="btn" type="button"></button>
               <input type="text" placeholder="Cerca in la Tua Libreria" />
@@ -106,8 +119,7 @@
             <div class="my-2 hydeLibrary" id="library-container">
               <ul class="d-flex list-unstyled my-2">
                 <li
-                  class="rounded bg-secondary text-light fs-6 fw-bold p-1 mx-2"
-                >
+                  class="rounded bg-secondary text-light fs-6 fw-bold p-1 mx-2">
                   Playlist
                 </li>
                 <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
@@ -162,8 +174,8 @@
             class="container-fluid flex-grow-1 p-0 m-0 bg-schede main"
             id="main-Container"
           >
-            <h2>Albums</h2>
-            <!--Cambiato ID senza "container" per matchare il print in js-->
+          <h2>Albums</h2>
+          <!--Cambiato ID senza "container" per matchare il print in js-->
             <div
               class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
               id="album"
@@ -211,8 +223,8 @@
             <!--QUA CI STAVA L'HR-->
             <footer class="bg-schede text-light py-4 mt-5">
               <div class="container-fluid">
-                <div class="row row-cols-md-5 mx-5 px-5">
-                  <div class="col">
+                <div class="row row-cols-md-5 mx-3 px-5">
+                  <div class="col-md-2 m-2">
                     <h5>Azienda</h5>
                     <ul class="list-unstyled">
                       <li>
@@ -238,7 +250,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="col">
+                  <div class="col-md-2 m-2">
                     <h5>Community</h5>
                     <ul class="list-unstyled">
                       <li>
@@ -278,7 +290,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="col">
+                  <div class="col-md-2 m-2">
                     <h5>Link Utili</h5>
                     <ul class="list-unstyled">
                       <li>
@@ -304,7 +316,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="col">
+                  <div class="col-md-2 m-2">
                     <h5>Piani Spotify</h5>
                     <ul class="list-unstyled">
                       <li>
@@ -344,7 +356,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="col text-center me-0">
+                  <div class="col-md-3 text-center me-0">
                     <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
                     <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
                     <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
@@ -353,20 +365,23 @@
 
                 <hr />
                 <div class="container-fluid text-light p-0 py-2 lastNotes">
-                  <ul class="row row-cols-md-5 mx-5 px-5 list-unstyled">
-                    <li class="">
+                  <ul class="row row-cols-md-5 ms-3 me-5 px-5 list-unstyled">
+                    <li class="col-md-2">
                       <p>Informativa sulla Privacy</p>
                     </li>
-                    <li class="">
+                    <li class="col-md-2">
                       <p>Note Legali</p>
                     </li>
-                    <li class="">
+                    <li class="col-md-2">
                       <p>Impostazioni dei Cookies</p>
                     </li>
-                    <li class="">
+                    <li class="col-md-2">
                       <p>Info Annunci</p>
                     </li>
-                    <li class="text-center">
+                    <li class="col-md-2">
+                      <p>Collaborazioni</p>
+                    </li>
+                    <li class="col-md-2 text-center">
                       <p>&copy;2024 Spotify AB</p>
                     </li>
                   </ul>
