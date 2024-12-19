@@ -3,6 +3,9 @@ const param = new URLSearchParams(window.location.search).get("id");
 
 const albumUrl = `https://striveschool-api.herokuapp.com/api/deezer/album/${param}`;
 
+let audioPlayer = document.getElementById("audioPlayer");   //VARIABILE GLOBALE PER IL PLAYER
+let btnPlayPause = document.getElementById("playPause");    //bottone di play/pause
+
 let arraySong = [];
 let album = {};
 
@@ -81,9 +84,11 @@ function printHero(album) {
 };
 
 function printSong(array){
+
 let songList = document.getElementById("songList");
 songList.innerHTML = "";
 for(let i = 0; i< array.length; i++){
+let music = JSON.stringify(array[i]);
 let songRow = document.createElement("div");
 songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom","py-2","mb-3","card-padre");
 
@@ -95,7 +100,8 @@ songIndexCont.appendChild(songIndexPar);
 
 let songTitleCont = document.createElement("div");
 let songTitlePar = document.createElement("p");
-songTitleCont.classList.add("col-7", "d-flex", "align-items-center");
+songTitleCont.classList.add("col-8", "d-flex", "align-items-center");
+songTitleCont.setAttribute("onclick" ,`addMusic(${music})`);
 songTitlePar.innerText = array[i].title;
 songTitleCont.appendChild(songTitlePar);
 
@@ -105,7 +111,7 @@ iconCont.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi 
 
 let songDurationCont = document.createElement("div");
 let songDurationPar = document.createElement("p");
-songDurationCont.classList.add("col-2","text-end", "align-items-center");
+songDurationCont.classList.add("col-1","text-end", "align-items-center");
 songDurationPar.innerText = convertToMinSec(array[i].duration,false);
 songDurationCont.appendChild(songDurationPar);
 
@@ -128,7 +134,10 @@ function toggleMenu() {
 function convertToMinSec(seconds,boolean) {
   let testo = "";
   const minutes = Math.floor(seconds / 60); // ottieni i minuti
-  const remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
+  let remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
+  if (remainingSeconds < 10) {
+    remainingSeconds = `0${remainingSeconds}`;
+  }
   if(boolean){
   testo =  `${minutes}min ${remainingSeconds}sec`;
   }else{
@@ -190,3 +199,51 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
   )}`;
   window.location.href = newUrl;
 });
+
+
+//ARRIVA IN INPUT L'URL della canzone da eseguire
+function addMusic(object) {
+
+  let currentSongImg = document.getElementById("current-song-img");
+  currentSongImg.setAttribute("src", `${object.album.cover_small}`);
+  let songTitle = document.getElementById("song-title");
+  songTitle.innerText = object.title_short;
+  let artistName = document.getElementById("artist-name");
+  artistName.innerText = object.artist.name;
+  let songDuration = document.getElementById("songDuration");
+  songDuration.innerText = "0:30";
+  let likeSongButton = document.getElementById("likeSongButton");
+  likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
+
+  //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
+  if (!localStorage.getItem("Canzone")) {
+    audioPlayer.setAttribute("src", object.preview);
+    audioPlayer.play();
+    btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+    localStorage.setItem("Canzone", object.preview);
+    let canzone = JSON.stringify(object);
+    localStorage.setItem("InfoCanzone", canzone);
+    return;
+  } else {
+    audioPlayer.pause();
+    btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+    audioPlayer.setAttribute("src", object.preview);
+    audioPlayer.play();
+    btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+    localStorage.setItem("Canzone", object.preview);
+    let canzone = JSON.stringify(object);
+    localStorage.setItem("InfoCanzone",canzone);
+    return;
+  }
+}
+
+function playPause() {
+
+  if (btnPlayPause.innerHTML === `<i class="bi bi-play-circle-fill text-success"></i>`) {
+    audioPlayer.play();
+    btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+  } else {
+    audioPlayer.pause();
+    btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+  }
+}

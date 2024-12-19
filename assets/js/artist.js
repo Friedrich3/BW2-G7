@@ -3,6 +3,9 @@ const param = new URLSearchParams(window.location.search).get("id");
 
 const artistUrl = `https://striveschool-api.herokuapp.com/api/deezer/artist/${param}`;
 
+let audioPlayer = document.getElementById("audioPlayer");   //VARIABILE GLOBALE PER IL PLAYER
+let btnPlayPause = document.getElementById("playPause");    //bottone di play/pause
+
 window.addEventListener("load", init());
 
 function init() {
@@ -38,7 +41,6 @@ async function getDatas(name) {
         });
         let data = await response.json();
         let object = data.data;
-        console.log(object);
         printSongList(object);
         printRecomendedAlbum(object[0]);
         filterAlbum(object)
@@ -68,6 +70,7 @@ function printSongList(object) {
 
 
     for (let i = 0; i < object.length; i++) {
+    let music = JSON.stringify(object[i]);
         let songContainer = document.createElement("div");
         songContainer.className = "row row-cols-4 justify-content-between hover-custom card-padre w-100 py-1";
 
@@ -84,11 +87,12 @@ function printSongList(object) {
         indexContainer.appendChild(indexPar);
 
         let titleContainer = document.createElement("div");
-        titleContainer.className = "col-7 d-flex align-items-center";
+        titleContainer.className = "col-8 d-flex align-items-center";
+        titleContainer.setAttribute("onclick" ,`addMusic(${music})`);
         let titleImage = document.createElement("img");
         titleImage.className = "imgSong";
-        titleImage.setAttribute("alt", "Cover")
-        titleImage.setAttribute("src", `${object[i].album.cover_small}`)
+        titleImage.setAttribute("alt", "Cover");
+        titleImage.setAttribute("src", `${object[i].album.cover_small}`);
         let titlePar = document.createElement("p");
         titlePar.className = "ps-2"
         titlePar.innerText = `${object[i].title}`;
@@ -99,7 +103,7 @@ function printSongList(object) {
         iconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
 
         let durataContainer = document.createElement("div");
-        durataContainer.className = "col-2 text-end align-content-center";
+        durataContainer.className = "col-1 text-end align-content-center";
         let durataPar = document.createElement("p");
         durataPar.innerText = `${convertToMinSec(object[i].duration, false)}`;
         durataContainer.appendChild(durataPar);
@@ -267,7 +271,55 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
     const input = document.getElementById("searchInput");
     const query = input.value;
     const newUrl = `./index.html?search=${encodeURIComponent(
-      query.replaceAll(" ", "-")
+        query.replaceAll(" ", "-")
     )}`;
     window.location.href = newUrl;
-  });
+});
+
+
+//ARRIVA IN INPUT L'URL della canzone da eseguire
+function addMusic(object) {
+
+    let currentSongImg = document.getElementById("current-song-img");
+    currentSongImg.setAttribute("src", `${object.album.cover_small}`);
+    let songTitle = document.getElementById("song-title");
+    songTitle.innerText = object.title_short;
+    let artistName = document.getElementById("artist-name");
+    artistName.innerText = object.artist.name;
+    let songDuration = document.getElementById("songDuration");
+    songDuration.innerText = "0:30";
+    let likeSongButton = document.getElementById("likeSongButton");
+    likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
+
+    //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
+    if (!localStorage.getItem("Canzone")) {
+        audioPlayer.setAttribute("src", object.preview);
+        audioPlayer.play();
+        btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+        localStorage.setItem("Canzone", object.preview);
+        let canzone = JSON.stringify(object);
+        localStorage.setItem("InfoCanzone", canzone);
+        return;
+    } else {
+        audioPlayer.pause();
+        btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+        audioPlayer.setAttribute("src", object.preview);
+        audioPlayer.play();
+        btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+        localStorage.setItem("Canzone", object.preview);
+        let canzone = JSON.stringify(object);
+        localStorage.setItem("InfoCanzone", canzone);
+        return;
+    }
+}
+
+function playPause() {
+
+    if (btnPlayPause.innerHTML === `<i class="bi bi-play-circle-fill text-success"></i>`) {
+        audioPlayer.play();
+        btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+    } else {
+        audioPlayer.pause();
+        btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+    }
+}

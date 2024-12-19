@@ -66,6 +66,9 @@ const albums = [
 const mainContainer = document.getElementById("main-Container");
 const searchContainer = document.getElementById("second-main-Container");
 
+let audioPlayer = document.getElementById("audioPlayer");   //VARIABILE GLOBALE PER IL PLAYER
+let btnPlayPause = document.getElementById("playPause");    //bottone di play/pause
+
 let newArtistArray = [];
 let newAlbumArray = [];
 
@@ -107,8 +110,8 @@ function init() {
       searchQuery(param);
     }
   };
-
   updateView();
+
 
   window.addEventListener("popstate", updateView);
 }
@@ -231,24 +234,24 @@ function printAlbumCard(item, container) {
     let cardTitleLink = document.createElement("a");
     let cardTitle = document.createElement("p");
 
-    cardWrapper.className='col bg-schede d-flex justify-content-center card-prova g-0'
-    
-    cardPadre.className='d-flex justify-content-center pt-4 card-padre'
-    
-    card.className= "card bg-transparent border-0 card-figlio"
+    cardWrapper.className = 'col bg-schede d-flex justify-content-center card-prova g-0'
+
+    cardPadre.className = 'd-flex justify-content-center pt-4 card-padre'
+
+    card.className = "card bg-transparent border-0 card-figlio"
 
     cardImageLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardImage.className="card-img-top img-fluid rounded-5"
+    cardImage.className = "card-img-top img-fluid rounded-5"
     cardImage.setAttribute("src", item[i].albumCover);
     cardImage.setAttribute("alt", "Logo Album");
 
-    cardBody.className='card-body'
+    cardBody.className = 'card-body'
 
-    cardTitleLink.className="text-light link-card"
+    cardTitleLink.className = "text-light link-card"
     cardTitleLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardTitle.className= 'card-text fs-5'
+    cardTitle.className = 'card-text fs-5'
     cardTitle.innerText = `${item[i].albumTitle}`;
 
     cardTitleLink.appendChild(cardTitle);
@@ -344,7 +347,7 @@ async function searchQuery(query) {
       artistName: item.artist.name,
       artistCover: item.artist.picture_medium,
       duration: item.duration,
-      
+
       preview: item.preview
     }));
 
@@ -359,7 +362,7 @@ async function searchQuery(query) {
       return false;
     });
 
-     //Funzione per ottenre SOLO gli id unici di Artist
+    //Funzione per ottenre SOLO gli id unici di Artist
     const artistId = new Set();
     uniqueArtist = queryResult.filter((element) => {
       if (!artistId.has(element.artistId)) {
@@ -401,7 +404,8 @@ function convertToMinSec(seconds, boolean) {
 }
 
 function printSearch(item) {
-  
+  let singleTrack = JSON.stringify(item[0]);
+
   //STAMPA SOLO DEL PRIMO ITEM
   mainContainer.classList.add("d-none");
   searchContainer.classList.remove("d-none");
@@ -409,6 +413,8 @@ function printSearch(item) {
   const firstAlbumCover = document.getElementById("firstAlbum");
   //console.log(firstAlbumCover);
   firstAlbumCover.setAttribute("src", item[0].albumCover);
+  const popularSearchSong = document.getElementById("popularSearchSong");
+  popularSearchSong.setAttribute("onclick" ,`addMusic(${singleTrack})`)
 
   const firstTrack = document.getElementById("firstTrack");
   firstTrack.innerText = item[0].trackTitle;
@@ -419,9 +425,9 @@ function printSearch(item) {
   const firstArtist = document.getElementById("firstArtistPic");
   firstArtist.setAttribute("src", item[0].artistCover);
 
-const artistLink = document.getElementById('firstArtistLink')
+  const artistLink = document.getElementById('firstArtistLink')
 
-artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
+  artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 
 
   const firstArtistName = document.getElementById("firstArtistName");
@@ -438,7 +444,6 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
     //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
     const popRow = document.createElement("div");
     popRow.className = "row row-cols-4 mb-3 py-2 hover-custom list-hover";
-    popRow.setAttribute("onclick", `addMusic(${music})`);
     popularTracks.appendChild(popRow);
 
     const popularContainer = document.createElement("div");
@@ -455,6 +460,7 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
     //SECONDA SEZIONE
     const popularBody = document.createElement("div");
     popularBody.className = "col-8 d-flex";
+    popularBody.setAttribute("onclick", `addMusic(${music})`);
     popRow.appendChild(popularBody);
 
     //SECONDA SEZIONE: COVER ALBUM + TITOLO
@@ -496,7 +502,7 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
     const popRow = document.createElement("div");
     popRow.className =
       "row row-cols-4 mb-3 py-2 justify-content-between hover-custom list-hover";
-    popRow.setAttribute("onclick", `addMusic(${music})`);  //AGGIUNGE LA FUNZIONE PER METTERE LA CANZONE NEL PLAYER
+    
 
     if (i < 7) {
       songList.appendChild(popRow);
@@ -517,7 +523,8 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 
     //SECONDA SEZIONE
     const popularBody = document.createElement("div");
-    popularBody.className = "col-8 d-flex d-flex";
+    popularBody.className = "col-8 d-flex";
+    popularBody.setAttribute("onclick", `addMusic(${music})`);  //AGGIUNGE LA FUNZIONE PER METTERE LA CANZONE NEL PLAYER
     popRow.appendChild(popularBody);
 
     //SECONDA SEZIONE: COVER ALBUM + TITOLO
@@ -561,7 +568,7 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 }
 
 //ARRIVA IN INPUT L'URL della canzone da eseguire
-function addMusic(object){
+function addMusic(object) {
   console.log(object);
 
   let currentSongImg = document.getElementById("current-song-img");
@@ -571,29 +578,47 @@ function addMusic(object){
   let artistName = document.getElementById("artist-name");
   artistName.innerText = object.artistName;
   let songDuration = document.getElementById("songDuration");
-  songDuration.innerText = convertToMinSec(object.duration, false);
-
+  songDuration.innerText = "0:30";
+  let likeSongButton = document.getElementById("likeSongButton");
+  likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
 
   //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
-  let audio = document.getElementById("audioPlayer");
-  if(!localStorage.getItem("Canzone")){
-    audio.setAttribute("src", object.preview);
-    audio.play();
+  if (!localStorage.getItem("Canzone")) {
+    audioPlayer.setAttribute("src", object.preview);
+    audioPlayer.play();
+    btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
     localStorage.setItem("Canzone", object.preview);
+    let canzone = JSON.stringify(object);
+    localStorage.setItem("InfoCanzone", canzone);
     return;
-  }else{
-    audio.pause();
-    audio.setAttribute("src", object.preview);
-    audio.play();
-    localStorage.setItem("Canzone",object.preview);
+  } else {
+    audioPlayer.pause();
+    btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+    audioPlayer.setAttribute("src", object.preview);
+    audioPlayer.play();
+    btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+    localStorage.setItem("Canzone", object.preview);
+    let canzone = JSON.stringify(object);
+    localStorage.setItem("InfoCanzone",canzone);
     return;
   }
 }
 
-function playSong(){
-  
-  
-  
-  song.play();
-  song.pause();
-};
+function playPause() {
+
+  if (btnPlayPause.innerHTML === `<i class="bi bi-play-circle-fill text-success"></i>`) {
+    audioPlayer.play();
+    btnPlayPause.innerHTML = `<i class="bi bi-pause-circle-fill text-success"></i>`;
+  } else {
+    audioPlayer.pause();
+    btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+  }
+}
+
+
+
+
+
+
+
+
