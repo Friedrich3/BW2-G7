@@ -259,3 +259,15 @@ const img = document.getElementById('imgHero');
 img.addEventListener('load', () => {
     img.onload = calcolaMediaColori();
 });
+
+//SEARCH function che riporta alla prima pagina:
+
+document.getElementById("searchBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    const input = document.getElementById("searchInput");
+    const query = input.value;
+    const newUrl = `./index.html?search=${encodeURIComponent(
+      query.replaceAll(" ", "-")
+    )}`;
+    window.location.href = newUrl;
+  });

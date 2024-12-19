@@ -1,167 +1,124 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HomePage</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomePage</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
 
-  <body class="container-fluid">
-    <header class="navbar bg-black py-3 row row-cols-3 sticky-top">
-      <div class="flex-start col-4">
-        <a class="navbar-brand p-2" href="./index.html">
-          <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
-        </a>
-      </div>
-      <div class="d-flex col-4">
-        <button class="btn" type="button">
-          <i class="bi bi-house-door grey-icon"></i>
+<body class="container-fluid">
+  <header class="navbar bg-black row row-cols-3">
+    <div class="flex-start col-4">
+      <a class="navbar-brand p-2" href="./index.html">
+        <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
+      </a>
+    </div>
+    <div class="d-flex col-4">
+      <button class="btn" type="button" onclick="window.location.href='./index.html'">
+        <i class="bi bi-house-door grey-icon"></i>
+      </button>
+      <form class="search-container" id="searchForm">
+        <input type="text" placeholder="Cosa vuoi ascoltare?" class="ms-3" id="searchInput" />
+        <button class="btn" type="submit" id="searchBtn" >
+          <i class="bi bi-search fs-4 grey-icon"></i>
         </button>
-        <form class="search-container" id="searchForm">
-          <input
-            type="text"
-            placeholder="Cosa vuoi ascoltare?"
-            class="ms-3"
-            id="searchInput"
-          />
-          <button class="btn" type="submit" id="searchBtn">
-            <i class="bi bi-search fs-4 grey-icon"></i>
-          </button>
 
-          <!-- <button class="btn" type="button">
+        <!-- <button class="btn" type="button">
             <i class="bi bi-view-list fs-3 grey-icon"></i>
           </button>  -->
-        </form>
-      </div>
+      </form>
+    </div>
 
-      <div class="d-flex col-4 justify-content-end">
-        <div class="dropdown">
-          <button class="btn" data-bs-toggle="dropdown" type="button">
-            <i class="bi bi-bell fs-3 grey-icon"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end bg-dark">
-            <li>
-              <a class="dropdown-item" href="#">Nessuna nuova notifica</a>
-            </li>
-          </ul>
-        </div>
-        <div class="dropdown user">
-          <button
-            class="btn"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="bi bi-person-circle fs-3 grey-icon"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end bg-dark">
-            <li><a class="dropdown-item" href="#">Account</a></li>
-            <li><a class="dropdown-item" href="#">Profilo</a></li>
-            <li><a class="dropdown-item" href="#">Impostazioni</a></li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li><a class="dropdown-item" href="#">Esci</a></li>
-          </ul>
-        </div>
+    <div class="d-flex col-4 justify-content-end">
+      <div class="dropdown">
+        <button class="btn" data-bs-toggle="dropdown" type="button">
+          <i class="bi bi-bell fs-3 grey-icon"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end bg-dark">
+          <li>
+            <a class="dropdown-item" href="#">Nessuna nuova notifica</a>
+          </li>
+        </ul>
       </div>
-    </header>
+      <div class="dropdown user">
+        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle fs-3 grey-icon"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end bg-dark">
+          <li><a class="dropdown-item" href="#">Account</a></li>
+          <li><a class="dropdown-item" href="#">Profilo</a></li>
+          <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li><a class="dropdown-item" href="#">Esci</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
 
-    <main class="container-fluid bg-black p-0">
-      <section class="d-flex justify-content-between gap-2">
-        <div
-          class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3"
-          id="sidebar"
-        >
-          <div class="menu-header" onclick="toggleMenu()">
-            <i class="bi bi-music-note-list fs-4 me-2"></i>
-            <span class="fw-bold hydeLibrary">La tua Libreria</span>
-            <span><i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i></span>
-            <!--<form class="library-search-container">
+  <main class="container-fluid bg-black p-0">
+    <section class="d-flex justify-content-between gap-2">
+      <!--Libreria-->
+      <div class="sidebar bg-schede align-items-start sticky-top h-100 top-custom pt-2 px-3 rounded-3" id="sidebar">
+        <div class="menu-header" onclick="toggleMenu()">
+          <i class="bi bi-music-note-list fs-4 me-2"></i>
+          <span class="fw-bold hydeLibrary">La tua Libreria</span>
+          <span><i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i></span>
+          <!--<form class="library-search-container">
               <button class="btn" type="button"></button>
               <input type="text" placeholder="Cerca in la Tua Libreria" />
             </form>-->
-            <div class="my-2 hydeLibrary" id="library-container">
-              <ul class="d-flex list-unstyled my-2">
-                <li
-                  class="rounded bg-secondary text-light fs-6 fw-bold p-1 mx-2"
-                >
-                  Playlist
-                </li>
-                <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
-                  Artisti
-                </li>
-                <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
-                  Album
-                </li>
-              </ul>
-              <div class="hydeLibrary d-flex justify-content-between">
-                <span
-                  ><i class="bi bi-search library-icon ms-4 fs-6 grey-icon"></i
-                ></span>
-                <span
-                  ><i class="bi bi-border-width ms-2 fs-6 grey-icon"></i
-                ></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="dropdown hydeLibrary">
-            <button
-              class="btn btn-secondary dropdown-toggle text-end"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fa fa-plus"></i>Crea
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <form class="px-4 py-3">
-                <div class="form-group">
-                  <label for="playlistName">Nome Playlist</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="playlistName"
-                    placeholder="Inserisci nome playlist"
-                  />
-                </div>
-                <button type="submit" class="btn btn-primary">Crea</button>
-              </form>
+          <div class="my-2 hydeLibrary" id="library-container">
+            <ul class="d-flex list-unstyled my-2">
+              <li class="rounded bg-secondary text-light fs-6 fw-bold p-1 mx-2">
+                Playlist
+              </li>
+              <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
+                Artisti
+              </li>
+              <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
+                Album
+              </li>
+            </ul>
+            <div class="hydeLibrary d-flex justify-content-between">
+              <span><i class="bi bi-search library-icon ms-4 fs-6 grey-icon"></i></span>
+              <span><i class="bi bi-border-width ms-2 fs-6 grey-icon"></i></span>
             </div>
           </div>
         </div>
 
-        <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
-          <!--MAIN CONTAINER CON OVERFLOW HIDDEN-->
-          <div
-            class="container-fluid flex-grow-1 p-0 m-0 bg-schede main"
-            id="main-Container"
-          >
-            <h2>Albums</h2>
-            <!--Cambiato ID senza "container" per matchare il print in js-->
-            <div
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-              id="album"
-            >
-              <!--QUI SCHEDE JS RELATIVE AGLI ALBUMS
+        <div class="dropdown hydeLibrary">
+          <button class="btn btn-secondary dropdown-toggle text-end" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-plus"></i>Crea
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <form class="px-4 py-3">
+              <div class="form-group">
+                <label for="playlistName">Nome Playlist</label>
+                <input type="text" class="form-control" id="playlistName" placeholder="Inserisci nome playlist" />
+              </div>
+              <button type="submit" class="btn btn-primary">Crea</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--Main Containers 1 e 2-->
+      <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
+        <!--MAIN CONTAINER CON OVERFLOW HIDDEN-->
+        <div class="container-fluid flex-grow-1 p-0 m-0 bg-schede main" id="main-Container">
+          <h2>Albums</h2>
+          <!--Cambiato ID senza "container" per matchare il print in js-->
+          <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="album">
+            <!--QUI SCHEDE JS RELATIVE AGLI ALBUMS
               VA AGGIUNTO TITOLO DELLA SEZIONE -->
-
-              <!-- ELIMINARE DA QUA-->
-              <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
+            <!-- ELIMINARE DA QUA-->
+            <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
                 <div class="card-padre d-flex justify-content-center pt-4">
                 <div class="card bg-transparent border-0 card-figlio">
                   <a href=""><img
@@ -174,30 +131,181 @@
                   </div>
                 </div>
                 </div>
-
               </div>-->
+            <!--A QUA-->
+          </div>
+          <h2>Artists</h2>
+          <!--Cambiato ID senza "container" per matchare il print in js-->
+          <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="artist">
+            <!--QUI SCHEDE JS RELATIVE AGLI ARTISTI
+              VA AGGIUNTO TITOLO DELLA SEZIONE -->
+          </div>
+          <h2>Last Research</h2>
+          <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="cronologiaContainer">
+            <!--QUI SCHEDE JS RELATIVE ALLA CRONOLOGIA
+              VA AGGIUNTO TITOLO DELLA SEZIONE -->
+          </div>
+          <!--QUA CI STAVA L'HR-->
+          <footer class="bg-schede text-light py-4 mt-5">
+            <div class="container-fluid">
+              <div class="row row-cols-md-5 mx-3 px-5">
+                <div class="col-md-2 m-2">
+                  <h5>Azienda</h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Chi siamo</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Opportunità di Lavoro</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">For the Record</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-2 m-2">
+                  <h5>Community</h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Per Artisti</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Sviluppatori</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Pubblicità</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Investitori</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Venditori</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-2 m-2">
+                  <h5>Link Utili</h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Assistenza</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">App per cellulare
+                        gratuita</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Diritti del Consumatore</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-2 m-2">
+                  <h5>Piani Spotify</h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Individual</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Duo</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Family</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Student</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)" class="text-light text-decoration-none">Spotify Free</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 text-center me-0">
+                  <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
+                  <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
+                  <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
+                </div>
+              </div>
 
-              <!--A QUA-->
+              <hr />
+              <div class="container-fluid text-light p-0 py-2 lastNotes">
+                <ul class="row row-cols-md-5 ms-3 me-5 px-5 list-unstyled">
+                  <li class="col-md-2">
+                    <p>Informativa sulla Privacy</p>
+                  </li>
+                  <li class="col-md-2">
+                    <p>Note Legali</p>
+                  </li>
+                  <li class="col-md-2">
+                    <p>Impostazioni dei Cookies</p>
+                  </li>
+                  <li class="col-md-2">
+                    <p>Info Annunci</p>
+                  </li>
+                  <li class="col-md-2">
+                    <p>Collaborazioni</p>
+                  </li>
+                  <li class="col-md-2 text-center">
+                    <p>&copy;2024 Spotify AB</p>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <h2>Artists</h2>
+          </footer>
+        </div>
+
+        <div class="container-fluid flex-grow-1 m-0 bg-schede main d-none" id="second-main-Container">
+          <div class="row row-cols-4 mb-4 px-0">
+            <div class="col-3 d-flex justify-content-end py-3">
+              <div class="card-Track d-flex justify-content-center py-3">
+                <div class="card-figlio">
+                  <img src="" alt="..." width="280px" class="img-fluid mb-3" id="firstAlbum" />
+                  <h5 id="firstTrack">titolo canzone</h5>
+                  <div class="d-flex">
+                    <p id="type" class="lastNotes opacity-75">Brano</p>
+                    <p id="duration" class="lastNotes ms-2">durata</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 d-flex justify-content-center py-3">
+              <div class="card-Track d-flex justify-content-center py-3">
+                <div class="card-figlio">
+                  <img src="" alt="..." width="315px" class="img-fluid mb-3 rounded-circle" id="firstArtistPic" />
+                  <a class="link-card" id="firstArtistLink">
+                    <h5 id="firstArtistName">Artist name</h5>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 d-flex flex-column justify-content-center" id="popularTracks">
+              <!--Scitta con js-->
+            </div>
+          </div>
+          <div class="container">
+            <div class="row row-cols-4 justify-content-between opacity-75">
+              <div class="col-index align-content-center text-end ms-3">
+                <p class="mb-1">#</p>
+              </div>
+              <div class="col-7 align-content-center">
+                <p class="mb-1">Titolo</p>
+              </div>
+              <div class="col-2 text-end align-content-center"></div>
+              <div class="col-2 text-end align-content-center">
+                <p class="mb-1"><i class="bi bi-clock"></i></p>
+              </div>
+            </div>
+            <hr class="bg-secondary mt-0" />
+
+            <div class="mt-3" id="songList">
+              <!--LISTA CANZONI-->
+            </div>
+
+            <!--SEZIONE CORRELATI-->
+            <h2>Related Album</h2>
             <!--Cambiato ID senza "container" per matchare il print in js-->
-            <div
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-              id="artist"
-            >
-              <!--QUI SCHEDE JS RELATIVE AGLI ARTISTI
-              VA AGGIUNTO TITOLO DELLA SEZIONE -->
-            </div>
-            <h2>Last Research</h2>
-            <div
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-              id="cronologiaContainer"
-            >
-              <!--QUI SCHEDE JS RELATIVE ALLA CRONOLOGIA
-              VA AGGIUNTO TITOLO DELLA SEZIONE -->
-            </div>
-
-            <!--QUA CI STAVA L'HR-->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="albumSearch"></div>
+            <h2>Related Artist</h2>
+            <!--Cambiato ID senza "container" per matchare il print in js-->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="artistSearch"></div>
             <footer class="bg-schede text-light py-4 mt-5">
               <div class="container-fluid">
                 <div class="row row-cols-md-5 mx-3 px-5">
@@ -205,25 +313,13 @@
                     <h5>Azienda</h5>
                     <ul class="list-unstyled">
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Chi siamo</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Chi siamo</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Opportunità di Lavoro</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Opportunità di Lavoro</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >For the Record</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">For the Record</a>
                       </li>
                     </ul>
                   </div>
@@ -231,39 +327,19 @@
                     <h5>Community</h5>
                     <ul class="list-unstyled">
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Per Artisti</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Per Artisti</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Sviluppatori</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Sviluppatori</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Pubblicità</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Pubblicità</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Investitori</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Investitori</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Venditori</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Venditori</a>
                       </li>
                     </ul>
                   </div>
@@ -271,25 +347,14 @@
                     <h5>Link Utili</h5>
                     <ul class="list-unstyled">
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Assistenza</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Assistenza</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >App per cellulare gratuita</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">App per cellulare
+                          gratuita</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Diritti del Consumatore</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Diritti del Consumatore</a>
                       </li>
                     </ul>
                   </div>
@@ -297,39 +362,19 @@
                     <h5>Piani Spotify</h5>
                     <ul class="list-unstyled">
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Individual</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Individual</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Duo</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Duo</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Family</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Family</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Premium Student</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Student</a>
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="text-light text-decoration-none"
-                          >Spotify Free</a
-                        >
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Spotify Free</a>
                       </li>
                     </ul>
                   </div>
@@ -366,317 +411,57 @@
               </div>
             </footer>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div
-            class="container-fluid flex-grow-1 m-0 bg-schede main w-100 d-none"
-            id="second-main-Container"
-          >
-            <div class="row row-cols-4 mb-4 px-0">
-              <div class="col-3 d-flex justify-content-end py-3">
-                <div class="card-Track d-flex justify-content-center py-3">
-                  <div class="card-figlio">
-                    <img
-                      src=""
-                      alt="..."
-                      width="280px"
-                      class="img-fluid mb-3"
-                      id="firstAlbum"
-                    />
-                    <h5 id="firstTrack">titolo canzone</h5>
-                    <div class="d-flex">
-                      <p id="type" class="lastNotes opacity-75">Brano</p>
-                      <p id="duration" class="lastNotes ms-2">durata</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-3 d-flex justify-content-center py-3">
-                <div class="card-Track d-flex justify-content-center py-3">
-                  <div class="card-figlio">
-                    <img
-                      src=""
-                      alt="..."
-                      width="315px"
-                      class="img-fluid mb-3 rounded-circle"
-                      id="firstArtistPic"
-                    />
-                    <a class="link-card" id="firstArtistLink">
-                      <h5 id="firstArtistName">Artist name</h5></a
-                    >
-                  </div>
-                </div>
-              </div>
-              <div
-                class="col-6 d-flex flex-column justify-content-center"
-                id="popularTracks"
-              >
-                <!--Scitta con js-->
+    <section id="music-player" class="container-fluid bg-black player">
+      <div class="row row-cols-3 align-items-center">
+        <div class="col-3 d-flex justify-content-between align-items-center p-0">
+          <img id="current-song-img" src="./assets/imgs/main/image-1.jpg" class="img-fluid" />
+          <div>
+            <h2 id="song-title" class="text-white">Title</h2>
+            <h3 id="artist-name" class="text-white">Artist</h3>
+          </div>
+          <i class="bi bi-plus-lg"></i>
+        </div>
+        <div id="progress-container" class="col-6">
+          <div class="d-flex justify-content-center">
+            <button class="btn"><i class="bi bi-shuffle text-white"></i></button>
+            <button class="btn"><i class="bi bi-skip-start text-white"></i></button>
+            <button class="btn fs-3"><i class="bi bi-play-circle-fill text-white"></i></button>
+            <button class="btn"><i class="bi bi-skip-end text-white"></i></button>
+            <button class="btn"><i class="bi bi-repeat text-white"></i></button>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <p id="currentTime" class="text-white">0:00</p>
+            </div>
+            <div class="col">
+              <div class="progress" style="width: 100%">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuemin="0"
+                  aria-valuemax="100"></div>
               </div>
             </div>
-            <div class="container">
-              <div class="row row-cols-4 justify-content-between opacity-75">
-                <div class="col-index align-content-center text-end ms-3">
-                  <p class="mb-1">#</p>
-                </div>
-                <div class="col-7 align-content-center">
-                  <p class="mb-1">Titolo</p>
-                </div>
-                <div class="col-2 text-end align-content-center"></div>
-                <div class="col-2 text-end align-content-center">
-                  <p class="mb-1"><i class="bi bi-clock"></i></p>
-                </div>
-              </div>
-              <hr class="bg-secondary mt-0" />
-
-              <div class="mt-3" id="songList">
-                <!--LISTA CANZONI-->
-              </div>
-
-              <!--SEZIONE CORRELATI-->
-              <h2>Related Album</h2>
-              <!--Cambiato ID senza "container" per matchare il print in js-->
-              <div
-                class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-                id="albumSearch"
-              ></div>
-              <h2>Related Artist</h2>
-              <!--Cambiato ID senza "container" per matchare il print in js-->
-              <div
-                class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-                id="artistSearch"
-              ></div>
-              <footer class="bg-schede text-light py-4 mt-5">
-                <div class="container-fluid">
-                  <div class="row row-cols-md-5 mx-3 px-5">
-                    <div class="col-md-2 m-2">
-                      <h5>Azienda</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Chi siamo</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Opportunità di Lavoro</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >For the Record</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-2 m-2">
-                      <h5>Community</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Per Artisti</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Sviluppatori</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Pubblicità</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Investitori</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Venditori</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-2 m-2">
-                      <h5>Link Utili</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Assistenza</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >App per cellulare gratuita</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Diritti del Consumatore</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-2 m-2">
-                      <h5>Piani Spotify</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Individual</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Duo</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Family</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Student</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Spotify Free</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-3 text-center me-0">
-                      <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
-                      <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
-                      <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
-                    </div>
-                  </div>
-
-                  <hr />
-                  <div class="container-fluid text-light p-0 py-2 lastNotes">
-                    <ul class="row row-cols-md-5 ms-3 me-5 px-5 list-unstyled">
-                      <li class="col-md-2">
-                        <p>Informativa sulla Privacy</p>
-                      </li>
-                      <li class="col-md-2">
-                        <p>Note Legali</p>
-                      </li>
-                      <li class="col-md-2">
-                        <p>Impostazioni dei Cookies</p>
-                      </li>
-                      <li class="col-md-2">
-                        <p>Info Annunci</p>
-                      </li>
-                      <li class="col-md-2">
-                        <p>Collaborazioni</p>
-                      </li>
-                      <li class="col-md-2 text-center">
-                        <p>&copy;2024 Spotify AB</p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </footer>
+            <div class="col-auto">
+              <p id="duration" class="text-white">0:00</p>
             </div>
           </div>
         </div>
-      </section>
-
-      <section id="music-player" class="container-fluid bg-black pt-3">
-        <div class="row row-cols-3 align-items-center">
-          <div
-            class="col-3 d-flex justify-content-between align-items-center p-0"
-          >
-            <img
-              id="current-song-img"
-              src="./assets/imgs/main/image-1.jpg"
-              class="img-fluid"
-              
-            />
-            <div>
-              <h2 id="song-title" class="text-white">Title</h2>
-              <h3 id="artist-name" class="text-white">Artist</h3>
-            </div>
-            <i class="bi bi-plus-lg"></i>
-          </div>
-          <div id="progress-container" class="col-6 p-0">
-            <div class="d-flex justify-content-center">
-              <button class="btn"><i class="bi bi-shuffle text-white"></i></button>
-              <button class="btn"><i class="bi bi-skip-start text-white"></i></button>
-              <button class="btn fs-3"><i class="bi bi-play-circle-fill text-white"></i></button>
-              <button class="btn"><i class="bi bi-skip-end text-white"></i></button>
-              <button class="btn"><i class="bi bi-repeat text-white"></i></button>
-            </div>
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <p id="currentTime" class="text-white">0:00</p>
-              </div>
-              <div class="col">
-                <div class="progress" style="width: 100%">
-                  <div
-                    class="progress-bar bg-success"
-                    role="progressbar"
-                    style="width: 0%"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <p id="duration" class="text-white">0:00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-3 d-flex align-items-center p-0 justify-content-center">
-            <i class="bi bi-music-note-list grey-icon px-1"></i>
-            <i class="bi bi-speaker-fill grey-icon px-1"></i>
-            <i class="bi bi-volume-up grey-icon"></i>
-            <input type="range" class="ml-2" />
-          </div>
+        <div class="col-3 d-flex align-items-center p-0 justify-content-center">
+          <i class="bi bi-music-note-list grey-icon px-1"></i>
+          <i class="bi bi-speaker-fill grey-icon px-1"></i>
+          <i class="bi bi-volume-up grey-icon"></i>
+          <input type="range" class="ml-2" />
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="assets/js/index.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="assets/js/index.js"></script>
+</body>
+
 </html>

@@ -177,3 +177,16 @@ const img = document.getElementById('imgAlbum');
 img.addEventListener('load', () => {
 img.onload=calcolaMediaColori();
 });
+
+
+//ALBUM search che porta alla pagina index
+
+document.getElementById("searchBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  const input = document.getElementById("searchInput");
+  const query = input.value;
+  const newUrl = `./index.html?search=${encodeURIComponent(
+    query.replaceAll(" ", "-")
+  )}`;
+  window.location.href = newUrl;
+});
