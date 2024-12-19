@@ -66,6 +66,9 @@ const albums = [
 const mainContainer = document.getElementById("main-Container");
 const searchContainer = document.getElementById("second-main-Container");
 
+let musicElement = [];
+let preferiti = JSON.parse(localStorage.getItem("Like")) || [];
+
 let newArtistArray = [];
 let newAlbumArray = [];
 
@@ -101,15 +104,16 @@ function init() {
       searchContainer.classList.add("d-none");
       getAlbum();
       getArtist();
+      printLibrary();
     } else {
       mainContainer.classList.add("d-none");
       searchContainer.classList.remove("d-none");
       searchQuery(param);
+      printLibrary();
     }
   };
 
   updateView();
-
   window.addEventListener("popstate", updateView);
 }
 
@@ -488,8 +492,7 @@ function printSearch(item) {
 
   //ORA LA PARTE SOTTO A TUTTA LARGHEZZA
   for (let i = 0; i < item.length; i++) {
-    let music = JSON.stringify(item[i]);
-   ; //fa diventare una stringa il tutto l'oggetto che serve
+    let music = JSON.stringify(item[i]); //fa diventare una stringa il tutto l'oggetto che serve
     //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
     const popRow = document.createElement("div");
     popRow.className =
@@ -545,7 +548,7 @@ function printSearch(item) {
 
     const heart = document.createElement("i");
     heart.className = "bi bi-heart mx-2 text-success";
-    heart.setAttribute('id',item[i].trackId)
+    heart.setAttribute("id", item[i].trackId);
     heartButton.appendChild(heart);
     //console.log(item[i])
 
@@ -606,22 +609,68 @@ function playSong() {
 }
 
 //FUNZIONE PER METTERE I LIKE
-let musicElement = [];
-
 function likeFeature(element) {
   //console.log(item);
-  let preferiti = JSON.parse(localStorage.getItem("Like")) || []; 
   const song = preferiti.find((item) => item.trackId === element.trackId);
 
   if (!song) {
-     preferiti.push(element);
-const fill = document.getElementById(`${element.trackId}`)
-fill.className='bi bi-heart-fill mx-2 text-success'
-
-  } else{
-    preferiti= preferiti.filter((x)=> x.trackId!== element.trackId)
-    const fill = document.getElementById(`${element.trackId}`)
-fill.className='bi bi-heart mx-2 text-success'
+    preferiti.push(element);
+    const fill = document.getElementById(`${element.trackId}`);
+    fill.className = "bi bi-heart-fill mx-2 text-success";
+  } else {
+    preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
+    const fill = document.getElementById(`${element.trackId}`);
+    fill.className = "bi bi-heart mx-2 text-success";
   }
   localStorage.setItem("Like", JSON.stringify(preferiti));
+  printLibrary();
 }
+
+function printLibrary() {
+  const libraryList = document.getElementById("libraryList");
+  libraryList.innerHTML = "";
+  //console.log(preferiti)
+  preferiti.forEach((element) => {
+    let music = JSON.stringify(element);
+
+    const popularBody = document.createElement("div");
+    popularBody.className = "d-flex mb-2 hover-custom";
+    popularBody.setAttribute("onclick", `addMusic(${music})`);
+    libraryList.appendChild(popularBody);
+
+    //SECONDA SEZIONE: COVER ALBUM + TITOLO
+    const popCover = document.createElement("img");
+
+    popCover.setAttribute("src", element.albumCover);
+    popCover.setAttribute("width", "25px");
+    popCover.setAttribute("height", "25px");
+    popularBody.appendChild(popCover);
+
+    const info = document.createElement("div");
+    info.className = "m-0 ps-2";
+    popularBody.appendChild(info);
+
+    const a = document.createElement("p");
+    a.className = "m-0 ps-2 fs-small";
+    a.innerText = element.artistName;
+    info.appendChild(a);
+
+    const b = document.createElement("p");
+    b.className = "m-0 ps-2 fs-small";
+    b.innerText = element.trackTitle;
+    info.appendChild(b);
+  });
+}
+
+/* function displaySelectedAlbum() { 
+//         const selectedAlbum = JSON.parse(localStorage.getItem('selectedAlbumId')) || [];
+//          
+//          libraryList.innerHTML = ''; 
+//          // Pulire la lista precedente 
+//          selectedAlbum.forEach(title => { 
+//           
+//            li.className = 'list-group-item'; 
+//            
+//            
+//           });
+//         }*/
