@@ -281,7 +281,7 @@ width: 1em;
 
 
 /*ALBUM INIZIO*/
-.hero{
+-hero{
   box-shadow: 0px 50px 100px 50px #DC3545;
 }
 .titolo{
@@ -365,11 +365,19 @@ ol li p{
 /*ARTIST INIZIO*/
 #heroSection{
   min-height:35vh;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  width: 100%;
+  
 }
-
+.hero-custom{
+  width: 100%;
+  object-fit: cover;
+  
+  
+}
+.heroText-Custom{
+  left: 15px;
+  bottom:15px;
+}
 #heroArtistName{
   font-size: 4.5em;
   margin-bottom: 0px !important;
@@ -382,3 +390,39 @@ ol li p{
 
 /*ARTIST FINE*/
 
+/*player*/
+.player-btn {
+  background-color: red;
+}
+
+.progress {
+  height: 0.5em;
+}
+
+
+.progress-bar {
+  color: #a1a1a1
+}
+
+#music-player i {
+  color: #a1a1a1;
+  font-size: 150%;
+}
+
+#music-player i:hover {
+  color: white;
+}
+
+#song-title {
+  font-size: 100%;
+}
+
+#artist-name {
+  font-size: 70%;
+  color: #a1a1a1
+}
+
+#current-song-img {
+  max-width: 5em;
+}
+/*fine player*/

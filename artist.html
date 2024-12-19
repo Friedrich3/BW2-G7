@@ -79,17 +79,64 @@
           id="sidebar"
         >
           <div class="menu-header" onclick="toggleMenu()">
-            <i class="bi bi-music-note-list"></i> <span>La tua Libreria</span>
+            <i class="bi bi-music-note-list fs-4 me-2"></i>
+            <span class="fw-bold hydeLibrary">La tua Libreria</span>
+            <span><i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i></span>
+            <!-- <form class="library-search-container">
+              <button class="btn" type="button"></button>
+              <input type="text" placeholder="Cerca in la Tua Libreria" />
+            </form>  -->
+            <div class="my-2 hydeLibrary" id="library-container">
+              <ul class="d-flex list-unstyled my-2">
+                <li
+                  class="rounded bg-secondary text-light fs-6 fw-bold p-1 mx-2"
+                >
+                  Playlist
+                </li>
+                <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
+                  Artisti
+                </li>
+                <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
+                  Album
+                </li>
+              </ul>
+              <div class="hydeLibrary d-flex justify-content-between">
+                <span
+                  ><i class="bi bi-search library-icon ms-4 fs-6 grey-icon"></i
+                ></span>
+                <span
+                  ><i class="bi bi-border-width ms-2 fs-6 grey-icon"></i
+                ></span>
+              </div>
+            </div>
           </div>
 
-          <form class="library-search-container">
-            <button class="btn" type="button">
-              <i class="bi bi-search library-icon"></i>
+          <div class="dropdown hydeLibrary">
+            <button
+              class="btn btn-secondary dropdown-toggle text-end"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fa fa-plus"></i>Crea
             </button>
-            <input type="text" placeholder="Cerca in la Tua Libreria" />
-          </form>
-
-          <div id="library-container"></div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <form class="px-4 py-3">
+                <div class="form-group">
+                  <label for="playlistName">Nome Playlist</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="playlistName"
+                    placeholder="Inserisci nome playlist"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Crea</button>
+              </form>
+            </div>
+          </div>
         </div>
 
         <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
@@ -98,10 +145,14 @@
             <div class="container-fluid main p-0">
               <div
                 id="heroSection"
-                class="d-flex flex-column justify-content-end px-3"
+                class="d-flex flex-column justify-content-end position-relative"
               >
                 <!-- HERO SECTION CON BG-FOTO-ARTISTA BADGE CON VERIFIED NOMEARTISTA ASCOLTATORI MENSILI-->
-                <div class="">
+                <div class="w-100 overflow-hidden position-absolute">
+                <img src="" crossorigin="anonymous" alt="" id="imgHero" class="hero-custom"/>
+                <canvas id="copertinaCanvas" style="display: none"></canvas>
+                </div>
+                <div class="position-absolute heroText-Custom">
                   <p
                     class="d-flex align-items-center mb-0"
                     id="verifiedArtist"
@@ -112,7 +163,7 @@
               </div>
               <!--BOTTONE CON PLAY SEGUI E MENU TRE PUNTINI-->
               <div id="">
-                <div class="container-fluid mt-3">
+                <div class="container-fluid mt-3 ">
                   <button
                     class="btn bg-success btn-circle btn-lg rounded-circle"
                     id=""
@@ -154,7 +205,7 @@
                 </div>
               </div>
 
-              <section class="container-fluid mt-4 m-auto">
+              <section class="container-fluid mt-4 m-auto ">
                 <div class="row">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-7">
@@ -230,7 +281,7 @@
                   <!--CANZONI POPOLARI DELL'ARTISTA -->
                   <div class="col-lg-3">
                     <h3>Selezionato dall'Artista</h3>
-                    <div id="artistSelection" class=" position-relative">
+                    <div id="artistSelection" class="position-relative">
                       <!--QUA DENTRO IL PRIMO ALBUM TROVATO DI QUELL'ARTISTA CON JS-->
                       <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
                 <div class="card-padre d-flex justify-content-center pt-4">
@@ -247,7 +298,7 @@
                 </div>
 
               </div>-->
-              <!--FINE ALBUMS-->
+                      <!--FINE ALBUMS-->
                     </div>
                   </div>
                   <div class="col-lg-1"></div>
@@ -255,9 +306,9 @@
               </section>
               <div class="container-fluid mt-5 ps-5">
                 <h3>DISCOGRAFIA</h3>
-                
+
                 <div class="row" id="listDiscografia">
-                      <!--ALBUM RELATIVI A QUELL ARTISTA
+                  <!--ALBUM RELATIVI A QUELL ARTISTA
 
 
                   <div id="cardwrapper" class="col-1 bg-schede d-flex justify-content-center card-prova g-0">
@@ -280,10 +331,10 @@
                 </div>
               </div>
               <hr />
-              <footer class="text-light py-4">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-3">
+              <footer class="bg-schede text-light py-4 mt-5">
+                <div class="container-fluid">
+                  <div class="row row-cols-md-5 mx-3 px-5">
+                    <div class="col-md-2 m-2">
                       <h5>Azienda</h5>
                       <ul class="list-unstyled">
                         <li>
@@ -309,7 +360,7 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 m-2">
                       <h5>Community</h5>
                       <ul class="list-unstyled">
                         <li>
@@ -349,7 +400,7 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 m-2">
                       <h5>Link Utili</h5>
                       <ul class="list-unstyled">
                         <li>
@@ -375,7 +426,7 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 m-2">
                       <h5>Piani Spotify</h5>
                       <ul class="list-unstyled">
                         <li>
@@ -415,6 +466,35 @@
                         </li>
                       </ul>
                     </div>
+                    <div class="col-md-3 text-center me-0">
+                      <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
+                      <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
+                      <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
+                    </div>
+                  </div>
+
+                  <hr />
+                  <div class="container-fluid text-light p-0 py-2 lastNotes">
+                    <ul class="row row-cols-md-5 ms-3 me-5 px-5 list-unstyled">
+                      <li class="col-md-2">
+                        <p>Informativa sulla Privacy</p>
+                      </li>
+                      <li class="col-md-2">
+                        <p>Note Legali</p>
+                      </li>
+                      <li class="col-md-2">
+                        <p>Impostazioni dei Cookies</p>
+                      </li>
+                      <li class="col-md-2">
+                        <p>Info Annunci</p>
+                      </li>
+                      <li class="col-md-2">
+                        <p>Collaborazioni</p>
+                      </li>
+                      <li class="col-md-2 text-center">
+                        <p>&copy;2024 Spotify AB</p>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </footer>
