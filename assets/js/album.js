@@ -9,20 +9,7 @@ let btnPlayPause = document.getElementById("playPause");    //bottone di play/pa
 let arraySong = [];
 let album = {};
 
-class NewItem{
-  constructot (_trackId, _trackTitle, _albumId, _albumTitle, _albumCover, _artistId , _artistName , _artistCover, _duration ,_preview){
-      this.trackId = _trackId;
-      this.trackTitle = _trackTitle;
-      this.albumId = _albumId;
-      this.albumTitle = _albumTitle;
-      this.albumCover = _albumCover;
-      this.artistId = _artistId;
-      this.artistName = _artistName;
-      this.artistCover = _artistCover;
-      this.duration = _duration;
-      this.preview = _preview;
-  } 
-}
+let recentSongs = []; //ARRAY POPOLATO CON LE CANZONI IN LOCAL STORAGE
 
 let queryResult;
 
@@ -252,6 +239,7 @@ function addMusic(object) {
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
     localStorage.setItem("InfoCanzone", canzone);
+    listenedSong(object);
     return;
   } else {
     audioPlayer.pause();
@@ -262,6 +250,7 @@ function addMusic(object) {
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
     localStorage.setItem("InfoCanzone", canzone);
+    listenedSong(object);
     return;
   }
 }
@@ -274,5 +263,16 @@ function playPause() {
   } else {
     audioPlayer.pause();
     btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+  }
+}
+
+function listenedSong(canzone){
+  console.log(canzone);
+  if(!localStorage.getItem("CanzoniRecenti")){
+    recentSongs.push(canzone);
+    localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+  }else{
+    recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+    
   }
 }
