@@ -618,6 +618,7 @@
       </section>
 
       <section id="music-player" class="container-fluid bg-black pt-3">
+        <audio src="" class="d-none" id="audioPlayer"></audio>
         <div class="row row-cols-4 align-items-center">
           <div
             class="col-2 d-flex align-items-center p-0"
@@ -625,12 +626,12 @@
             <img
               id="current-song-img"
               src="./assets/imgs/main/image-1.jpg"
-              class="img-fluid"
+              class="img-fluid rounded-3 pe-1"
               
             />
             <div>
-              <p id="song-title" class="text-white h3">Title</p>
-              <p id="artist-name" class="text-white h4">Artist</p>
+              <p id="song-title" class="text-white h3 m-0">Title</p>
+              <p id="artist-name" class="text-white h4 m-0 opacity-75">Artist</p>
             </div>
           </div>
           <div class="col-1">
@@ -660,7 +661,7 @@
                 </div>
               </div>
               <div class="col-auto">
-                <p id="duration" class="text-white">0:00</p>
+                <p id="songDuration" class="text-white">0:00</p>
               </div>
             </div>
           </div>

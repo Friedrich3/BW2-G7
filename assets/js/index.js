@@ -564,9 +564,36 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 function addMusic(object){
   console.log(object);
 
+  let currentSongImg = document.getElementById("current-song-img");
+  currentSongImg.setAttribute("src", `${object.albumCover}`);
   let songTitle = document.getElementById("song-title");
   songTitle.innerText = object.trackTitle;
   let artistName = document.getElementById("artist-name");
   artistName.innerText = object.artistName;
+  let songDuration = document.getElementById("songDuration");
+  songDuration.innerText = convertToMinSec(object.duration, false);
 
+
+  //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
+  let audio = document.getElementById("audioPlayer");
+  if(!localStorage.getItem("Canzone")){
+    audio.setAttribute("src", object.preview);
+    audio.play();
+    localStorage.setItem("Canzone", object.preview);
+    return;
+  }else{
+    audio.pause();
+    audio.setAttribute("src", object.preview);
+    audio.play();
+    localStorage.setItem("Canzone",object.preview);
+    return;
+  }
 }
+
+function playSong(){
+  
+  
+  
+  song.play();
+  song.pause();
+};
