@@ -6,13 +6,10 @@ const albumUrl = `https://striveschool-api.herokuapp.com/api/deezer/album/${para
 let arraySong = [];
 let album = {};
 
-
-
 window.addEventListener("load", init());
 
 function init() {
   getAlbum();
-
 };
 
 async function getAlbum() {
@@ -26,10 +23,10 @@ async function getAlbum() {
     let data = await response.json();
     album = { ...data };
     arraySong = data.tracks.data;
-    console.log(album);
+    //console.log(arraySong);
     printHero(album);
     printSong(arraySong);
-
+  
   } catch (error) {
     console.log("Error: " + error);
   }
@@ -48,6 +45,18 @@ function printHero(album) {
 
   imgAlbum.setAttribute("src", album.cover_medium);
   imgTitle.innerText =  `${album.title}`;
+  sizeh2(album.title.length)
+
+  // riduzione size h2
+  function sizeh2(x){
+    //console.log("sono entrato")
+    if(x>=30){
+      title.style.fontSize="40px"
+    }else if(x>=15){
+      title.style.fontSize="55px"
+    }else{}
+  }
+  
 
   imgBandLink.setAttribute("href",`artist.html?id=${album.artist.id}`);
   bandImage.setAttribute("src", album.artist.picture_medium);
@@ -66,8 +75,9 @@ function printHero(album) {
   durata.classList.add("opacity-75","d-inline");
   durata.innerText = convertToMinSec(album.duration,true);
 
-  //albumInfo.innerHTML = `${anno.innerText} • ${numTrack.innerHTML} • ${durata.innerHTML}.`
+  
   albumInfo.append(anno,numTrack,durata);
+  
 };
 
 function printSong(array){
@@ -75,7 +85,7 @@ let songList = document.getElementById("songList");
 songList.innerHTML = "";
 for(let i = 0; i< array.length; i++){
 let songRow = document.createElement("div");
-songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom","py-2","mb-3","card-padre","w-100");
+songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom","py-2","mb-3","card-padre");
 
 let songIndexCont = document.createElement("div");
 let songIndexPar = document.createElement("p");
@@ -118,10 +128,7 @@ function toggleMenu() {
 function convertToMinSec(seconds,boolean) {
   let testo = "";
   const minutes = Math.floor(seconds / 60); // ottieni i minuti
-  let remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
-  if (remainingSeconds < 10) {
-    remainingSeconds = `0${remainingSeconds}`;
-  }
+  const remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
   if(boolean){
   testo =  `${minutes}min ${remainingSeconds}sec`;
   }else{
@@ -129,3 +136,44 @@ function convertToMinSec(seconds,boolean) {
   }
   return testo
 }
+//va richiamata dopo aver stampato il logo nel DOM
+//funzione per il calcolo della media colori
+function calcolaMediaColori() {
+  const img = document.getElementById('imgAlbum');
+  const canvas = document.getElementById('copertinaCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  // Disegna l'immagine sul canvas
+  ctx.drawImage(img, 0, 0);
+
+  // Ottieni i dati dei pixel
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const pixels = imageData.data;
+
+  let r = 0, g = 0, b = 0;
+  const totalPixels = pixels.length / 4; //valori: R, G, B, A
+
+  // Calcola la somma dei colori
+  for (let i = 0; i < pixels.length; i += 4) {
+      r += pixels[i];
+      g += pixels[i + 1];
+      b += pixels[i + 2];
+  }
+
+  // Calcola la media
+  r = Math.round(r / totalPixels);
+  g = Math.round(g / totalPixels);
+  b = Math.round(b / totalPixels);
+
+  let hero=document.getElementById("hero");
+  hero.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  hero.style.boxShadow = `0px 80px 200px 150px rgba(${r}, ${g}, ${b}, 0.6)`;
+}
+
+const img = document.getElementById('imgAlbum');
+
+img.addEventListener('load', () => {
+img.onload=calcolaMediaColori();
+});
