@@ -27,7 +27,7 @@ async function getArtist() {
         printHero(object);
         getDatas(data.name)
     } catch (error) {
-        console.log("Error: " + error)
+        console.log("Error: " + error);
     }
 };
 async function getDatas(name) {
