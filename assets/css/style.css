@@ -9,7 +9,6 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: black;
   color: white;
-
   padding: 0;
   margin: 0;
 }
@@ -18,7 +17,14 @@ p{
   padding:0;
 }
 
+main{
+  height:87vh;
+  box-sizing: border-box;
+}
 
+main>section:first-child{
+  height: 85%;
+}
 
 .bg-custom {
   background-color: #1e1e1e;
@@ -110,7 +116,7 @@ button:hover .grey-icon {
 }
 
 .search-container input:focus .search-container {
-  border: 1px #fefefe; /* Colore del bordo quando si scrive (verde, ad esempio) */
+  border: 2px solid #fefefe; /* Colore del bordo quando si scrive (verde, ad esempio) */
 }
 
 .dropdown-item, .dropdown-item:hover  {
@@ -127,11 +133,9 @@ button:hover .grey-icon {
   color: #fefefe;
 }
 
-
 .sidebar {
     background-color: #000;
     width: 60px;
-    height: 100vh;
     overflow: hidden;
     transition: width 0.3s ease;
     display: flex;
@@ -182,7 +186,7 @@ button:hover .grey-icon {
 }
 .top-custom{
   top: 5.9em;
-  height: 75vh;
+  height: 75%;
 }
 
 .bg-schede{
@@ -391,6 +395,9 @@ ol li p{
 /*ARTIST FINE*/
 
 /*player*/
+
+
+
 .player-btn {
   background-color: red;
 }
@@ -407,6 +414,7 @@ ol li p{
 #music-player i {
   color: #a1a1a1;
   font-size: 150%;
+
 }
 
 #music-player i:hover {
@@ -423,6 +431,6 @@ ol li p{
 }
 
 #current-song-img {
-  max-width: 5em;
+  max-width: 4em;
 }
 /*fine player*/
