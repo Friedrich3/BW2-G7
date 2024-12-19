@@ -1,217 +1,166 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artist</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
 
-  <body class="container-fluid">
-    <header class="navbar bg-black py-3 row row-cols-3 sticky-top">
-      <div class="flex-start col-4">
-        <a class="navbar-brand p-2" href="./index.html">
-          <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
-        </a>
-      </div>
-      <div class="d-flex col-4">
-        <button class="btn" type="button">
-          <i class="bi bi-house-door grey-icon"></i>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artist</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="container-fluid">
+  <header class="navbar bg-black row row-cols-3">
+    <div class="flex-start col-4">
+      <a class="navbar-brand p-2" href="./index.html">
+        <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
+      </a>
+    </div>
+    <div class="d-flex col-4">
+      <button class="btn" type="button">
+        <i class="bi bi-house-door grey-icon"></i>
+      </button>
+      <form class="search-container" id="searchForm">
+        <input type="text" placeholder="Cosa vuoi ascoltare?" class="ms-3" id="searchInput" />
+        <button class="btn" type="submit" id="searchBtn">
+          <i class="bi bi-search fs-4 grey-icon"></i>
         </button>
-        <form class="search-container">
-          <button class="btn" type="button">
-            <i class="bi bi-search grey-icon"></i>
-          </button>
-          <input type="text" placeholder="Cosa vuoi ascoltare?" />
-          <button class="btn" type="button">
-            <i class="bi bi-folder-symlink-fill grey-icon"></i>
-          </button>
-        </form>
-      </div>
-      <div class="d-flex col-4 justify-content-end">
-        <div class="dropdown">
-          <button class="btn" data-bs-toggle="dropdown" type="button">
-            <i class="bi bi-bell grey-icon"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end bg-dark">
-            <li>
-              <a class="dropdown-item" href="#">Nessuna nuova notifica</a>
-            </li>
-          </ul>
-        </div>
 
-        <div class="dropdown user">
-          <button
-            class="btn"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="bi bi-person-circle grey-icon"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end bg-dark">
-            <li><a class="dropdown-item" href="#">Account</a></li>
-            <li><a class="dropdown-item" href="#">Profilo</a></li>
-            <li><a class="dropdown-item" href="#">Impostazioni</a></li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li><a class="dropdown-item" href="#">Esci</a></li>
-          </ul>
-        </div>
-      </div>
-    </header>
+        <!-- <button class="btn" type="button">
+            <i class="bi bi-view-list fs-3 grey-icon"></i>
+          </button>  -->
+      </form>
+    </div>
 
-    <main class="container-fluid bg-black p-0">
-      <section class="d-flex justify-content-between gap-2">
-        <div
-          class="sidebar bg-schede align-items-start sticky-top top-custom pt-2 px-3 rounded-3"
-          id="sidebar"
-        >
-          <div class="menu-header" onclick="toggleMenu()">
-            <i class="bi bi-music-note-list fs-4 me-2"></i>
-            <span class="fw-bold hydeLibrary">La tua Libreria</span>
-            <span><i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i></span>
-            <!-- <form class="library-search-container">
+    <div class="d-flex col-4 justify-content-end">
+      <div class="dropdown">
+        <button class="btn" data-bs-toggle="dropdown" type="button">
+          <i class="bi bi-bell fs-3 grey-icon"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end bg-dark">
+          <li>
+            <a class="dropdown-item" href="#">Nessuna nuova notifica</a>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown user">
+        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle fs-3 grey-icon"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end bg-dark">
+          <li><a class="dropdown-item" href="#">Account</a></li>
+          <li><a class="dropdown-item" href="#">Profilo</a></li>
+          <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li><a class="dropdown-item" href="#">Esci</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-fluid bg-black p-0">
+    <section class="d-flex justify-content-between gap-2">
+      <div class="sidebar bg-schede align-items-start sticky-top h-100 top-custom pt-2 px-3 rounded-3" id="sidebar">
+        <div class="menu-header" onclick="toggleMenu()">
+          <i class="bi bi-music-note-list fs-4 me-2"></i>
+          <span class="fw-bold hydeLibrary">La tua Libreria</span>
+          <span><i class="bi bi-plus-lg grey-icon fs-4 ms-5"></i></span>
+          <!--<form class="library-search-container">
               <button class="btn" type="button"></button>
               <input type="text" placeholder="Cerca in la Tua Libreria" />
-            </form>  -->
-            <div class="my-2 hydeLibrary" id="library-container">
-              <ul class="d-flex list-unstyled my-2">
-                <li
-                  class="rounded bg-secondary text-light fs-6 fw-bold p-1 mx-2"
-                >
-                  Playlist
-                </li>
-                <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
-                  Artisti
-                </li>
-                <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
-                  Album
-                </li>
-              </ul>
-              <div class="hydeLibrary d-flex justify-content-between">
-                <span
-                  ><i class="bi bi-search library-icon ms-4 fs-6 grey-icon"></i
-                ></span>
-                <span
-                  ><i class="bi bi-border-width ms-2 fs-6 grey-icon"></i
-                ></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="dropdown hydeLibrary">
-            <button
-              class="btn btn-secondary dropdown-toggle text-end"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fa fa-plus"></i>Crea
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <form class="px-4 py-3">
-                <div class="form-group">
-                  <label for="playlistName">Nome Playlist</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="playlistName"
-                    placeholder="Inserisci nome playlist"
-                  />
-                </div>
-                <button type="submit" class="btn btn-primary">Crea</button>
-              </form>
+            </form>-->
+          <div class="my-2 hydeLibrary" id="library-container">
+            <ul class="d-flex list-unstyled my-2">
+              <li class="rounded bg-secondary text-light fs-6 fw-bold p-1 mx-2">
+                Playlist
+              </li>
+              <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
+                Artisti
+              </li>
+              <li class="rounded bg-secondary text-light fw-bold p-1 mx-2">
+                Album
+              </li>
+            </ul>
+            <div class="hydeLibrary d-flex justify-content-between">
+              <span><i class="bi bi-search library-icon ms-4 fs-6 grey-icon"></i></span>
+              <span><i class="bi bi-border-width ms-2 fs-6 grey-icon"></i></span>
             </div>
           </div>
         </div>
 
-        <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
-          <div class="container-fluid flex-grow-1 p-0 m-0" id="main-Container">
-            <!--Da inserire i contenuti delle pagine Album, Artist, Homepage-->
-            <div class="container-fluid main p-0">
-              <div
-                id="heroSection"
-                class="d-flex flex-column justify-content-end position-relative"
-              >
-                <!-- HERO SECTION CON BG-FOTO-ARTISTA BADGE CON VERIFIED NOMEARTISTA ASCOLTATORI MENSILI-->
-                <div class="w-100 overflow-hidden position-absolute">
-                <img src="" crossorigin="anonymous" alt="" id="imgHero" class="hero-custom"/>
-                <canvas id="copertinaCanvas" style="display: none"></canvas>
-                </div>
-                <div class="position-absolute heroText-Custom">
-                  <p
-                    class="d-flex align-items-center mb-0"
-                    id="verifiedArtist"
-                  ></p>
-                  <p class="fw-bolder" id="heroArtistName"></p>
-                  <p id="heroArtistView"></p>
-                </div>
+        <div class="dropdown hydeLibrary">
+          <button class="btn btn-secondary dropdown-toggle text-end" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-plus"></i>Crea
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <form class="px-4 py-3">
+              <div class="form-group">
+                <label for="playlistName">Nome Playlist</label>
+                <input type="text" class="form-control" id="playlistName" placeholder="Inserisci nome playlist" />
               </div>
-              <!--BOTTONE CON PLAY SEGUI E MENU TRE PUNTINI-->
-              <div id="">
-                <div class="container-fluid mt-3 ">
-                  <button
-                    class="btn bg-success btn-circle btn-lg rounded-circle"
-                    id=""
-                  >
-                    <i class="bi bi-play-fill"></i>
-                  </button>
-                  <button
-                    class="btn border border-secondary btn-outline-secondary rounded-pill text-light ms-3"
-                  >
-                    Segui
-                  </button>
-                  <div class="dropdown d-inline-block">
-                    <button
-                      class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu bg-black">
-                      <li>
-                        <a class="dropdown-item text-light" href="#"
-                          ><i class="bi bi-person-add"></i> Follow</a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item text-light" href="#"
-                          ><i class="bi bi-share"></i> Share</a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item text-light" href="#"
-                          ><i class="bi bi-ban"></i> Block</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              <button type="submit" class="btn btn-primary">Crea</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-              <section class="container-fluid mt-4 m-auto ">
-                <div class="row">
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-7">
-                    <h3>Canzoni Popolari</h3>
-                    <div class="mt-3 gap-5" id="artistSongList">
-                      <!--CARTE COMPILATE CON JS DA QUA
+      <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
+        <div class="container-fluid flex-grow-1 p-0 m-0" id="main-Container">
+          <!--Da inserire i contenuti delle pagine Album, Artist, Homepage-->
+          <div class="container-fluid main p-0">
+            <div id="heroSection" class="d-flex flex-column justify-content-end position-relative">
+              <!-- HERO SECTION CON BG-FOTO-ARTISTA BADGE CON VERIFIED NOMEARTISTA ASCOLTATORI MENSILI-->
+              <div class="w-100 overflow-hidden position-absolute">
+                <img src="" crossorigin="anonymous" alt="" id="imgHero" class="hero-custom" />
+                <canvas id="copertinaCanvas" style="display: none"></canvas>
+              </div>
+              <div class="position-absolute heroText-Custom">
+                <p class="d-flex align-items-center mb-0" id="verifiedArtist"></p>
+                <p class="fw-bolder" id="heroArtistName"></p>
+                <p id="heroArtistView"></p>
+              </div>
+            </div>
+            <!--BOTTONE CON PLAY SEGUI E MENU TRE PUNTINI-->
+            <div id="">
+              <div class="container-fluid mt-3 ">
+                <button class="btn bg-success btn-circle btn-lg rounded-circle" id="">
+                  <i class="bi bi-play-fill"></i>
+                </button>
+                <button class="btn border border-secondary btn-outline-secondary rounded-pill text-light ms-3">
+                  Segui
+                </button>
+                <div class="dropdown d-inline-block">
+                  <button class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                  <ul class="dropdown-menu bg-black">
+                    <li>
+                      <a class="dropdown-item text-light" href="#"><i class="bi bi-person-add"></i> Follow</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-light" href="#"><i class="bi bi-share"></i> Share</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-light" href="#"><i class="bi bi-ban"></i> Block</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <section class="container-fluid mt-4 m-auto ">
+              <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-7">
+                  <h3>Canzoni Popolari</h3>
+                  <div class="mt-3 gap-5" id="artistSongList">
+                    <!--CARTE COMPILATE CON JS DA QUA
                       <div
                         class="row row-cols-4 justify-content-between hover-custom card-padre"
                       >
@@ -235,10 +184,10 @@
                         </div>
                       </div>
                         -->
-                      <!--A QUA-->
-                    </div>
-                    <div id="songListDue" class="collapse mt-1 gap-5">
-                      <!--CARTE COMPILATE CON JS DA QUA
+                    <!--A QUA-->
+                  </div>
+                  <div id="songListDue" class="collapse mt-1 gap-5">
+                    <!--CARTE COMPILATE CON JS DA QUA
                       <div
                         class="row row-cols-4 justify-content-between hover-custom card-padre"
                       >
@@ -269,21 +218,17 @@
                         </div>
                       </div>-->
 
-                      <!--A QUA-->
-                    </div>
-                    <a
-                      href="#songListDue"
-                      data-bs-toggle="collapse"
-                      class="text-decoration-none text-light opacity-75"
-                      >Visualizza Altro</a
-                    >
+                    <!--A QUA-->
                   </div>
-                  <!--CANZONI POPOLARI DELL'ARTISTA -->
-                  <div class="col-lg-3">
-                    <h3>Selezionato dall'Artista</h3>
-                    <div id="artistSelection" class="position-relative">
-                      <!--QUA DENTRO IL PRIMO ALBUM TROVATO DI QUELL'ARTISTA CON JS-->
-                      <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
+                  <a href="#songListDue" data-bs-toggle="collapse"
+                    class="text-decoration-none text-light opacity-75">Visualizza Altro</a>
+                </div>
+                <!--CANZONI POPOLARI DELL'ARTISTA -->
+                <div class="col-lg-3">
+                  <h3>Selezionato dall'Artista</h3>
+                  <div id="artistSelection" class="position-relative">
+                    <!--QUA DENTRO IL PRIMO ALBUM TROVATO DI QUELL'ARTISTA CON JS-->
+                    <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
                 <div class="card-padre d-flex justify-content-center pt-4">
                 <div class="card bg-transparent border-0 card-figlio">
                   <a href=""><img
@@ -298,17 +243,17 @@
                 </div>
 
               </div>-->
-                      <!--FINE ALBUMS-->
-                    </div>
+                    <!--FINE ALBUMS-->
                   </div>
-                  <div class="col-lg-1"></div>
                 </div>
-              </section>
-              <div class="container-fluid mt-5 ps-5">
-                <h3>DISCOGRAFIA</h3>
+                <div class="col-lg-1"></div>
+              </div>
+            </section>
+            <div class="container-fluid mt-5 ps-5">
+              <h3>DISCOGRAFIA</h3>
 
-                <div class="row" id="listDiscografia">
-                  <!--ALBUM RELATIVI A QUELL ARTISTA
+              <div class="row" id="listDiscografia">
+                <!--ALBUM RELATIVI A QUELL ARTISTA
 
 
                   <div id="cardwrapper" class="col-1 bg-schede d-flex justify-content-center card-prova g-0">
@@ -327,203 +272,166 @@
     
                   </div>-->
 
-                  <!-- QUA -->
-                </div>
+                <!-- QUA -->
               </div>
-              <hr />
-              <footer class="bg-schede text-light py-4 mt-5">
-                <div class="container-fluid">
-                  <div class="row row-cols-md-5 mx-3 px-5">
-                    <div class="col-md-2 m-2">
-                      <h5>Azienda</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Chi siamo</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Opportunità di Lavoro</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >For the Record</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-2 m-2">
-                      <h5>Community</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Per Artisti</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Sviluppatori</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Pubblicità</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Investitori</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Venditori</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-2 m-2">
-                      <h5>Link Utili</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Assistenza</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >App per cellulare gratuita</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Diritti del Consumatore</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-2 m-2">
-                      <h5>Piani Spotify</h5>
-                      <ul class="list-unstyled">
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Individual</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Duo</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Family</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Premium Student</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            href="javascript:void(0)"
-                            class="text-light text-decoration-none"
-                            >Spotify Free</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-3 text-center me-0">
-                      <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
-                      <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
-                      <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
-                    </div>
-                  </div>
-
-                  <hr />
-                  <div class="container-fluid text-light p-0 py-2 lastNotes">
-                    <ul class="row row-cols-md-5 ms-3 me-5 px-5 list-unstyled">
-                      <li class="col-md-2">
-                        <p>Informativa sulla Privacy</p>
+            </div>
+            <hr />
+            <footer class="bg-schede text-light py-4 mt-5">
+              <div class="container-fluid">
+                <div class="row row-cols-md-5 mx-3 px-5">
+                  <div class="col-md-2 m-2">
+                    <h5>Azienda</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Chi siamo</a>
                       </li>
-                      <li class="col-md-2">
-                        <p>Note Legali</p>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Opportunità di Lavoro</a>
                       </li>
-                      <li class="col-md-2">
-                        <p>Impostazioni dei Cookies</p>
-                      </li>
-                      <li class="col-md-2">
-                        <p>Info Annunci</p>
-                      </li>
-                      <li class="col-md-2">
-                        <p>Collaborazioni</p>
-                      </li>
-                      <li class="col-md-2 text-center">
-                        <p>&copy;2024 Spotify AB</p>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">For the Record</a>
                       </li>
                     </ul>
                   </div>
+                  <div class="col-md-2 m-2">
+                    <h5>Community</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Per Artisti</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Sviluppatori</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Pubblicità</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Investitori</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Venditori</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-2 m-2">
+                    <h5>Link Utili</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Assistenza</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">App per cellulare
+                          gratuita</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Diritti del Consumatore</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-2 m-2">
+                    <h5>Piani Spotify</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Individual</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Duo</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Family</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Premium Student</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="text-light text-decoration-none">Spotify Free</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 text-center me-0">
+                    <i class="bi bi-instagram grey-icon fs-4 mx-3"></i>
+                    <i class="bi bi-facebook grey-icon fs-4 mx-3"></i>
+                    <i class="bi bi-twitter-x grey-icon fs-4 mx-3"></i>
+                  </div>
                 </div>
-              </footer>
+
+                <hr />
+                <div class="container-fluid text-light p-0 py-2 lastNotes">
+                  <ul class="row row-cols-md-5 ms-3 me-5 px-5 list-unstyled">
+                    <li class="col-md-2">
+                      <p>Informativa sulla Privacy</p>
+                    </li>
+                    <li class="col-md-2">
+                      <p>Note Legali</p>
+                    </li>
+                    <li class="col-md-2">
+                      <p>Impostazioni dei Cookies</p>
+                    </li>
+                    <li class="col-md-2">
+                      <p>Info Annunci</p>
+                    </li>
+                    <li class="col-md-2">
+                      <p>Collaborazioni</p>
+                    </li>
+                    <li class="col-md-2 text-center">
+                      <p>&copy;2024 Spotify AB</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="music-player" class="container-fluid bg-black player">
+      <div class="row row-cols-3 align-items-center">
+        <div class="col-3 d-flex justify-content-between align-items-center p-0">
+          <img id="current-song-img" src="./assets/imgs/main/image-1.jpg" class="img-fluid" />
+          <div>
+            <h2 id="song-title" class="text-white">Title</h2>
+            <h3 id="artist-name" class="text-white">Artist</h3>
+          </div>
+          <i class="bi bi-plus-lg"></i>
+        </div>
+        <div id="progress-container" class="col-6">
+          <div class="d-flex justify-content-center">
+            <button class="btn"><i class="bi bi-shuffle text-white"></i></button>
+            <button class="btn"><i class="bi bi-skip-start text-white"></i></button>
+            <button class="btn fs-3"><i class="bi bi-play-circle-fill text-white"></i></button>
+            <button class="btn"><i class="bi bi-skip-end text-white"></i></button>
+            <button class="btn"><i class="bi bi-repeat text-white"></i></button>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <p id="currentTime" class="text-white">0:00</p>
+            </div>
+            <div class="col">
+              <div class="progress" style="width: 100%">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuemin="0"
+                  aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <p id="duration" class="text-white">0:00</p>
             </div>
           </div>
         </div>
-      </section>
-
-      <section class="navbar bg-black row row-cols-3" id=" player-Container">
-        <div class="col-4">
-          <div id="playerCoverContainer"></div>
-          <div>
-            <h6 id="titlePlayer"></h6>
-            <p id="authPlayer"></p>
-          </div>
-          <button class="btn" id="likePlayer" type="button">
-            <i class="bi bi-heart payer-icon" id="likePlayer"></i>
-          </button>
+        <div class="col-3 d-flex align-items-center p-0 justify-content-center">
+          <i class="bi bi-music-note-list grey-icon px-1"></i>
+          <i class="bi bi-speaker-fill grey-icon px-1"></i>
+          <i class="bi bi-volume-up grey-icon"></i>
+          <input type="range" class="ml-2" />
         </div>
-        <div class="col-4"></div>
-        <div class="col-4"></div>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="assets/js/artist.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="assets/js/artist.js"></script>
+</body>
+
 </html>
