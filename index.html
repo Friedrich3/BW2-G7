@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,6 +32,7 @@
           onclick="window.location.href='./index.html'"
         >
           <i class="bi bi-house-door grey-icon"></i>
+
         </button>
         <form class="search-container" id="searchForm">
           <input
@@ -122,47 +124,37 @@
             </div>
           </div>
 
-          <div class="dropdown hydeLibrary">
-            <button
-              class="btn btn-secondary dropdown-toggle text-end"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Crea
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <form class="px-4 py-3">
-                <div class="form-group">
-                  <label for="playlistName">Nome Playlist</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="playlistName"
-                    placeholder="Inserisci nome playlist"
-                  />
-                </div>
-                <button type="submit" class="btn btn-primary">Crea</button>
-              </form>
-            </div>
+          <div id="libraryList" class="hydeLibrary library-scroll">
+
           </div>
+
         </div>
-        <!--Main Containers 1 e 2-->
-        <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
-          <!--MAIN CONTAINER CON OVERFLOW HIDDEN-->
-          <div
-            class="container-fluid flex-grow-1 p-0 m-0 bg-schede main"
-            id="main-Container"
-          >
-            <h2>Albums</h2>
-            <!--Cambiato ID senza "container" per matchare il print in js-->
-            <div
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100"
-              id="album"
-            >
-              <!--QUI SCHEDE JS RELATIVE AGLI ALBUMS
+        <!-- DROPDOWN MENU NON FUNZIONANTE MA SE C'è TEMPO è DA IMPLEMENTARE
+        <div class="dropdown hydeLibrary">
+          <button class="btn btn-secondary dropdown-toggle text-end" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-plus"></i>Crea
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <form class="px-4 py-3">
+              <div class="form-group">
+                <label for="playlistName">Nome Playlist</label>
+                <input type="text" class="form-control" id="playlistName" placeholder="Inserisci nome playlist" />
+              </div>
+              <button type="submit" class="btn btn-primary">Crea</button>
+            </form>
+          </div>
+        </div>-->
+
+      </div>
+      <!--Main Containers 1 e 2-->
+      <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
+        <!--MAIN CONTAINER CON OVERFLOW HIDDEN-->
+        <div class="container-fluid flex-grow-1 p-0 m-0 bg-schede main" id="main-Container">
+          <h2>Albums</h2>
+          <!--Cambiato ID senza "container" per matchare il print in js-->
+          <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="album">
+            <!--QUI SCHEDE JS RELATIVE AGLI ALBUMS
               VA AGGIUNTO TITOLO DELLA SEZIONE -->
               <!-- ELIMINARE DA QUA-->
               <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
@@ -616,7 +608,7 @@
             </div>
           </div>
         </div>
-      </section>
+</section>
 
       <section id="music-player" class="container-fluid bg-black pt-3">
         <audio src="" class="d-none" id="audioPlayer"></audio>

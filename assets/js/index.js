@@ -66,8 +66,13 @@ const albums = [
 const mainContainer = document.getElementById("main-Container");
 const searchContainer = document.getElementById("second-main-Container");
 
+
 let audioPlayer = document.getElementById("audioPlayer");   //VARIABILE GLOBALE PER IL PLAYER
 let btnPlayPause = document.getElementById("playPause");    //bottone di play/pause
+
+let musicElement = [];
+let preferiti = JSON.parse(localStorage.getItem("Like")) || [];
+
 
 let newArtistArray = [];
 let newAlbumArray = [];
@@ -104,14 +109,15 @@ function init() {
       searchContainer.classList.add("d-none");
       getAlbum();
       getArtist();
+      printLibrary();
     } else {
       mainContainer.classList.add("d-none");
       searchContainer.classList.remove("d-none");
       searchQuery(param);
+      printLibrary();
     }
   };
   updateView();
-
 
   window.addEventListener("popstate", updateView);
 }
@@ -234,24 +240,26 @@ function printAlbumCard(item, container) {
     let cardTitleLink = document.createElement("a");
     let cardTitle = document.createElement("p");
 
-    cardWrapper.className = 'col bg-schede d-flex justify-content-center card-prova g-0'
 
-    cardPadre.className = 'd-flex justify-content-center pt-4 card-padre'
+    cardWrapper.className = "col bg-schede d-flex justify-content-center card-prova g-0";
 
-    card.className = "card bg-transparent border-0 card-figlio"
+    cardPadre.className = "d-flex justify-content-center pt-4 card-padre";
+
+    card.className = "card bg-transparent border-0 card-figlio";
 
     cardImageLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardImage.className = "card-img-top img-fluid rounded-5"
+    cardImage.className = "card-img-top img-fluid rounded-5";
     cardImage.setAttribute("src", item[i].albumCover);
     cardImage.setAttribute("alt", "Logo Album");
 
-    cardBody.className = 'card-body'
+    cardBody.className = "card-body";
 
-    cardTitleLink.className = "text-light link-card"
+    cardTitleLink.className = "text-light link-card";
     cardTitleLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardTitle.className = 'card-text fs-5'
+    cardTitle.className = "card-text fs-5";
+
     cardTitle.innerText = `${item[i].albumTitle}`;
 
     cardTitleLink.appendChild(cardTitle);
@@ -326,7 +334,6 @@ let queryResult;
 let uniqueAlbum;
 let uniqueArtist;
 
-
 async function searchQuery(query) {
   const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
     " ",
@@ -347,10 +354,8 @@ async function searchQuery(query) {
       artistName: item.artist.name,
       artistCover: item.artist.picture_medium,
       duration: item.duration,
-
-      preview: item.preview
+      preview: item.preview,
     }));
-
 
     //Funzione per ottenre SOLO gli id unici di ALbum
     const albumIds = new Set(); //set serve per far si che crei un oggetti con elementi unici
@@ -404,6 +409,7 @@ function convertToMinSec(seconds, boolean) {
 }
 
 function printSearch(item) {
+
   let singleTrack = JSON.stringify(item[0]);
 
   //STAMPA SOLO DEL PRIMO ITEM
@@ -425,10 +431,10 @@ function printSearch(item) {
   const firstArtist = document.getElementById("firstArtistPic");
   firstArtist.setAttribute("src", item[0].artistCover);
 
-  const artistLink = document.getElementById('firstArtistLink')
+  const artistLink = document.getElementById("firstArtistLink");
+
 
   artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
-
 
   const firstArtistName = document.getElementById("firstArtistName");
   firstArtistName.innerText = item[0].artistName;
@@ -440,7 +446,7 @@ function printSearch(item) {
   popularTracks.innerHTML = "";
   //STAMPA DEI RISULTATI PIù INERENTI CON LA RICERCA
   for (let i = 0; i < 5; i++) {
-    let music = JSON.stringify(item[i]);  //fa diventare una stringa il tutto l'oggetto che serve
+    let music = JSON.stringify(item[i]); //fa diventare una stringa il tutto l'oggetto che serve
     //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
     const popRow = document.createElement("div");
     popRow.className = "row row-cols-4 mb-3 py-2 hover-custom list-hover";
@@ -497,13 +503,12 @@ function printSearch(item) {
 
   //ORA LA PARTE SOTTO A TUTTA LARGHEZZA
   for (let i = 0; i < item.length; i++) {
-    let music = JSON.stringify(item[i]);  //fa diventare una stringa il tutto l'oggetto che serve
+    let music = JSON.stringify(item[i]); //fa diventare una stringa il tutto l'oggetto che serve
     //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
     const popRow = document.createElement("div");
     popRow.className =
       "row row-cols-4 mb-3 py-2 justify-content-between hover-custom list-hover";
     
-
     if (i < 7) {
       songList.appendChild(popRow);
     } else {
@@ -523,8 +528,10 @@ function printSearch(item) {
 
     //SECONDA SEZIONE
     const popularBody = document.createElement("div");
+
     popularBody.className = "col-8 d-flex";
     popularBody.setAttribute("onclick", `addMusic(${music})`);  //AGGIUNGE LA FUNZIONE PER METTERE LA CANZONE NEL PLAYER
+
     popRow.appendChild(popularBody);
 
     //SECONDA SEZIONE: COVER ALBUM + TITOLO
@@ -541,9 +548,21 @@ function printSearch(item) {
     const popIconContainer = document.createElement("div");
     popIconContainer.className =
       "col-2 text-end align-content-center icon-hover";
-    popIconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i>
+    popIconContainer.innerHTML = `
                       <i class="bi bi-plus-lg mx-2"></i>`;
     popRow.appendChild(popIconContainer);
+
+    const heartButton = document.createElement("button");
+    heartButton.className = "btn";
+    heartButton.setAttribute("type", "button");
+    heartButton.setAttribute("onclick", `likeFeature(${music})`);
+    popIconContainer.appendChild(heartButton);
+
+    const heart = document.createElement("i");
+    heart.className = "bi bi-heart mx-2 text-success";
+    heart.setAttribute("id", item[i].trackId);
+    heartButton.appendChild(heart);
+    //console.log(item[i])
 
     const popDurataContainer = document.createElement("div");
     popDurataContainer.className = "col-1 text-end d-flex";
@@ -615,10 +634,59 @@ function playPause() {
   }
 }
 
+//FUNZIONE PER METTERE I LIKE
+function likeFeature(element) {
+  //console.log(item);
+  const song = preferiti.find((item) => item.trackId === element.trackId);
 
+  if (!song) {
+    preferiti.push(element);
+    const fill = document.getElementById(`${element.trackId}`);
+    fill.className = "bi bi-heart-fill mx-2 text-success";
+  } else {
+    preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
+    const fill = document.getElementById(`${element.trackId}`);
+    fill.className = "bi bi-heart mx-2 text-success";
+  }
+  localStorage.setItem("Like", JSON.stringify(preferiti));
+  printLibrary();
+}
 
+function printLibrary() {
+  const libraryList = document.getElementById("libraryList");
+  libraryList.innerHTML = "";
+  //console.log(preferiti)
+  preferiti.forEach((element) => {
+    let music = JSON.stringify(element);
 
+    const popularBody = document.createElement("div");
+    popularBody.className = "d-flex mb-2 hover-custom";
+    popularBody.setAttribute("onclick", `addMusic(${music})`);
+    libraryList.appendChild(popularBody);
 
+    //SECONDA SEZIONE: COVER ALBUM + TITOLO
+    const popCover = document.createElement("img");
+
+    popCover.setAttribute("src", element.albumCover);
+    popCover.setAttribute("width", "25px");
+    popCover.setAttribute("height", "25px");
+    popularBody.appendChild(popCover);
+
+    const info = document.createElement("div");
+    info.className = "m-0 ps-2";
+    popularBody.appendChild(info);
+
+    const a = document.createElement("p");
+    a.className = "m-0 ps-2 fs-small";
+    a.innerText = element.artistName;
+    info.appendChild(a);
+
+    const b = document.createElement("p");
+    b.className = "m-0 ps-2 fs-small";
+    b.innerText = element.trackTitle;
+    info.appendChild(b);
+  });
+}
 
 
 
