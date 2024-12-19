@@ -147,7 +147,7 @@ let listDiscografia = document.getElementById("listDiscografia");
 
     for (let i = 0; i < newObjectArray.length; i++) {
             let cardWrapper = document.createElement("div");
-            cardWrapper.className = "col-1 bg-schede d-flex justify-content-center card-prova g-0";
+            cardWrapper.className = "col-4 col-md-3 col-lg-2 col-xxl-1 bg-schede d-flex justify-content-center card-prova g-0";
             
             let cardContainer = document.createElement("div");
             cardContainer.className = "card-padre d-flex justify-content-center pt-4";
