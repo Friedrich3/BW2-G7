@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Artist</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,7 +14,6 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <link rel="stylesheet" href="assets/css/album.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
 
@@ -96,223 +95,190 @@
         <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
           <div class="container-fluid flex-grow-1 p-0 m-0" id="main-Container">
             <!--Da inserire i contenuti delle pagine Album, Artist, Homepage-->
-            <div class="container-fluid bg-dark main">
-              <div class="container mt-4 ms-2">
-                <div class="row mt-4">
-                  <div class="col-md-3 mb-3 d-flex flex-row">
+            <div class="container-fluid main p-0">
+              <div
+                id="heroSection"
+                class="d-flex flex-column justify-content-end px-3"
+              >
+                <!-- HERO SECTION CON BG-FOTO-ARTISTA BADGE CON VERIFIED NOMEARTISTA ASCOLTATORI MENSILI-->
+                <div class="">
+                  <p
+                    class="d-flex align-items-center mb-0"
+                    id="verifiedArtist"
+                  ></p>
+                  <p class="fw-bolder" id="heroArtistName"></p>
+                  <p id="heroArtistView"></p>
+                </div>
+              </div>
+              <!--BOTTONE CON PLAY SEGUI E MENU TRE PUNTINI-->
+              <div id="">
+                <div class="container-fluid mt-3">
+                  <button
+                    class="btn bg-success btn-circle btn-lg rounded-circle"
+                    id=""
+                  >
+                    <i class="bi bi-play-fill"></i>
+                  </button>
+                  <button
+                    class="btn border border-secondary btn-outline-secondary rounded-pill text-light ms-3"
+                  >
+                    Segui
+                  </button>
+                  <div class="dropdown d-inline-block">
+                    <button
+                      class="btn border-0 bg-transparent rounded-5 text-light ms-3 p-0"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots"></i>
+                    </button>
+                    <ul class="dropdown-menu bg-black">
+                      <li>
+                        <a class="dropdown-item text-light" href="#"
+                          ><i class="bi bi-person-add"></i> Follow</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item text-light" href="#"
+                          ><i class="bi bi-share"></i> Share</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item text-light" href="#"
+                          ><i class="bi bi-ban"></i> Block</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <section class="container-fluid mt-4">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <h3>Canzoni Popolari</h3>
+                    <div class="mt-3 gap-5" id="artistSongList">
+                      <!--CARTE COMPILATE CON JS DA QUA
+                      <div
+                        class="row row-cols-4 justify-content-between hover-custom card-padre"
+                      >
+                        <div
+                          class="col-index align-content-center text-end ms-3"
+                        >
+                          <p>1.</p>
+                        </div>
+                        <div class="col-7 d-flex align-content-center">
+                          <img src="" alt="img copertina" class="imgSong" />
+                          <p>Titolo</p>
+                        </div>
+                        <div
+                          class="col-2 text-end align-content-center icon-hover"
+                        >
+                          <i class="bi bi-heart mx-2 text-success"></i
+                          ><i class="bi bi-plus-lg mx-2"></i>
+                        </div>
+                        <div class="col-2 text-end align-content-center">
+                          <p>Durata</p>
+                        </div>
+                      </div>
+                        -->
+                      <!--A QUA-->
+                    </div>
+                    <div id="songListDue" class="collapse mt-1 gap-5">
+                      <!--CARTE COMPILATE CON JS DA QUA
+                      <div
+                        class="row row-cols-4 justify-content-between hover-custom card-padre"
+                      >
+                        <div
+                          class="col-index align-content-center text-end ms-3"
+                        >
+                          <p>1.</p>
+                        </div>
+                        <div class="col-7 d-flex align-content-center">
+                          <p>
+                            <img
+                              src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
+                              alt="img copertina"
+                              class="imgSong"
+                            />
+                            <span>Titolo</span>
+                            Titolo
+                          </p>
+                        </div>
+                        <div
+                          class="col-2 text-end align-content-center icon-hover"
+                        >
+                          <i class="bi bi-heart mx-2 text-success"></i
+                          ><i class="bi bi-plus-lg mx-2"></i>
+                        </div>
+                        <div class="col-2 text-end align-content-center">
+                          <p>Durata</p>
+                        </div>
+                      </div>-->
+
+                      <!--A QUA-->
+                    </div>
                     <a
-                      href="#"
-                      class="btn btn-light rounded-pill option-link me-2"
-                      >Tutto</a
+                      href="#songListDue"
+                      data-bs-toggle="collapse"
+                      class="text-decoration-none text-light opacity-75"
+                      >Visualizza Altro</a
                     >
-                    <a
-                      href="#"
-                      class="btn btn-light rounded-pill option-link me-2"
-                      >Musica</a
-                    >
-                    <a href="#" class="btn btn-light rounded-pill option-link"
-                      >Podcast</a
-                    >
+                  </div>
+                  <!--CANZONI POPOLARI DELL'ARTISTA -->
+                  <div class="col-lg-4">
+                    <h3>Selezionato dall'Artista</h3>
+                    <div id="artistSelection" class="w-100 position-relative">
+                      <!--QUA DENTRO IL PRIMO ALBUM TROVATO DI QUELL'ARTISTA CON JS-->
+                      <!-- <div id="cardwrapper" class="col bg-schede d-flex justify-content-center card-prova g-0">
+                <div class="card-padre d-flex justify-content-center pt-4">
+                <div class="card bg-transparent border-0 card-figlio">
+                  <a href=""><img
+                    src="assets/imgs/main/image-13.jpg"
+                    class="card-img-top img-fluid rounded-circle"
+                    alt="..."
+                  /></a>
+                  <div class="card-body">
+                    <a href="" class="text-light link-card"><p class="card-text fs-5">ARTISTA</p></a>
                   </div>
                 </div>
-              </div>
-              <div>
-                <h2>Creato per te</h2>
-                <div class="row">
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-1.jpeg "
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 1</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-10.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 2</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-2.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 3</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-17.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 4</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
+                </div>
+
+              </div>-->
+              <!--FINE ALBUMS-->
                     </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <h2>I Tuoi mix</h2>
-                <div class="row">
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-23.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
+              </section>
+              <div class="container-fluid mt-5">
+                <h3>DISCOGRAFIA</h3>
+                
+                <div class="row" id="listDiscografia">
+                      <!--ALBUM RELATIVI A QUELL ARTISTA
+
+
+                  <div id="cardwrapper" class="col-1 bg-schede d-flex justify-content-center card-prova g-0">
+                    <div class="card-padre d-flex justify-content-center pt-4">
+                    <div class="card bg-transparent border-0 card-figlio">
+                      <a href=""><img
+                        src="assets/imgs/main/image-13.jpg"
+                        class="card-img-top img-fluid rounded-4"
+                        alt="..."
+                      /></a>
                       <div class="card-body">
-                        <h5 class="card-title">Album 5</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
+                        <a href="" class="text-light link-card"><p class="card-text">nomeAlbum</p></a>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-13.jpeg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 6</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-29.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 7</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-41.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 8</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h2>Album e singoli popolari</h2>
-                <div class="row">
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-46.jpeg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 9</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-12.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 10</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-47.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 11</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 20vw; height: auto">
-                      <img
-                        src="./assets/imgs/search/image-30.jpg"
-                        alt=""
-                        class="card-img-top img-fluid rounded"
-                        style="width: 20vw; height: auto"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Album 12</h5>
-                        <p class="card-text">Descrizione dell'album.</p>
-                        <a href="#" class="btn btn-primary">Ascolta</a>
-                      </div>
-                    </div>
-                  </div>
+    
+                  </div>-->
+
+                  <!-- QUA -->
                 </div>
               </div>
               <hr />
-              <footer class="bg-dark text-light py-4">
+              <footer class="text-light py-4">
                 <div class="container">
                   <div class="row">
                     <div class="col-md-3">

@@ -26,7 +26,7 @@ async function getAlbum() {
     let data = await response.json();
     album = { ...data };
     arraySong = data.tracks.data;
-    console.log(arraySong);
+    console.log(album);
     printHero(album);
     printSong(arraySong);
 
@@ -75,7 +75,7 @@ let songList = document.getElementById("songList");
 songList.innerHTML = "";
 for(let i = 0; i< array.length; i++){
 let songRow = document.createElement("div");
-songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom","py-2","mb-3","card-padre");
+songRow.classList.add("row", "row-cols-4", "justify-content-between", "hover-custom","py-2","mb-3","card-padre","w-100");
 
 let songIndexCont = document.createElement("div");
 let songIndexPar = document.createElement("p");
@@ -118,7 +118,10 @@ function toggleMenu() {
 function convertToMinSec(seconds,boolean) {
   let testo = "";
   const minutes = Math.floor(seconds / 60); // ottieni i minuti
-  const remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
+  let remainingSeconds = seconds % 60;  // ottieni i secondi rimanenti
+  if (remainingSeconds < 10) {
+    remainingSeconds = `0${remainingSeconds}`;
+  }
   if(boolean){
   testo =  `${minutes}min ${remainingSeconds}sec`;
   }else{

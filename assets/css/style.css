@@ -9,9 +9,17 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: black;
   color: white;
-  margin: 0;
+
   padding: 0;
+  margin: 0;
 }
+p{
+  margin:0;
+  padding:0;
+}
+
+
+
 .bg-custom {
   background-color: #1e1e1e;
 }
@@ -347,8 +355,30 @@ ol li p{
 .col-index{
   width: 1em;
 }
-/*ALBUM FINE*/
+
 #songList p{
   margin-bottom: 0px;
 }
+
+/*ALBUM FINE*/
+
+/*ARTIST INIZIO*/
+#heroSection{
+  min-height:35vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#heroArtistName{
+  font-size: 4.5em;
+  margin-bottom: 0px !important;
+  
+  
+}
+#heroArtistName,#verifiedArtist,#heroArtistView{
+  text-shadow: 2px 2px 2px#1f1f1f7a;
+}
+
+/*ARTIST FINE*/
 
