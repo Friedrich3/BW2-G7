@@ -231,24 +231,24 @@ function printAlbumCard(item, container) {
     let cardTitleLink = document.createElement("a");
     let cardTitle = document.createElement("p");
 
-    cardWrapper.className='col bg-schede d-flex justify-content-center card-prova g-0'
-    
-    cardPadre.className='d-flex justify-content-center pt-4 card-padre'
-    
-    card.className= "card bg-transparent border-0 card-figlio"
+    cardWrapper.className = 'col bg-schede d-flex justify-content-center card-prova g-0'
+
+    cardPadre.className = 'd-flex justify-content-center pt-4 card-padre'
+
+    card.className = "card bg-transparent border-0 card-figlio"
 
     cardImageLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardImage.className="card-img-top img-fluid rounded-5"
+    cardImage.className = "card-img-top img-fluid rounded-5"
     cardImage.setAttribute("src", item[i].albumCover);
     cardImage.setAttribute("alt", "Logo Album");
 
-    cardBody.className='card-body'
+    cardBody.className = 'card-body'
 
-    cardTitleLink.className="text-light link-card"
+    cardTitleLink.className = "text-light link-card"
     cardTitleLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardTitle.className= 'card-text fs-5'
+    cardTitle.className = 'card-text fs-5'
     cardTitle.innerText = `${item[i].albumTitle}`;
 
     cardTitleLink.appendChild(cardTitle);
@@ -357,7 +357,7 @@ async function searchQuery(query) {
       return false;
     });
 
-     //Funzione per ottenre SOLO gli id unici di Artist
+    //Funzione per ottenre SOLO gli id unici di Artist
     const artistId = new Set();
     uniqueArtist = queryResult.filter((element) => {
       if (!artistId.has(element.artistId)) {
@@ -416,9 +416,9 @@ function printSearch(item) {
   const firstArtist = document.getElementById("firstArtistPic");
   firstArtist.setAttribute("src", item[0].artistCover);
 
-const artistLink = document.getElementById('firstArtistLink')
+  const artistLink = document.getElementById('firstArtistLink')
 
-artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
+  artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 
 
   const firstArtistName = document.getElementById("firstArtistName");
@@ -552,3 +552,40 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 
   songList.appendChild(show);
 }
+
+/*
+async function playAlbum(album) {
+  const albumUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${album.replaceAll(" ", "-")}`;
+
+  fetch(albumUrl)
+    .then((response) => {
+
+      if (!response.ok) throw new Error(`API error: ${response.status}`);
+      return response.json();
+
+    })
+    
+    .then((data) => {
+      const object = data.data[0];
+      
+      const albumId = object.album.albumId;
+      const tracksUrl = `https://striveschool-api.herokuapp.com/api/deezer/album/${albumId}/tracks`; 
+      return fetch(tracksUrl);
+
+    })
+    
+    .then((response) => {
+      if (!response.ok) throw new Error(`API error: ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      const firstTrack = data.data[0];
+      if (firstTrack) {
+        const audio = new Audio(firstTrack.preview);
+      }
+    })
+    .catch((error) => console.log("Errore durante il fetch dei brani dell'album:", error));
+}
+
+playAlbum("Happier Than Ever");
+*/
