@@ -53,8 +53,9 @@ function printHero(object) {
     let verifiedArtist = document.getElementById("verifiedArtist");
     let heroArtistName = document.getElementById("heroArtistName");
     let heroArtistView = document.getElementById("heroArtistView");
+    let imgHero = document.getElementById("imgHero");
 
-    heroSection.setAttribute("style", `background-image: url(${object.picture_xl})`);
+    imgHero.setAttribute("src", `${object.picture_xl}`);
     verifiedArtist.innerHTML = `<i class="bi bi-patch-check-fill text-info fs-4"></i><span>&nbsp;Artista Verificato</span>`;
     heroArtistName.innerText = object.name;
     heroArtistView.innerText = `${fixNumber(object.nb_fan)} Ascoltatori Mensili`;
@@ -142,30 +143,30 @@ function filterAlbum(object) {
         }
 
         //console.log(newObjectArray);
-let listDiscografia = document.getElementById("listDiscografia");
-        listDiscografia.innerHTML="";
+        let listDiscografia = document.getElementById("listDiscografia");
+        listDiscografia.innerHTML = "";
 
-    for (let i = 0; i < newObjectArray.length; i++) {
+        for (let i = 0; i < newObjectArray.length; i++) {
             let cardWrapper = document.createElement("div");
             cardWrapper.className = "col-4 col-md-3 col-lg-2 col-xxl-1 bg-schede d-flex justify-content-center card-prova g-0";
-            
+
             let cardContainer = document.createElement("div");
             cardContainer.className = "card-padre d-flex justify-content-center pt-4";
             let card = document.createElement("div");
             card.className = "card bg-transparent border-0 card-figlio";
 
             let linkImage = document.createElement("a");
-            linkImage.setAttribute("href",`album.html?id=${newObjectArray[i].album.id}`);
+            linkImage.setAttribute("href", `album.html?id=${newObjectArray[i].album.id}`);
             let albumImage = document.createElement("img");
             albumImage.className = "card-img-top img-fluid rounded-4";
-            albumImage.setAttribute("src",`${newObjectArray[i].album.cover_medium}`);
-            albumImage.setAttribute("alt","Cover Album");
+            albumImage.setAttribute("src", `${newObjectArray[i].album.cover_medium}`);
+            albumImage.setAttribute("alt", "Cover Album");
 
             let cardBody = document.createElement("div");
             cardBody.className = "card-body";
             let linkTitle = document.createElement("a");
             linkTitle.className = "text-light link-card";
-            linkTitle.setAttribute("href",`album.html?id=${newObjectArray[i].album.id}`);
+            linkTitle.setAttribute("href", `album.html?id=${newObjectArray[i].album.id}`);
             let albumTitle = document.createElement("p");
             albumTitle.className = "card-text fs-5";
             albumTitle.innerText = newObjectArray[i].album.title;
@@ -175,12 +176,12 @@ let listDiscografia = document.getElementById("listDiscografia");
 
             linkImage.appendChild(albumImage);
 
-            card.append(linkImage,cardBody);
+            card.append(linkImage, cardBody);
             cardContainer.appendChild(card);
             cardWrapper.appendChild(cardContainer);
 
             listDiscografia.appendChild(cardWrapper);
-            
+
 
 
         }
@@ -218,3 +219,43 @@ function convertToMinSec(seconds, boolean) {
     }
     return testo
 }
+
+function calcolaMediaColori() {
+    const img = document.getElementById('imgHero');
+    const canvas = document.getElementById('copertinaCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Disegna l'immagine sul canvas
+    ctx.drawImage(img, 0, 0);
+
+    // Ottieni i dati dei pixel
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data;
+
+    let r = 0, g = 0, b = 0;
+    const totalPixels = pixels.length / 4; //valori: R, G, B, A
+
+    // Calcola la somma dei colori
+    for (let i = 0; i < pixels.length; i += 4) {
+        r += pixels[i];
+        g += pixels[i + 1];
+        b += pixels[i + 2];
+    }
+
+    // Calcola la media
+    r = Math.round(r / totalPixels);
+    g = Math.round(g / totalPixels);
+    b = Math.round(b / totalPixels);
+
+    let hero = document.getElementById("heroSection");
+    hero.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    hero.style.boxShadow = `0px 200px 200px 150px rgba(${r}, ${g}, ${b}, 0.6)`;
+}
+
+const img = document.getElementById('imgHero');
+
+img.addEventListener('load', () => {
+    img.onload = calcolaMediaColori();
+});

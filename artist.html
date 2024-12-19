@@ -145,10 +145,14 @@
             <div class="container-fluid main p-0">
               <div
                 id="heroSection"
-                class="d-flex flex-column justify-content-end px-3"
+                class="d-flex flex-column justify-content-end position-relative"
               >
                 <!-- HERO SECTION CON BG-FOTO-ARTISTA BADGE CON VERIFIED NOMEARTISTA ASCOLTATORI MENSILI-->
-                <div class="">
+                <div class="w-100 overflow-hidden position-absolute">
+                <img src="" crossorigin="anonymous" alt="" id="imgHero" class="hero-custom"/>
+                <canvas id="copertinaCanvas" style="display: none"></canvas>
+                </div>
+                <div class="position-absolute heroText-Custom">
                   <p
                     class="d-flex align-items-center mb-0"
                     id="verifiedArtist"
@@ -159,7 +163,7 @@
               </div>
               <!--BOTTONE CON PLAY SEGUI E MENU TRE PUNTINI-->
               <div id="">
-                <div class="container-fluid mt-3">
+                <div class="container-fluid mt-3 ">
                   <button
                     class="btn bg-success btn-circle btn-lg rounded-circle"
                     id=""
@@ -201,7 +205,7 @@
                 </div>
               </div>
 
-              <section class="container-fluid mt-4 m-auto">
+              <section class="container-fluid mt-4 m-auto ">
                 <div class="row">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-7">

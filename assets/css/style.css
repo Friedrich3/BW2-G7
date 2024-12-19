@@ -365,11 +365,19 @@ ol li p{
 /*ARTIST INIZIO*/
 #heroSection{
   min-height:35vh;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  width: 100%;
+  
 }
-
+.hero-custom{
+  width: 100%;
+  object-fit: cover;
+  
+  
+}
+.heroText-Custom{
+  left: 15px;
+  bottom:15px;
+}
 #heroArtistName{
   font-size: 4.5em;
   margin-bottom: 0px !important;
