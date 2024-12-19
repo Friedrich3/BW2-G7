@@ -92,33 +92,37 @@ searchContainer.classList.add("d-none");
 window.addEventListener("load", init());
 
 function init() {
-  console.log(window.location.href)
-  const param = new URLSearchParams(window.location.search).get("search");
-const currentUrl = window.location.href
-  if (!param) {
-    getAlbum();
-    getArtist();
-  } else {
-    mainContainer.classList.add("d-none");
-    searchContainer.classList.remove("d-none");
-    searchQuery(param);
-  }
+  const updateView = () => {
+    const param = new URLSearchParams(window.location.search).get("search");
 
-  document.getElementById("searchBtn").addEventListener("click", (e) => {
-    e.preventDefault();
-    const input = document.getElementById("searchInput");
-    const query = input.value;
-    const newUrl = `./index.html?search=${encodeURIComponent(
-      query.replaceAll(" ", "-")
-    )}`;
-    history.pushState(null, "", newUrl);
-    searchQuery(query);
-  });
+    if (!param) {
+      console.log("ciao");
+      mainContainer.classList.remove("d-none");
+      searchContainer.classList.add("d-none");
+      getAlbum();
+      getArtist();
+    } else {
+      mainContainer.classList.add("d-none");
+      searchContainer.classList.remove("d-none");
+      searchQuery(param);
+    }
+  };
+
+  updateView();
+
+  window.addEventListener("popstate", updateView);
 }
 
-function url(){
-  return window.location.href
-}
+document.getElementById("searchBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  const input = document.getElementById("searchInput");
+  const query = input.value;
+  const newUrl = `./index.html?search=${encodeURIComponent(
+    query.replaceAll(" ", "-")
+  )}`;
+  history.pushState(null, "", newUrl);
+  searchQuery(query);
+});
 
 async function getArtist() {
   const shuffledArtists = shuffle(artist);
@@ -155,7 +159,7 @@ async function getArtist() {
 
   if (newArtistArray.length >= 6) {
     const cardContainer = document.getElementById("artist");
-    printArtistCard(newArtistArray);
+    printArtistCard(newArtistArray, "artist");
   } else {
     console.log("Dati insufficienti per gli artisti, riprovo...");
 
@@ -196,7 +200,7 @@ async function getAlbum() {
     .map((result) => result.value);
 
   if (newAlbumArray.length >= 6) {
-    printAlbumCard(newAlbumArray);
+    printAlbumCard(newAlbumArray, "album");
   } else {
     console.log("Dati insufficienti per gli album");
     getAlbum();
@@ -214,8 +218,8 @@ function toggleMenu() {
 }
 
 //STAMPA DELLE CARTE ALBUM
-function printAlbumCard(item) {
-  let cardContainer = document.getElementById("album");
+function printAlbumCard(item, container) {
+  let cardContainer = document.getElementById(container);
   cardContainer.innerHTML = "";
   for (let i = 0; i < item.length; i++) {
     let cardWrapper = document.createElement("div");
@@ -227,34 +231,24 @@ function printAlbumCard(item) {
     let cardTitleLink = document.createElement("a");
     let cardTitle = document.createElement("p");
 
-    cardWrapper.classList.add(
-      "col",
-      "bg-schede",
-      "d-flex",
-      "justify-content-center",
-      "card-prova",
-      "g-0"
-    );
-    cardPadre.classList.add(
-      "d-flex",
-      "justify-content-center",
-      "pt-4",
-      "card-padre"
-    );
-    card.classList.add("card", "bg-transparent", "border-0", "card-figlio");
+    cardWrapper.className='col bg-schede d-flex justify-content-center card-prova g-0'
+    
+    cardPadre.className='d-flex justify-content-center pt-4 card-padre'
+    
+    card.className= "card bg-transparent border-0 card-figlio"
 
     cardImageLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardImage.classList.add("card-img-top", "img-fluid", "rounded-5");
+    cardImage.className="card-img-top img-fluid rounded-5"
     cardImage.setAttribute("src", item[i].albumCover);
     cardImage.setAttribute("alt", "Logo Album");
 
-    cardBody.classList.add("card-body");
+    cardBody.className='card-body'
 
-    cardTitleLink.classList.add("text-light", "link-card");
+    cardTitleLink.className="text-light link-card"
     cardTitleLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardTitle.classList.add("card-text", "fs-5");
+    cardTitle.className= 'card-text fs-5'
     cardTitle.innerText = `${item[i].albumTitle}`;
 
     cardTitleLink.appendChild(cardTitle);
@@ -270,8 +264,8 @@ function printAlbumCard(item) {
 }
 
 //STAMPA DELLE CARTE ARTISTA
-function printArtistCard(item) {
-  let cardContainer = document.getElementById("artist");
+function printArtistCard(item, container) {
+  let cardContainer = document.getElementById(container);
   cardContainer.innerHTML = "";
   for (let i = 0; i < item.length; i++) {
     let cardWrapper = document.createElement("div");
@@ -326,6 +320,9 @@ function printArtistCard(item) {
 }
 
 let queryResult;
+let uniqueAlbum;
+let uniqueArtist;
+
 
 async function searchQuery(query) {
   const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
@@ -337,7 +334,6 @@ async function searchQuery(query) {
       method: "GET",
     });
     let data = await response.json();
-
     queryResult = data.data.map((item) => ({
       trackId: item.id,
       trackTitle: item.title,
@@ -346,16 +342,40 @@ async function searchQuery(query) {
       albumCover: item.album.cover_medium,
       artistId: item.artist.id,
       artistName: item.artist.name,
-      artistPicture: item.artist.picture_medium,
+      artistCover: item.artist.picture_medium,
       duration: item.duration,
     }));
+
+
+    //Funzione per ottenre SOLO gli id unici di ALbum
+    const albumIds = new Set(); //set serve per far si che crei un oggetti con elementi unici
+    uniqueAlbum = queryResult.filter((element) => {
+      if (!albumIds.has(element.albumId)) {
+        albumIds.add(element.albumId);
+        return true;
+      }
+      return false;
+    });
+
+     //Funzione per ottenre SOLO gli id unici di Artist
+    const artistId = new Set();
+    uniqueArtist = queryResult.filter((element) => {
+      if (!artistId.has(element.artistId)) {
+        artistId.add(element.artistId);
+        return true;
+      }
+      return false;
+    });
+
+    console.log("Risultati unici per albumId:", uniqueAlbum);
+
     //console.log(data);
     printSearch(queryResult);
+    printAlbumCard(uniqueAlbum, "albumSearch");
+    printArtistCard(uniqueArtist, "artistSearch");
+
     //let queryResult = data.data;
-    console.log(queryResult);
-    if (response.ok) {
-      return queryResult;
-    }
+    //console.log(queryResult);
   } catch (error) {
     console.log("Error:" + error);
   }
@@ -383,10 +403,8 @@ function printSearch(item) {
   mainContainer.classList.add("d-none");
   searchContainer.classList.remove("d-none");
 
-  mainContainer.innerHTML = "";
-
   const firstAlbumCover = document.getElementById("firstAlbum");
-  console.log(firstAlbumCover);
+  //console.log(firstAlbumCover);
   firstAlbumCover.setAttribute("src", item[0].albumCover);
 
   const firstTrack = document.getElementById("firstTrack");
@@ -396,7 +414,12 @@ function printSearch(item) {
   duration.innerText = convertToMinSec(item[0].duration, true);
 
   const firstArtist = document.getElementById("firstArtistPic");
-  firstArtist.setAttribute("src", item[0].artistPicture);
+  firstArtist.setAttribute("src", item[0].artistCover);
+
+const artistLink = document.getElementById('firstArtistLink')
+
+artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
+
 
   const firstArtistName = document.getElementById("firstArtistName");
   firstArtistName.innerText = item[0].artistName;
@@ -519,7 +542,7 @@ function printSearch(item) {
   }
 
   songList.appendChild(collapseContainer);
-
+  //BOTTONE COLLAPSE
   const show = document.createElement("button");
   show.className = "btn mt-3";
   show.setAttribute("type", "button");
@@ -529,6 +552,3 @@ function printSearch(item) {
 
   songList.appendChild(show);
 }
-
-
-

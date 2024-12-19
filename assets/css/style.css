@@ -61,11 +61,19 @@ button:hover .grey-icon {
   outline: none;
 }
 
+.search-container input::placeholder{
+  font-size: 0.8em;
+}
+
 .search-container input,
-.search-container input:focus {
-  font-size: 1.2em;
-  background-color: #1f1f1f;
-  color: white;
+.search-container input:focus,
+.search-container input:-webkit-autofill, 
+.search-container input:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px #1f1f1f inset;
+  -webkit-text-fill-color: white;
+  font-size: 1em;
+  background-color: #1f1f1f !important;
+  color: white !important;
   border: none;
   outline: none;
   flex-grow: 1;
@@ -250,3 +258,15 @@ width: 1em;
 .list-hover:hover{
   background-color: #1f1f1f7a;
 }
+
+.link-card{
+  text-decoration: none;
+  color: #fefefe;
+  opacity: 0.7;
+}
+
+.link-card:hover{
+  opacity: 1;
+  text-decoration: none;
+}
+

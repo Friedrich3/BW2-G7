@@ -281,7 +281,7 @@
               <div class="card-Track d-flex justify-content-center py-3">
                 <div class=" card-figlio">
                   <img src="" alt="..." width="315px" class="img-fluid mb-3 rounded-circle" id="firstArtistPic">
-                  <h5 id="firstArtistName">Artist name</h5>
+                 <a class="link-card" id="firstArtistLink"> <h5 id="firstArtistName">Artist name</h5></a>
                 </div>
               </div>
             </div>
@@ -303,32 +303,22 @@
               </div>
             </div>
             <hr class="bg-secondary mt-0" />
-            <!--LISTA CANZONI-->
+
             <div class="mt-3" id="songList">
-              <!--CARTE COMPILATE CON JS DA QUA
-                <div class="row row-cols-4 justify-content-between hover-custom">
-                    <div class="col-index align-content-center text-end ms-3">
-                        <p>1.</p>
-                    </div>
-                    <div class="col-7 align-content-center">
-                        <p>
-                            <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/classic-song-mixtape-album-cover-template-design-3ba3255137894fac49ae81b1346b289e_screen.jpg?ts=1635384548"
-                                alt="img copertina" width="56px" class="rounded-2" />TITOLO
-                        </p>
-                    </div>
-                    <div class="col-2 text-end align-content-center icon-hover">
-                        <i class="bi bi-heart mx-2 text-success"></i>
-                        <i class="bi bi-plus-lg mx-2"></i>
-                    </div>
-                    <div class="col-2 text-end align-content-center">
-                        <p>Durata</p>
-                    </div>
-                </div>
+              <!--LISTA CANZONI-->
             </div>
 
-            A QUA-->
-            </div>
+            <!--SEZIONE CORRELATI-->
+            <h2>Related Album</h2>
+            <!--Cambiato ID senza "container" per matchare il print in js-->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="albumSearch">
 
+            </div>
+            <h2>Related Artist</h2>
+            <!--Cambiato ID senza "container" per matchare il print in js-->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 bg-schede px-5 w-100" id="artistSearch">
+
+            </div>
 
             <footer class="bg-schede text-light py-4 mt-5">
               <div class="container-fluid">
@@ -432,9 +422,8 @@
               </div>
             </footer>
           </div>
-
-
         </div>
+
     </section>
 
     <section class="navbar bg-black row row-cols-3" id=" player-Container">
