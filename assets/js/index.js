@@ -63,10 +63,10 @@ const albums = [
   "Austin",
   "From Zero",
 ];
-
+const mainContainer = document.getElementById("main-Container");
+const searchContainer = document.getElementById("second-main-Container");
 
 let newArtistArray = [];
-
 let newAlbumArray = [];
 
 class NewObject {
@@ -87,13 +87,42 @@ class NewObject {
   }
 }
 
+searchContainer.classList.add("d-none");
+
 window.addEventListener("load", init());
 
 function init() {
-  getAlbum();
-  getArtist();
+  const updateView = () => {
+    const param = new URLSearchParams(window.location.search).get("search");
 
+    if (!param) {
+      console.log("ciao");
+      mainContainer.classList.remove("d-none");
+      searchContainer.classList.add("d-none");
+      getAlbum();
+      getArtist();
+    } else {
+      mainContainer.classList.add("d-none");
+      searchContainer.classList.remove("d-none");
+      searchQuery(param);
+    }
+  };
+
+  updateView();
+
+  window.addEventListener("popstate", updateView);
 }
+
+document.getElementById("searchBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  const input = document.getElementById("searchInput");
+  const query = input.value;
+  const newUrl = `./index.html?search=${encodeURIComponent(
+    query.replaceAll(" ", "-")
+  )}`;
+  history.pushState(null, "", newUrl);
+  searchQuery(query);
+});
 
 async function getArtist() {
   const shuffledArtists = shuffle(artist);
@@ -130,7 +159,7 @@ async function getArtist() {
 
   if (newArtistArray.length >= 6) {
     const cardContainer = document.getElementById("artist");
-    printArtistCard(newArtistArray);
+    printArtistCard(newArtistArray, "artist");
   } else {
     console.log("Dati insufficienti per gli artisti, riprovo...");
 
@@ -171,7 +200,7 @@ async function getAlbum() {
     .map((result) => result.value);
 
   if (newAlbumArray.length >= 6) {
-    printAlbumCard(newAlbumArray);
+    printAlbumCard(newAlbumArray, "album");
   } else {
     console.log("Dati insufficienti per gli album");
     getAlbum();
@@ -189,8 +218,8 @@ function toggleMenu() {
 }
 
 //STAMPA DELLE CARTE ALBUM
-function printAlbumCard(item) {
-  let cardContainer = document.getElementById("album");
+function printAlbumCard(item, container) {
+  let cardContainer = document.getElementById(container);
   cardContainer.innerHTML = "";
   for (let i = 0; i < item.length; i++) {
     let cardWrapper = document.createElement("div");
@@ -202,34 +231,24 @@ function printAlbumCard(item) {
     let cardTitleLink = document.createElement("a");
     let cardTitle = document.createElement("p");
 
-    cardWrapper.classList.add(
-      "col",
-      "bg-schede",
-      "d-flex",
-      "justify-content-center",
-      "card-prova",
-      "g-0"
-    );
-    cardPadre.classList.add(
-      "d-flex",
-      "justify-content-center",
-      "pt-4",
-      "card-padre"
-    );
-    card.classList.add("card", "bg-transparent", "border-0", "card-figlio");
+    cardWrapper.className='col bg-schede d-flex justify-content-center card-prova g-0'
+    
+    cardPadre.className='d-flex justify-content-center pt-4 card-padre'
+    
+    card.className= "card bg-transparent border-0 card-figlio"
 
     cardImageLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardImage.classList.add("card-img-top", "img-fluid", "rounded-5");
+    cardImage.className="card-img-top img-fluid rounded-5"
     cardImage.setAttribute("src", item[i].albumCover);
     cardImage.setAttribute("alt", "Logo Album");
 
-    cardBody.classList.add("card-body");
+    cardBody.className='card-body'
 
-    cardTitleLink.classList.add("text-light", "link-card");
+    cardTitleLink.className="text-light link-card"
     cardTitleLink.setAttribute("href", `album.html?id=${item[i].albumId}`);
 
-    cardTitle.classList.add("card-text", "fs-5");
+    cardTitle.className= 'card-text fs-5'
     cardTitle.innerText = `${item[i].albumTitle}`;
 
     cardTitleLink.appendChild(cardTitle);
@@ -244,10 +263,9 @@ function printAlbumCard(item) {
   }
 }
 
-
 //STAMPA DELLE CARTE ARTISTA
-function printArtistCard(item) {
-  let cardContainer = document.getElementById("artist");
+function printArtistCard(item, container) {
+  let cardContainer = document.getElementById(container);
   cardContainer.innerHTML = "";
   for (let i = 0; i < item.length; i++) {
     let cardWrapper = document.createElement("div");
@@ -299,4 +317,238 @@ function printArtistCard(item) {
 
     cardContainer.appendChild(cardWrapper);
   }
+}
+
+let queryResult;
+let uniqueAlbum;
+let uniqueArtist;
+
+
+async function searchQuery(query) {
+  const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
+    " ",
+    "-"
+  )}`;
+  try {
+    const response = await fetch(queryUrl, {
+      method: "GET",
+    });
+    let data = await response.json();
+    queryResult = data.data.map((item) => ({
+      trackId: item.id,
+      trackTitle: item.title,
+      albumId: item.album.id,
+      albumTitle: item.album.title,
+      albumCover: item.album.cover_medium,
+      artistId: item.artist.id,
+      artistName: item.artist.name,
+      artistCover: item.artist.picture_medium,
+      duration: item.duration,
+    }));
+
+
+    //Funzione per ottenre SOLO gli id unici di ALbum
+    const albumIds = new Set(); //set serve per far si che crei un oggetti con elementi unici
+    uniqueAlbum = queryResult.filter((element) => {
+      if (!albumIds.has(element.albumId)) {
+        albumIds.add(element.albumId);
+        return true;
+      }
+      return false;
+    });
+
+     //Funzione per ottenre SOLO gli id unici di Artist
+    const artistId = new Set();
+    uniqueArtist = queryResult.filter((element) => {
+      if (!artistId.has(element.artistId)) {
+        artistId.add(element.artistId);
+        return true;
+      }
+      return false;
+    });
+
+    console.log("Risultati unici per albumId:", uniqueAlbum);
+
+    //console.log(data);
+    printSearch(queryResult);
+    printAlbumCard(uniqueAlbum, "albumSearch");
+    printArtistCard(uniqueArtist, "artistSearch");
+
+    //let queryResult = data.data;
+    //console.log(queryResult);
+  } catch (error) {
+    console.log("Error:" + error);
+  }
+}
+
+function convertToMinSec(seconds, boolean) {
+  let testo = "";
+  const minutes = Math.floor(seconds / 60);
+  let remainingSeconds = seconds % 60;
+  if (remainingSeconds < 10) {
+    remainingSeconds = `0${remainingSeconds}`;
+  }
+
+  if (boolean) {
+    testo = `${minutes}min ${remainingSeconds}sec`;
+  } else {
+    testo = `${minutes}:${remainingSeconds}`;
+  }
+
+  return testo;
+}
+
+function printSearch(item) {
+  //STAMPA SOLO DEL PRIMO ITEM
+  mainContainer.classList.add("d-none");
+  searchContainer.classList.remove("d-none");
+
+  const firstAlbumCover = document.getElementById("firstAlbum");
+  //console.log(firstAlbumCover);
+  firstAlbumCover.setAttribute("src", item[0].albumCover);
+
+  const firstTrack = document.getElementById("firstTrack");
+  firstTrack.innerText = item[0].trackTitle;
+
+  const duration = document.getElementById("duration");
+  duration.innerText = convertToMinSec(item[0].duration, true);
+
+  const firstArtist = document.getElementById("firstArtistPic");
+  firstArtist.setAttribute("src", item[0].artistCover);
+
+const artistLink = document.getElementById('firstArtistLink')
+
+artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
+
+
+  const firstArtistName = document.getElementById("firstArtistName");
+  firstArtistName.innerText = item[0].artistName;
+
+  //ORA INIZIARE A STAMPRE NELLA TERZA COLONNA CON LE CANZONI PIù POPOLARI
+  const popularTracks = document.getElementById("popularTracks");
+  const songList = document.getElementById("songList");
+  songList.innerHTML = "";
+  popularTracks.innerHTML = "";
+  //STAMPA DEI RISULTATI PIù INERENTI CON LA RICERCA
+  for (let i = 0; i < 5; i++) {
+    //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
+    const popRow = document.createElement("div");
+    popRow.className = "row row-cols-4 mb-3 py-2 hover-custom list-hover";
+    popularTracks.appendChild(popRow);
+
+    const popularContainer = document.createElement("div");
+    popularContainer.className = "col-index d-flex text-end ms-3 ";
+    popularContainer.innerext = item[i].trackTitle;
+    popRow.appendChild(popularContainer);
+
+    //PRIMA SEZIONE: P
+    const popRank = document.createElement("p");
+    popRank.className = "m-0 p-0 align-self-center";
+    popRank.innerText = i + 1; //???? da controllare
+    popularContainer.appendChild(popRank);
+
+    //SECONDA SEZIONE
+    const popularBody = document.createElement("div");
+    popularBody.className = "col-8 d-flex";
+    popRow.appendChild(popularBody);
+
+    //SECONDA SEZIONE: COVER ALBUM + TITOLO
+    const popCover = document.createElement("img");
+    popCover.setAttribute("src", item[i].albumCover);
+    popCover.setAttribute("width", "30px");
+    popularBody.appendChild(popCover);
+
+    const popTitle = document.createElement("p");
+    popTitle.className = "m-0 ps-2 align-self-center";
+    popTitle.innerText = item[i].trackTitle;
+    popularBody.appendChild(popTitle);
+
+    const popIconContainer = document.createElement("div");
+    popIconContainer.className =
+      "col-2 text-end align-content-center icon-hover";
+    popIconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i>
+                        <i class="bi bi-plus-lg mx-2"></i>`;
+    popRow.appendChild(popIconContainer);
+
+    const popDurataContainer = document.createElement("div");
+    popDurataContainer.className = "col-1 text-end d-flex";
+    popRow.appendChild(popDurataContainer);
+
+    const popDurata = document.createElement("p");
+    popDurata.className = "m-0 p-0 align-self-center";
+    popDurata.innerText = convertToMinSec(item[i].duration, false);
+    popDurataContainer.appendChild(popDurata);
+  }
+
+  const collapseContainer = document.createElement("div");
+  collapseContainer.className = "collapse";
+  collapseContainer.id = "collapseList";
+
+  //ORA LA PARTE SOTTO A TUTTA LARGHEZZA
+  for (let i = 0; i < item.length; i++) {
+    //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
+    const popRow = document.createElement("div");
+    popRow.className =
+      "row row-cols-4 mb-3 py-2 justify-content-between hover-custom list-hover";
+
+    if (i < 7) {
+      songList.appendChild(popRow);
+    } else {
+      collapseContainer.appendChild(popRow);
+    }
+
+    const popularContainer = document.createElement("div");
+    popularContainer.className = "col-index d-flex text-end ms-3 ";
+    popularContainer.innerext = item[i].trackTitle;
+    popRow.appendChild(popularContainer);
+
+    //PRIMA SEZIONE: P
+    const popRank = document.createElement("p");
+    popRank.className = "m-0 p-0 align-self-center";
+    popRank.innerText = i + 1; //???? da controllare
+    popularContainer.appendChild(popRank);
+
+    //SECONDA SEZIONE
+    const popularBody = document.createElement("div");
+    popularBody.className = "col-8 d-flex d-flex";
+    popRow.appendChild(popularBody);
+
+    //SECONDA SEZIONE: COVER ALBUM + TITOLO
+    const popCover = document.createElement("img");
+    popCover.setAttribute("src", item[i].albumCover);
+    popCover.setAttribute("width", "30px");
+    popularBody.appendChild(popCover);
+
+    const popTitle = document.createElement("p");
+    popTitle.className = "m-0 ps-2 align-self-center";
+    popTitle.innerText = item[i].trackTitle;
+    popularBody.appendChild(popTitle);
+
+    const popIconContainer = document.createElement("div");
+    popIconContainer.className =
+      "col-2 text-end align-content-center icon-hover";
+    popIconContainer.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i>
+                      <i class="bi bi-plus-lg mx-2"></i>`;
+    popRow.appendChild(popIconContainer);
+
+    const popDurataContainer = document.createElement("div");
+    popDurataContainer.className = "col-1 text-end d-flex";
+    popRow.appendChild(popDurataContainer);
+
+    const popDurata = document.createElement("p");
+    popDurata.className = "m-0 p-0 align-self-center";
+    popDurata.innerText = convertToMinSec(item[i].duration, false);
+    popDurataContainer.appendChild(popDurata);
+  }
+
+  songList.appendChild(collapseContainer);
+  //BOTTONE COLLAPSE
+  const show = document.createElement("button");
+  show.className = "btn mt-3";
+  show.setAttribute("type", "button");
+  show.setAttribute("data-bs-toggle", "collapse");
+  show.setAttribute("data-bs-target", "#collapseList");
+  show.innerText = "Mostra altro";
+
+  songList.appendChild(show);
 }

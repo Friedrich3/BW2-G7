@@ -9,6 +9,7 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: black;
   color: white;
+
   padding: 0;
   margin: 0;
 }
@@ -16,6 +17,7 @@ p{
   margin:0;
   padding:0;
 }
+
 
 
 .bg-custom {
@@ -67,11 +69,19 @@ button:hover .grey-icon {
   outline: none;
 }
 
+.search-container input::placeholder{
+  font-size: 0.8em;
+}
+
 .search-container input,
-.search-container input:focus {
-  font-size: 1.2em;
-  background-color: #1f1f1f;
-  color: white;
+.search-container input:focus,
+.search-container input:-webkit-autofill, 
+.search-container input:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px #1f1f1f inset;
+  -webkit-text-fill-color: white;
+  font-size: 1em;
+  background-color: #1f1f1f !important;
+  color: white !important;
   border: none;
   outline: none;
   flex-grow: 1;
@@ -99,7 +109,7 @@ button:hover .grey-icon {
   color: white; 
 }
 
-.search-container input:focus ~ .search-container {
+.search-container input:focus .search-container {
   border: 1px #fefefe; /* Colore del bordo quando si scrive (verde, ad esempio) */
 }
 
@@ -156,7 +166,7 @@ button:hover .grey-icon {
 }
 
 
-.sidebar.expanded span, .sidebar.expanded .hydeLibrary {
+.sidebar.expanded span, .sidebar.expanded .hydeLibrary,.sidebar.expanded .library-search-container{
     display: inline;
 }
 
@@ -216,6 +226,59 @@ button:hover .grey-icon {
 .link-card:hover{
   text-decoration: underline;
 }
+
+
+.img{
+  object-fit: cover;
+  object-position: top;
+}
+
+.col-index{
+width: 1em;
+}
+
+.icon-hover{
+  visibility: hidden;
+}
+
+.hover-custom:hover .icon-hover{
+  visibility: visible;
+}
+
+.fs-custom{
+  font-size: 0.9em
+}
+
+.card-Track{
+  background-color: #1f1f1f7a;
+  cursor: pointer;
+  border-radius: 12px; 
+}
+
+.card-Track:hover{
+  background-color: #1f1f1f;
+}
+
+.list-hover{
+  cursor: pointer;
+  border-radius: 12px; 
+}
+
+.list-hover:hover{
+  background-color: #1f1f1f7a;
+}
+
+.link-card{
+  text-decoration: none;
+  color: #fefefe;
+  opacity: 0.7;
+}
+
+.link-card:hover{
+  opacity: 1;
+  text-decoration: none;
+}
+
 
 /*ALBUM INIZIO*/
 .hero{
@@ -296,12 +359,7 @@ ol li p{
 #songList p{
   margin-bottom: 0px;
 }
-.icon-hover{
-  visibility: hidden;
-}
-.hover-custom:hover .icon-hover{
-  visibility: visible;
-}
+
 /*ALBUM FINE*/
 
 /*ARTIST INIZIO*/
@@ -323,3 +381,4 @@ ol li p{
 }
 
 /*ARTIST FINE*/
+
