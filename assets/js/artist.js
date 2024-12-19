@@ -167,7 +167,7 @@ let listDiscografia = document.getElementById("listDiscografia");
             linkTitle.className = "text-light link-card";
             linkTitle.setAttribute("href",`album.html?id=${newObjectArray[i].album.id}`);
             let albumTitle = document.createElement("p");
-            albumTitle.className = "card-text";
+            albumTitle.className = "card-text fs-5";
             albumTitle.innerText = newObjectArray[i].album.title;
 
             linkTitle.appendChild(albumTitle);
