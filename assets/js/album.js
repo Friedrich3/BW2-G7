@@ -309,6 +309,7 @@ function likeFeature(element) {
     const fill = document.getElementById(`${element.trackId}`);
     fill.className = "bi bi-heart mx-2 text-success";
   }
+
   localStorage.setItem("Like", JSON.stringify(preferiti));
   printLibrary();
 }

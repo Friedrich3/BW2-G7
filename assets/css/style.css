@@ -462,7 +462,3 @@ ol li p{
     border-radius: px;
     border: px none #000000;
   }
-
-  #main-Container{
-    z-index: 1000;
-  }
