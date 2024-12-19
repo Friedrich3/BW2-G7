@@ -12,6 +12,10 @@ let preferiti = JSON.parse(localStorage.getItem("Like")) || [];
 let arraySong = [];
 let album = {};
 
+let recentSongs = []; //ARRAY POPOLATO CON LE CANZONI IN LOCAL STORAGE
+
+let queryResult;
+
 window.addEventListener("load", init());
 
 function init() {
@@ -28,11 +32,25 @@ async function getAlbum() {
       },
     });
     let data = await response.json();
+    
     album = { ...data };
     arraySong = data.tracks.data;
+
+      queryResult = arraySong.map((item) => ({
+      trackId: item.id,
+      trackTitle: item.title,
+      albumId: item.album.id,
+      albumTitle: item.album.title,
+      albumCover: item.album.cover_small,
+      artistId: item.artist.id,
+      artistName: item.artist.name,
+      artistCover: item.artist.picture_medium,
+      duration: item.duration,
+      preview: item.preview,
+    }));
     //console.log(arraySong);
     printHero(album);
-    printSong(arraySong);
+    printSong(queryResult);
 
   } catch (error) {
     console.log("Error: " + error);
@@ -87,7 +105,6 @@ function printHero(album) {
 };
 
 function printSong(array) {
-console.log(array)
   let songList = document.getElementById("songList");
   songList.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
@@ -105,7 +122,7 @@ console.log(array)
     let songTitlePar = document.createElement("p");
     songTitleCont.classList.add("col-8", "d-flex", "align-items-center");
     songTitleCont.setAttribute("onclick", `addMusic(${music})`);
-    songTitlePar.innerText = array[i].title;
+    songTitlePar.innerText = array[i].trackTitle;
     songTitleCont.appendChild(songTitlePar);
 
     let iconCont = document.createElement("div");     //QUA ANDRANNO INSERITE LE ICONE IN InnerHTML
@@ -220,13 +237,12 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
 
 //ARRIVA IN INPUT L'URL della canzone da eseguire
 function addMusic(object) {
-
   let currentSongImg = document.getElementById("current-song-img");
-  currentSongImg.setAttribute("src", `${object.album.cover_small}`);
+  currentSongImg.setAttribute("src", `${object.albumCover}`);
   let songTitle = document.getElementById("song-title");
-  songTitle.innerText = object.title_short;
+  songTitle.innerText = object.trackTitle;
   let artistName = document.getElementById("artist-name");
-  artistName.innerText = object.artist.name;
+  artistName.innerText = object.artistName;
   let songDuration = document.getElementById("songDuration");
   songDuration.innerText = "0:30";
   let likeSongButton = document.getElementById("likeSongButton");
@@ -240,6 +256,7 @@ function addMusic(object) {
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
     localStorage.setItem("InfoCanzone", canzone);
+    listenedSong(object);
     return;
   } else {
     audioPlayer.pause();
@@ -250,6 +267,7 @@ function addMusic(object) {
     localStorage.setItem("Canzone", object.preview);
     let canzone = JSON.stringify(object);
     localStorage.setItem("InfoCanzone", canzone);
+    listenedSong(object);
     return;
   }
 }
@@ -264,6 +282,18 @@ function playPause() {
     btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
   }
 }
+
+
+function listenedSong(canzone){
+  console.log(canzone);
+  if(!localStorage.getItem("CanzoniRecenti")){
+    recentSongs.push(canzone);
+    localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+  }else{
+    recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+    
+  }
+  };
 
 
 function likeFeature(element) {
@@ -317,4 +347,4 @@ function printLibrary() {
     b.innerText = element.trackTitle;
     info.appendChild(b);
   });
-}
+
