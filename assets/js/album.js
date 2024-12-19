@@ -177,5 +177,3 @@ const img = document.getElementById('imgAlbum');
 img.addEventListener('load', () => {
  img.onload=calcolaMediaColori();
 });
-
-
