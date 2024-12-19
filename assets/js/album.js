@@ -101,7 +101,7 @@ songTitleCont.appendChild(songTitlePar);
 
 let iconCont = document.createElement("div");     //QUA ANDRANNO INSERITE LE ICONE IN InnerHTML
 iconCont.classList.add("col-2", "text-end", "align-items-center","icon-hover");
-iconCont.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`;
+iconCont.innerHTML = `<i class="bi bi-heart mx-2 text-success"></i><i class="bi bi-plus-lg mx-2"></i>`; 
 
 let songDurationCont = document.createElement("div");
 let songDurationPar = document.createElement("p");

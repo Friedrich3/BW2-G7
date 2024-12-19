@@ -116,33 +116,6 @@
               </div>
             </div>
           </div>
-
-          <div class="dropdown hydeLibrary">
-            <button
-              class="btn btn-secondary dropdown-toggle text-end"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fa fa-plus"></i>Crea
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <form class="px-4 py-3">
-                <div class="form-group">
-                  <label for="playlistName">Nome Playlist</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="playlistName"
-                    placeholder="Inserisci nome playlist"
-                  />
-                </div>
-                <button type="submit" class="btn btn-primary">Crea</button>
-              </form>
-            </div>
-          </div>
         </div>
 
         <div class="container-fluid overflow-hidden p-0 rounded-3 bg-schede">
@@ -626,7 +599,6 @@
               id="current-song-img"
               src="./assets/imgs/main/image-1.jpg"
               class="img-fluid"
-              
             />
             <div>
               <h2 id="song-title" class="text-white">Title</h2>
@@ -636,11 +608,21 @@
           </div>
           <div id="progress-container" class="col-6 p-0">
             <div class="d-flex justify-content-center">
-              <button class="btn"><i class="bi bi-shuffle text-white"></i></button>
-              <button class="btn"><i class="bi bi-skip-start text-white"></i></button>
-              <button class="btn fs-3"><i class="bi bi-play-circle-fill text-white"></i></button>
-              <button class="btn"><i class="bi bi-skip-end text-white"></i></button>
-              <button class="btn"><i class="bi bi-repeat text-white"></i></button>
+              <button class="btn">
+                <i class="bi bi-shuffle text-white"></i>
+              </button>
+              <button class="btn">
+                <i class="bi bi-skip-start text-white"></i>
+              </button>
+              <button class="btn fs-3">
+                <i class="bi bi-play-circle-fill text-white"></i>
+              </button>
+              <button class="btn">
+                <i class="bi bi-skip-end text-white"></i>
+              </button>
+              <button class="btn">
+                <i class="bi bi-repeat text-white"></i>
+              </button>
             </div>
             <div class="row align-items-center">
               <div class="col-auto">
@@ -662,7 +644,9 @@
               </div>
             </div>
           </div>
-          <div class="col-3 d-flex align-items-center p-0 justify-content-center">
+          <div
+            class="col-3 d-flex align-items-center p-0 justify-content-center"
+          >
             <i class="bi bi-music-note-list grey-icon px-1"></i>
             <i class="bi bi-speaker-fill grey-icon px-1"></i>
             <i class="bi bi-volume-up grey-icon"></i>

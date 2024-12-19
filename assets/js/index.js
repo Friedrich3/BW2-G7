@@ -31,7 +31,7 @@ const artist = [
   "Sam Smith",
   "Linkin Park",
 ];
-const albums = [
+const AlbumId = [
   "Materia",
   "Gioventu Brucata Pinguini",
   "Sirio",
@@ -168,8 +168,8 @@ async function getArtist() {
 }
 
 async function getAlbum() {
-  const shuffledAlbums = shuffle(albums);
-  const promises = shuffledAlbums.map((item) => {
+  const shuffledAlbumId = shuffle(AlbumId);
+  const promises = shuffledAlbumId.map((item) => {
     const albumUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${item.replaceAll(
       " ",
       "-"
@@ -371,7 +371,7 @@ async function searchQuery(query) {
 
     //console.log(data);
     printSearch(queryResult);
-    printAlbumCard(uniqueAlbum, "albumSearch");
+    printAlbumCard(uniqueAlbum, "AlbumIdearch");
     printArtistCard(uniqueArtist, "artistSearch");
 
     //let queryResult = data.data;
@@ -426,8 +426,8 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 
   //ORA INIZIARE A STAMPRE NELLA TERZA COLONNA CON LE CANZONI PIù POPOLARI
   const popularTracks = document.getElementById("popularTracks");
-  const songList = document.getElementById("songList");
-  songList.innerHTML = "";
+  const libraryList = document.getElementById("libraryList");
+  libraryList.innerHTML = "";
   popularTracks.innerHTML = "";
   //STAMPA DEI RISULTATI PIù INERENTI CON LA RICERCA
   for (let i = 0; i < 5; i++) {
@@ -492,7 +492,7 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
       "row row-cols-4 mb-3 py-2 justify-content-between hover-custom list-hover";
 
     if (i < 7) {
-      songList.appendChild(popRow);
+      libraryList.appendChild(popRow);
     } else {
       collapseContainer.appendChild(popRow);
     }
@@ -541,7 +541,7 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
     popDurataContainer.appendChild(popDurata);
   }
 
-  songList.appendChild(collapseContainer);
+  libraryList.appendChild(collapseContainer);
   //BOTTONE COLLAPSE
   const show = document.createElement("button");
   show.className = "btn mt-3";
@@ -550,5 +550,58 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
   show.setAttribute("data-bs-target", "#collapseList");
   show.innerText = "Mostra altro";
 
-  songList.appendChild(show);
+  libraryList.appendChild(show);
 }
+
+// document.getElementById('insertAlbum')
+// .addEventListener('submit', function(event) { 
+//   event.preventDefault(); searchAlbumId();
+//  });
+//   // Funzione per cercare album tramite API 
+//   async function searchAlbumId() { 
+//     const query = document.getElementById('insertItem').value; 
+//     try { const response = await axios.get(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`); 
+//     const albumId = response.data.albumId; 
+//     // Adatta questo in base alla struttura dei dati API 
+//     displayAlbumId(albumId);
+//    } catch (error) { 
+//     console.error('Errore durante la ricerca degli album:', error); 
+//   } 
+// } 
+//   // Funzione per visualizzare gli album nella lista 
+//   function displayAlbumId(libraryArray) {
+//      const libraryList = document.getElementById('libraryList');
+//       libraryList.innerHTML = ''; 
+//       // Pulire la lista precedente
+//     libraryArray.forEach(album => { 
+//       const li = document.createElement('li'); 
+//       li.className = 'list-group-item'; 
+//       li.textContent = album.title; 
+//       //li.onclick = () =>
+//          //selectAlbum(album.title);
+       
+//       });
+//      } 
+//       libraryList.appendChild(li);
+//      // Funzione per selezionare un album e salvarlo in localStorage 
+//      function selectAlbum(title) {
+//        // Salva il titolo in localStorage 
+//        const selectedAlbum = JSON.parse(localStorage.getItem('selectedAlbumId')) || [];
+//         selectedAlbum.push(title); 
+//         localStorage.setItem('selectedAlbumId', 
+//           JSON.stringify(selectedAlbum)); 
+//           displaySelectedAlbum();
+//          } 
+//         //Funzione per visualizzare gli album selezionati 
+//       function displaySelectedAlbum() { 
+//         const selectedAlbum = JSON.parse(localStorage.getItem('selectedAlbumId')) || [];
+//          const libraryList = document.getElementById('libraryList'); 
+//          libraryList.innerHTML = ''; 
+//          // Pulire la lista precedente 
+//          selectedAlbum.forEach(title => { 
+//           const li = document.createElement('li');
+//            li.className = 'list-group-item'; 
+//            li.textContent = title; 
+//            libraryList.appendChild(li); 
+//           });
+//         }
