@@ -96,7 +96,7 @@ function init() {
     const param = new URLSearchParams(window.location.search).get("search");
 
     if (!param) {
-      console.log("ciao");
+      //console.log("ciao");
       mainContainer.classList.remove("d-none");
       searchContainer.classList.add("d-none");
       getAlbum();
@@ -344,6 +344,8 @@ async function searchQuery(query) {
       artistName: item.artist.name,
       artistCover: item.artist.picture_medium,
       duration: item.duration,
+      
+      preview: item.preview
     }));
 
 
@@ -367,7 +369,7 @@ async function searchQuery(query) {
       return false;
     });
 
-    console.log("Risultati unici per albumId:", uniqueAlbum);
+    //console.log("Risultati unici per albumId:", uniqueAlbum);
 
     //console.log(data);
     printSearch(queryResult);
@@ -399,6 +401,7 @@ function convertToMinSec(seconds, boolean) {
 }
 
 function printSearch(item) {
+  
   //STAMPA SOLO DEL PRIMO ITEM
   mainContainer.classList.add("d-none");
   searchContainer.classList.remove("d-none");
@@ -431,9 +434,11 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
   popularTracks.innerHTML = "";
   //STAMPA DEI RISULTATI PIù INERENTI CON LA RICERCA
   for (let i = 0; i < 5; i++) {
+    let music = JSON.stringify(item[i]);  //fa diventare una stringa il tutto l'oggetto che serve
     //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
     const popRow = document.createElement("div");
     popRow.className = "row row-cols-4 mb-3 py-2 hover-custom list-hover";
+    popRow.setAttribute("onclick", `addMusic(${music})`);
     popularTracks.appendChild(popRow);
 
     const popularContainer = document.createElement("div");
@@ -486,10 +491,12 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
 
   //ORA LA PARTE SOTTO A TUTTA LARGHEZZA
   for (let i = 0; i < item.length; i++) {
+    let music = JSON.stringify(item[i]);  //fa diventare una stringa il tutto l'oggetto che serve
     //CREAZIONE DELLE RIGHE NELLA TERZA COLONNA RIMA SEZIONE
     const popRow = document.createElement("div");
     popRow.className =
       "row row-cols-4 mb-3 py-2 justify-content-between hover-custom list-hover";
+    popRow.setAttribute("onclick", `addMusic(${music})`);  //AGGIUNGE LA FUNZIONE PER METTERE LA CANZONE NEL PLAYER
 
     if (i < 7) {
       songList.appendChild(popRow);
@@ -551,4 +558,15 @@ artistLink.setAttribute("href", `artist.html?id=${item[0].artistId}`);
   show.innerText = "Mostra altro";
 
   songList.appendChild(show);
+}
+
+//ARRIVA IN INPUT L'URL della canzone da eseguire
+function addMusic(object){
+  console.log(object);
+
+  let songTitle = document.getElementById("song-title");
+  songTitle.innerText = object.trackTitle;
+  let artistName = document.getElementById("artist-name");
+  artistName.innerText = object.artistName;
+
 }
