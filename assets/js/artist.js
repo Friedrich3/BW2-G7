@@ -271,7 +271,7 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
 function addMusic(object) {
     let currentSongImg = document.getElementById("current-song-img");
     currentSongImg.setAttribute("src", `${object.albumCover}`);
-    currentSongImg.style.boxShadow="0.1px 0.1px 5px 1px rgba(25, 133, 83, 0.5)";
+    currentSongImg.style.boxShadow = "0.1px 0.1px 5px 1px rgba(25, 133, 83, 0.5)";
     let songTitle = document.getElementById("song-title");
     songTitle.innerText = object.trackTitle;
     let artistName = document.getElementById("artist-name");
@@ -319,32 +319,36 @@ function playPause() {
 }
 
 function likeFeature(element) {
+    //const param = new URLSearchParams(window.location.search).get("search");
     //console.log(item);
     const song = preferiti.find((item) => item.trackId === element.trackId);
+    //console.log(song);
 
     if (!song) {
         preferiti.push(element);
-        const fill = document.getElementById(`r${element.trackId}`);
-        fill.className = "bi bi-heart-fill mx-2 text-success";
+
+
+            const fill = document.getElementById(`r${element.trackId}`);
+            fill.className = "bi bi-heart-fill mx-2 text-success";
+
     } else {
         preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-        const fill = document.getElementById(`r${element.trackId}`);
-        fill.className = "bi bi-heart mx-2 text-success";
+        
+            const fill = document.getElementById(`r${element.trackId}`);
+            fill.className = "bi bi-heart mx-2 text-success";
+
     }
     localStorage.setItem("Like", JSON.stringify(preferiti));
     printLibrary();
-}
-
+};
 function printLibrary() {
     const libraryList = document.getElementById("libraryList");
     libraryList.innerHTML = "";
     //console.log(preferiti)
     preferiti.forEach((element) => {
         let music = JSON.stringify(element);
-
         const popularBody = document.createElement("div");
         popularBody.className = "d-flex mb-2 hover-custom";
-        popularBody.setAttribute("onclick", `addMusic(${music})`);
         libraryList.appendChild(popularBody);
 
         //SECONDA SEZIONE: COVER ALBUM + TITOLO
@@ -353,29 +357,36 @@ function printLibrary() {
         popCover.setAttribute("src", element.albumCover);
         popCover.setAttribute("width", "25px");
         popCover.setAttribute("height", "25px");
+        popCover.setAttribute("onclick", `addMusic(${music})`);
         popularBody.appendChild(popCover);
 
         const info = document.createElement("div");
         info.className = "m-0 ps-2";
         popularBody.appendChild(info);
 
+        const x = document.createElement("a");
+        x.className = 'link-card'
+        x.setAttribute("href", `artist.html?id=${element.artistId}`);
+        info.appendChild(x)
+
         const a = document.createElement("p");
         a.className = "m-0 ps-2 fs-small custom-text-library";
         a.innerText = element.artistName;
-        info.appendChild(a);
+        x.appendChild(a);
+
 
         const b = document.createElement("p");
         b.className = "m-0 ps-2 fs-small custom-text-library";
         b.innerText = element.trackTitle;
         info.appendChild(b);
 
-        const trashBtn = document.createElement('button');
-        trashBtn.className = 'btn ms-auto';
+        const trashBtn = document.createElement("button");
+        trashBtn.className = "btn ms-auto";
         trashBtn.innerHTML = '<i class="bi bi-trash3 grey-icon fs-small"></i>';
         trashBtn.setAttribute("onclick", `likeFeature(${music})`);
         popularBody.appendChild(trashBtn);
     });
-};
+}
 
 //FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
 function listenedSong(canzone) {
