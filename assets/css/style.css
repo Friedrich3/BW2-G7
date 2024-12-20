@@ -477,13 +477,14 @@ ol li p {
 /*per eliminare le impostazioni di default dei browser*/
 input[type="range"] {
   appearance: none;
+  border-radius: 25px;
 }
 
 /*custom per barra*/
 input[type="range"]::-webkit-slider-runnable-track {
   height: 10px;
   background: #ffffff;
-  border-radius: 5px;
+  border-radius: 25px;
 }
 
 /* Personalizzazione del cursore (chrome) */

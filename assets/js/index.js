@@ -766,7 +766,7 @@ function printRecentSong() {
   for (let i = 0; i < maxlength; i++) {
     let music = JSON.stringify(recentArray[i]);
     let recentSongCard = document.createElement("div");
-    recentSongCard.className = "col-sm-12 col-lg-6 col-xl-4 d-flex rounded-4 card-Track recent-height ";//MODIFICARE QUA LE CARTE PER LA GRAFICA
+    recentSongCard.className = "col-sm-12 col-lg-6 col-xl-3 d-flex rounded-4 card-Track recent-height ";//MODIFICARE QUA LE CARTE PER LA GRAFICA
 
     // let indexContainer = document.createElement("div");
     // let indexPar = document.createElement("p");
