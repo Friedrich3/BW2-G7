@@ -121,6 +121,7 @@ function init() {
   updateView();
 
   window.addEventListener("popstate", updateView);
+  loadMusicOnPages();
 }
 
 document.getElementById("searchBtn").addEventListener("click", (e) => {
@@ -824,7 +825,6 @@ function progressBar() {
 
   audioPlayer.addEventListener("timeupdate", () => {
     Barra.value = audioPlayer.currentTime;
-    console.log(Barra.value);
     currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
   });
 }
@@ -837,4 +837,11 @@ function formatTime(seconds) {
   }else{
     return `0:${format}`
   }
+}
+
+function loadMusicOnPages(){
+  let canzone = JSON.parse(localStorage.getItem("InfoCanzone"));
+  addMusic(canzone);
+  audioPlayer.pause();
+  btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`; 
 }
