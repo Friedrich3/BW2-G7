@@ -245,8 +245,6 @@ function addMusic(object) {
   artistName.innerText = object.artistName;
   let songDuration = document.getElementById("songDuration");
   songDuration.innerText = "0:30";
-  let likeSongButton = document.getElementById("likeSongButton");
-  likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
 
   //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
   if (!localStorage.getItem("Canzone")) {

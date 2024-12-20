@@ -590,7 +590,6 @@ function printSearch(item) {
 
 //ARRIVA IN INPUT L'URL della canzone da eseguire
 function addMusic(object) {
-
   let currentSongImg = document.getElementById("current-song-img");
   currentSongImg.setAttribute("src", `${object.albumCover}`);
   let songTitle = document.getElementById("song-title");
@@ -599,8 +598,6 @@ function addMusic(object) {
   artistName.innerText = object.artistName;
   let songDuration = document.getElementById("songDuration");
   songDuration.innerText = "0:30";
-  let likeSongButton = document.getElementById("likeSongButton");
-  likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
 
   //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
   if (!localStorage.getItem("Canzone")) {
@@ -752,7 +749,7 @@ function printRecentSong(){
     for(let i = 0 ; i < maxlength; i++){
       let music = JSON.stringify(recentArray[i]);
       let recentSongCard = document.createElement("div")
-      recentSongCard.className="col-4 d-flex rounded-4 p-0 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
+      recentSongCard.className="col col d-flex rounded-4 p-0 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
 
       let indexContainer = document.createElement("div");
       let indexPar = document.createElement("p");
