@@ -25,15 +25,15 @@ All'interno della SideBar, sulla sinistra della pagina, troviamo la libreria del
 -sezione "La mia Libreria" con relativa icona, che al click apre o chiude la sidebar;
 -bottoni "Playlist", "Artisti" e "Album", non funzionanti, che simulano la sidebar dell'app originale;
 -due icone, "cerca" e "lista", anch'esse non funzionanti;
--lista dei brani preferiti;
+-lista dinamica dei brani preferiti;
 
 PLAYER
 In fondo ad ogni pagina, è presente la barra del player come elemento fisso. E' composta da:
 -sezione "brano" composta dall'immagine relativa all'album che contiene il brano in riproduzione, titolo del brano e artista;
 -il player vero e proprio contiene 5 icone tipiche di ogni player, di cui soltanto l'icona centrale "play" è funzionante e permette di avviare e/o interrompere il brano;
--sotto la sezione delle icone è presente la progress bar funzionante che si riempie con lo scorrere dei secondi del brano (che può anche essere portato avanti o indietro con il mouse) con accanto il conteggio dei minuti/secondi trascorsi in riproduzione;
+-sotto la sezione delle icone è presente la progress bar funzionante, contenente un cursore che avanza allo scorrere dei secondi e che può anche essere portato avanti/indietro dall'utente con il mouse; accanto alla progress bar è presente un indicatore dei minuti/secondi trascorsi in riproduzione;
 -una sezione "audio" contenente tre icone, non funzionanti, e una barra che simula la regolazione del volume;
--il player si attiverà, oltre che al click sul suo bottone "play", al click su un brano in qualsiasi pagina.
+-il player si attiverà, oltre che al click sul suo bottone "play", sia al click su un brano in qualsiasi pagina sia al click sull brano direttamente sulla lista preferiti di "La mia Libreria".
 
 FOOTER
 Si trova in fondo alla sezione main di ognuna delle pagine e contiene link vuoti e icone social. Tutte le componenti del footer sono non funzionanti.
