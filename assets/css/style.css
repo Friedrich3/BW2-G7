@@ -456,7 +456,7 @@ ol li p{
     -webkit-box-direction: horizontal;
     -webkit-box-orient: horizontal;
     overflow: hidden;
-    max-width: 15em;
+    width: 15em;
   }
 
   .progress-bar{
@@ -503,3 +503,11 @@ input[type="range"]:hover::-webkit-slider-thumb {
     transform: scale(1.5);
 
 }
+.card-recent{
+  display: -webkit-box;
+  -webkit-box-direction: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
