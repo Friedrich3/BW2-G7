@@ -12,7 +12,7 @@ const artist = [
   "Tananai",
   "Madame",
   "Tedua",
-  "Sfera Ebbasta",
+  "Creepy Nuts",
   "Pinguini Tattici Nucleari",
   "Giorgia",
   "Taylor Swift",
@@ -48,7 +48,7 @@ const albums = [
   "La Lunga Attesa",
   "Rush!",
   "Dawn FM",
-  "Did You Know That There's a Tunnel Under Ocean Blvd",
+  "Otonoke",
   "Midnights",
   "Happier Than Ever",
   "For All the Dogs",
@@ -559,7 +559,7 @@ function printSearch(item) {
 
     const heart = document.createElement("i");
     heart.className = "bi bi-heart mx-2 text-success";
-    heart.setAttribute("id", item[i].trackId);
+    heart.setAttribute("id", `r${item[i].trackId}`);
     heartButton.appendChild(heart);
     //console.log(item[i])
 
@@ -639,17 +639,25 @@ function playPause() {
 
 //FUNZIONE PER METTERE I LIKE
 function likeFeature(element) {
+  const param = new URLSearchParams(window.location.search).get("search");
   //console.log(item);
   const song = preferiti.find((item) => item.trackId === element.trackId);
+  console.log(song)
 
   if (!song) {
     preferiti.push(element);
-    const fill = document.getElementById(`${element.trackId}`);
+
+    if (param){
+      const fill = document.getElementById(`r${element.trackId}`);
     fill.className = "bi bi-heart-fill mx-2 text-success";
+    }
+    
   } else {
     preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-    const fill = document.getElementById(`${element.trackId}`);
+    if (param){
+      const fill = document.getElementById(`r${element.trackId}`);
     fill.className = "bi bi-heart mx-2 text-success";
+    }
   }
   localStorage.setItem("Like", JSON.stringify(preferiti));
   printLibrary();

@@ -127,7 +127,7 @@ function printSongList(object) {
 
         let heart = document.createElement("i");
         heart.className = "bi bi-heart mx-2 text-success";
-        heart.setAttribute("id", object[i].trackId);
+        heart.setAttribute("id", `r${object[i].trackId}`);
         heartButton.appendChild(heart);
 
 
@@ -322,11 +322,11 @@ function likeFeature(element) {
 
     if (!song) {
         preferiti.push(element);
-        const fill = document.getElementById(`${element.trackId}`);
+        const fill = document.getElementById(`r${element.trackId}`);
         fill.className = "bi bi-heart-fill mx-2 text-success";
     } else {
         preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-        const fill = document.getElementById(`${element.trackId}`);
+        const fill = document.getElementById(`r${element.trackId}`);
         fill.className = "bi bi-heart mx-2 text-success";
     }
     localStorage.setItem("Like", JSON.stringify(preferiti));

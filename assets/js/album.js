@@ -139,7 +139,7 @@ function printSong(array) {
 
     const heart = document.createElement("i");
     heart.className = "bi bi-heart mx-2 text-success";
-    heart.setAttribute("id", array[i].trackId);
+    heart.setAttribute("id", `r${array[i].trackId}`);
     heartButton.appendChild(heart);
     //console.log(item[i])
 
@@ -326,11 +326,11 @@ function likeFeature(element) {
 
   if (!song) {
     preferiti.push(element);
-    const fill = document.getElementById(`${element.trackId}`);
+    const fill = document.getElementById(`r${element.trackId}`);
     fill.className = "bi bi-heart-fill mx-2 text-success";
   } else {
     preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-    const fill = document.getElementById(`${element.trackId}`);
+    const fill = document.getElementById(`r${element.trackId}`);
     fill.className = "bi bi-heart mx-2 text-success";
   }
 
