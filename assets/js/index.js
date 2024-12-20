@@ -115,6 +115,7 @@ function init() {
       searchContainer.classList.remove("d-none");
       searchQuery(param);
       printLibrary();
+      
     }
   };
   updateView();
@@ -336,6 +337,7 @@ let uniqueAlbum;
 let uniqueArtist;
 
 async function searchQuery(query) {
+  document.title = `Spotify - Search`;
   const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
     " ",
     "-"
@@ -763,51 +765,35 @@ function printRecentSong() {
   for (let i = 0; i < maxlength; i++) {
     let music = JSON.stringify(recentArray[i]);
     let recentSongCard = document.createElement("div");
-    recentSongCard.className = "col-4 d-flex rounded-4 p-0 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
+    recentSongCard.className = "col-3 d-flex rounded-4 p-2 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
 
-    let indexContainer = document.createElement("div");
-    let indexPar = document.createElement("p");
-    indexContainer.className = "col-index align-content-center text-end ms-3";
-    indexPar.innerText = `${i + 1}.`;
-    indexContainer.appendChild(indexPar);
+    // let indexContainer = document.createElement("div");
+    // let indexPar = document.createElement("p");
+    // indexContainer.className = "col-index align-content-center text-end";
+    // indexPar.innerText = `${i + 1}.`;
+    // indexContainer.appendChild(indexPar);
 
     let titleContainer = document.createElement("div");
-    titleContainer.className = "col-8 d-flex align-items-center";
+    titleContainer.className = "col-9 d-flex align-items-center";
     titleContainer.setAttribute("onclick", `addMusic(${music})`);
     let titleImage = document.createElement("img");
-    titleImage.className = "imgSong";
+    titleImage.className = "imgSong ps-1";
     titleImage.setAttribute("alt", "Cover");
     titleImage.setAttribute("src", `${recentArray[i].albumCover}`);
     let titlePar = document.createElement("p");
-    titlePar.className = "ps-2";
+    titlePar.className = "ps-2 fs-5 card-recent";
     titlePar.innerText = `${recentArray[i].trackTitle}`;
     titleContainer.append(titleImage, titlePar);
 
-    let iconContainer = document.createElement("div");
-    iconContainer.className = "col-2 text-end align-content-center icon-hover";
-    iconContainer.innerHTML = `<i class="bi bi-plus-lg mx-2"></i>`;
-
-    let heartButton = document.createElement("button");
-    heartButton.className = "btn";
-    heartButton.setAttribute("type", "button");
-    heartButton.setAttribute("onclick", `likeFeature(${music})`);
-    iconContainer.appendChild(heartButton);
-
-    let heart = document.createElement("i");
-    heart.className = "bi bi-heart mx-2 text-success";
-    heart.setAttribute("id", recentArray[i].trackId);
-    heartButton.appendChild(heart);
-
     let durataContainer = document.createElement("div");
-    durataContainer.className = "col-1 text-end align-content-center";
+    durataContainer.className = "col-3 text-center align-content-center";
     let durataPar = document.createElement("p");
     durataPar.innerText = `${convertToMinSec(recentArray[i].duration, false)}`;
     durataContainer.appendChild(durataPar);
 
     recentSongCard.append(
-      indexContainer,
+      //indexContainer,
       titleContainer,
-      iconContainer,
       durataContainer
     );
     recentSongWrapper.appendChild(recentSongCard);

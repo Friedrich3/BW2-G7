@@ -460,13 +460,15 @@ ol li p {
   border: px none #000000;
 }
 
-.custom-text-library {
-  display: -webkit-box;
-  -webkit-box-direction: horizontal;
-  -webkit-box-orient: horizontal;
-  overflow: hidden;
-  max-width: 15em;
-}
+
+  .custom-text-library{
+    display: -webkit-box;
+    -webkit-box-direction: horizontal;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
+    width: 15em;
+  }
+
 
 .progress-bar {
   background-color: transparent !important;
@@ -509,3 +511,11 @@ input[type="range"]:hover::-webkit-slider-thumb {
   background: #198754;
   transform: scale(1.5);
 }
+.card-recent{
+  display: -webkit-box;
+  -webkit-box-direction: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
