@@ -518,4 +518,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
-
+.recent-height{
+  height: 5em;
+  padding-left: 1em;
+}
