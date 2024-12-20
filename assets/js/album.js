@@ -35,6 +35,7 @@ async function getAlbum() {
     let data = await response.json();
     
     album = { ...data };
+    console.log(album)
     arraySong = data.tracks.data;
 
       queryResult = arraySong.map((item) => ({
@@ -53,6 +54,7 @@ async function getAlbum() {
     printHero(album);
     printSong(queryResult);
     loadMusicOnPages();
+    document.title = album.title;
 
   } catch (error) {
     console.log("Error: " + error);

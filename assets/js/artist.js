@@ -27,6 +27,7 @@ async function getArtist() {
         let object = { ...data };
         printHero(object);
         getDatas(data.name);
+        document.title = object.name;
     } catch (error) {
         console.log("Error: " + error);
     }
