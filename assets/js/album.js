@@ -362,13 +362,20 @@ function printLibrary() {
     popularBody.appendChild(info);
 
     const a = document.createElement("p");
-    a.className = "m-0 ps-2 fs-small";
+    a.className = "m-0 ps-2 fs-small custom-text-library";
     a.innerText = element.artistName;
     info.appendChild(a);
 
     const b = document.createElement("p");
-    b.className = "m-0 ps-2 fs-small";
+    b.className = "m-0 ps-2 fs-small custom-text-library";
     b.innerText = element.trackTitle;
     info.appendChild(b);
+
+    const trashBtn=document.createElement('button');
+    trashBtn.className='btn ms-auto';
+    trashBtn.innerHTML='<i class="bi bi-trash3 grey-icon fs-small"></i>';
+    trashBtn.setAttribute("onclick",`likeFeature(${music})`);
+    popularBody.appendChild(trashBtn);
   });
+  
 }
