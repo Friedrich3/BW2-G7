@@ -464,3 +464,11 @@ ol li p{
     border-radius: px;
     border: px none #000000;
   }
+
+  .custom-text-library{
+    display: -webkit-box;
+    -webkit-box-direction: horizontal;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
+    max-width: 15em;
+  }
