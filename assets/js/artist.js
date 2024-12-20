@@ -59,9 +59,10 @@ async function getDatas(name) {
         }));
         printSongList(queryResult);
         printRecomendedAlbum(object[0]);
-        filterAlbum(object)
+        filterAlbum(object);
+        loadMusicOnPages(); //CARICA CANZONE CORRENTE NEL PLAYER
 
-        console.log(queryResult);
+        //console.log(queryResult);
     } catch (error) {
         console.log("Error: " + error);
     }
@@ -376,7 +377,7 @@ function printLibrary() {
 
 //FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
 function listenedSong(canzone) {
-    console.log(canzone);
+    //console.log(canzone);
     if (!localStorage.getItem("CanzoniRecenti")) {
         recentSongs.push(canzone);
         localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
@@ -398,7 +399,6 @@ function listenedSong(canzone) {
                 return;
             } else {
                 recentSongs.splice(index, 1);
-                console.log(canzone);
                 recentSongs.unshift(canzone);
                 localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
                 return;
@@ -415,32 +415,38 @@ function progressBar() {
     const Barra = document.getElementById("Barra");
     const currentTime = document.getElementById("currentTime");
     currentTime.innerText = "ciao";
-  
+
     audioPlayer.addEventListener("loadedmetadata", () => {
-      Barra.min = 0;
-      Barra.max = Math.min(29, audioPlayer.duration);
-      Barra.value = 0;
-      //console.log( audioPlayer.currentTime);
+        Barra.min = 0;
+        Barra.max = Math.min(29, audioPlayer.duration);
+        Barra.value = 0;
+        //console.log( audioPlayer.currentTime);
     });
-  
+
     Barra.addEventListener("input", () => {
-      audioPlayer.currentTime = Barra.value;
+        audioPlayer.currentTime = Barra.value;
     });
-  
+
     audioPlayer.addEventListener("timeupdate", () => {
-      Barra.value = audioPlayer.currentTime;
-      console.log(Barra.value);
-      currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
+        Barra.value = audioPlayer.currentTime;
+        currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
     });
-  }
-  
-  function formatTime(seconds) {
+}
+
+function formatTime(seconds) {
     let sec = seconds % 60;
     let format = parseFloat(sec.toFixed(0));
-    if (format<10){
-      return `0:0${format}`
-    }else{
-      return `0:${format}`
+    if (format < 10) {
+        return `0:0${format}`;
+    } else {
+        return `0:${format}`;
     }
-  }
-  
+}
+
+
+function loadMusicOnPages() {
+    let canzone = JSON.parse(localStorage.getItem("InfoCanzone"));
+    addMusic(canzone);
+    audioPlayer.pause();
+    btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+}
