@@ -119,7 +119,6 @@ function init() {
   };
   updateView();
 
-
   window.addEventListener("popstate", updateView);
   loadMusicOnPages();
 }
@@ -576,7 +575,7 @@ function printSearch(item) {
   songList.appendChild(collapseContainer);
   //BOTTONE COLLAPSE
   const show = document.createElement("button");
-  show.className = "btn mt-3";
+  show.className = "btn mt-3 text-light";
   show.setAttribute("type", "button");
   show.setAttribute("data-bs-toggle", "collapse");
   show.setAttribute("data-bs-target", "#collapseList");
@@ -642,21 +641,20 @@ function likeFeature(element) {
   const param = new URLSearchParams(window.location.search).get("search");
   //console.log(item);
   const song = preferiti.find((item) => item.trackId === element.trackId);
-  console.log(song)
+  console.log(song);
 
   if (!song) {
     preferiti.push(element);
 
-    if (param){
+    if (param) {
       const fill = document.getElementById(`r${element.trackId}`);
-    fill.className = "bi bi-heart-fill mx-2 text-success";
+      fill.className = "bi bi-heart-fill mx-2 text-success";
     }
-    
   } else {
     preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-    if (param){
+    if (param) {
       const fill = document.getElementById(`r${element.trackId}`);
-    fill.className = "bi bi-heart mx-2 text-success";
+      fill.className = "bi bi-heart mx-2 text-success";
     }
   }
   localStorage.setItem("Like", JSON.stringify(preferiti));
@@ -686,21 +684,26 @@ function printLibrary() {
     info.className = "m-0 ps-2";
     popularBody.appendChild(info);
 
+    const x = document.createElement("a");
+    x.className='link-card'
+    x.setAttribute("href", `artist.html?id=${element.artistId}`);
+    info.appendChild(x)
+
     const a = document.createElement("p");
     a.className = "m-0 ps-2 fs-small custom-text-library";
     a.innerText = element.artistName;
-    info.appendChild(a);
+    x.appendChild(a);
+
 
     const b = document.createElement("p");
     b.className = "m-0 ps-2 fs-small custom-text-library";
     b.innerText = element.trackTitle;
     info.appendChild(b);
 
-
-    const trashBtn=document.createElement('button');
-    trashBtn.className='btn ms-auto';
-    trashBtn.innerHTML='<i class="bi bi-trash3 grey-icon fs-small"></i>';
-    trashBtn.setAttribute("onclick",`likeFeature(${music})`);
+    const trashBtn = document.createElement("button");
+    trashBtn.className = "btn ms-auto";
+    trashBtn.innerHTML = '<i class="bi bi-trash3 grey-icon fs-small"></i>';
+    trashBtn.setAttribute("onclick", `likeFeature(${music})`);
     popularBody.appendChild(trashBtn);
   });
 }
@@ -747,7 +750,6 @@ function printRecentSong() {
   let recentArray = [];
   recentSongWrapper.innerHTML = "";
 
-
   recentArray = JSON.parse(localStorage.getItem("CanzoniRecenti"));
   let maxlength;
   if (!localStorage.getItem("CanzoniRecenti")) {
@@ -757,7 +759,6 @@ function printRecentSong() {
     maxlength = 6;
   } else {
     maxlength = recentArray.length;
-
   }
   for (let i = 0; i < maxlength; i++) {
     let music = JSON.stringify(recentArray[i]);
@@ -840,16 +841,16 @@ function progressBar() {
 function formatTime(seconds) {
   let sec = seconds % 60;
   let format = parseFloat(sec.toFixed(0));
-  if (format<10){
-    return `0:0${format}`
-  }else{
-    return `0:${format}`
+  if (format < 10) {
+    return `0:0${format}`;
+  } else {
+    return `0:${format}`;
   }
 }
 
-function loadMusicOnPages(){
+function loadMusicOnPages() {
   let canzone = JSON.parse(localStorage.getItem("InfoCanzone"));
   addMusic(canzone);
   audioPlayer.pause();
-  btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`; 
+  btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
 }

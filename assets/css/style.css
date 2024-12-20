@@ -12,17 +12,17 @@ body {
   padding: 0;
   margin: 0;
 }
-p{
-  margin:0;
-  padding:0;
+p {
+  margin: 0;
+  padding: 0;
 }
 
-main{
-  height:87vh;
+main {
+  height: 87vh;
   box-sizing: border-box;
 }
 
-main>section:first-child{
+main > section:first-child {
   height: 85%;
 }
 
@@ -75,13 +75,13 @@ button:hover .grey-icon {
   outline: none;
 }
 
-.search-container input::placeholder{
+.search-container input::placeholder {
   font-size: 0.8em;
 }
 
 .search-container input,
 .search-container input:focus,
-.search-container input:-webkit-autofill, 
+.search-container input:-webkit-autofill,
 .search-container input:-webkit-autofill:focus {
   box-shadow: 0 0 0px 1000px #1f1f1f inset;
   -webkit-text-fill-color: white;
@@ -95,31 +95,32 @@ button:hover .grey-icon {
   padding-left: 0.6em;
 }
 
-.custom-select { 
-  background-color: transparent; 
-  color: white; 
-  border: none; 
-} 
-.custom-select option { 
-  background-color: #1f1f1f; 
-  color: white; 
-} 
-.custom-select:focus { 
-  border-color: transparent; 
+.custom-select {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+.custom-select option {
+  background-color: #1f1f1f;
+  color: white;
+}
+.custom-select:focus {
+  border-color: transparent;
   box-shadow: none;
   background-color: #1f1f1f;
- } 
- .custom-select option:hover, 
- .custom-select option:focus {
-  background-color: #1f1f1f; 
-  color: white; 
+}
+.custom-select option:hover,
+.custom-select option:focus {
+  background-color: #1f1f1f;
+  color: white;
 }
 
 .search-container input:focus .search-container {
   border: 2px solid #fefefe; /* Colore del bordo quando si scrive (verde, ad esempio) */
 }
 
-.dropdown-item, .dropdown-item:hover  {
+.dropdown-item,
+.dropdown-item:hover {
   color: white;
   font-size: 1em;
   width: 13rem;
@@ -129,73 +130,75 @@ button:hover .grey-icon {
 }
 
 .user .dropdown-item:hover {
-  background-color: #3E3E3E;
+  background-color: #3e3e3e;
   color: #fefefe;
 }
 
 .sidebar {
-    background-color: #000;
-    width: 60px;
-    overflow-x: hidden;
-    transition: width 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 15px;
+  background-color: #000;
+  width: 60px;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
 }
 
-.sidebar.expanded{
-    width: 20rem;
+.sidebar.expanded {
+  width: 20rem;
 }
 
 .menu-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-    transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s ease;
 }
 
 .menu-item i {
-    font-size: 1.5rem;
-    margin-left: 10px;
+  font-size: 1.5rem;
+  margin-left: 10px;
 }
 
-.library-search-container, .hydeLibrary{
-    display: none;
-    white-space: nowrap;
+.library-search-container,
+.hydeLibrary {
+  display: none;
+  white-space: nowrap;
 }
 
-
-.sidebar.expanded span, .sidebar.expanded .hydeLibrary,.sidebar.expanded .library-search-container{
-    display: inline;
+.sidebar.expanded span,
+.sidebar.expanded .hydeLibrary,
+.sidebar.expanded .library-search-container {
+  display: inline;
 }
 
 .menu-item:hover {
-    background-color: #333;
+  background-color: #333;
 }
 
 /* Icona personalizzata per la parte superiore */
 .menu-header i {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: white;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: white;
 }
-.top-custom{
+.top-custom {
   top: 5.9em;
   height: 75%;
 }
 
-.bg-schede{
+.bg-schede {
   background-color: #121212;
 }
 .bg-custom {
   background-color: #353535;
 }
-.main{
+.main {
   width: 100%;
   height: 75vh;
   overflow-y: scroll;
@@ -205,7 +208,7 @@ button:hover .grey-icon {
   font-size: 0.9rem;
 }
 
-.card-text{
+.card-text {
   display: -webkit-box;
   -webkit-box-direction: vertical;
   -webkit-box-orient: vertical;
@@ -214,90 +217,90 @@ button:hover .grey-icon {
   height: 4rem;
 }
 
-.card-figlio{
+.card-figlio {
   width: 80%;
 }
 
-.card-padre{
+.card-padre {
   width: 95%;
 }
-.card-padre:hover{
+.card-padre:hover {
   background-color: #1f1f1f7a;
   cursor: pointer;
-  border-radius: 16px; 
+  border-radius: 16px;
 }
-.link-card{
+.link-card {
   text-decoration: none;
 }
-.link-card:hover{
+.link-card:hover {
   text-decoration: underline;
 }
 
-
-.img{
+.img {
   object-fit: cover;
   object-position: top;
 }
 
-.col-index{
-width: 1em;
+.col-index {
+  width: 1em;
 }
 
-.icon-hover{
+.icon-hover {
   visibility: hidden;
 }
 
-.hover-custom:hover .icon-hover{
+.hover-custom:hover .icon-hover {
   visibility: visible;
 }
 
-.fs-custom{
-  font-size: 0.9em
+.fs-custom {
+  font-size: 0.9em;
 }
 
-.card-Track{
+.card-Track {
   background-color: #1f1f1f7a;
   cursor: pointer;
-  border-radius: 12px; 
+  border-radius: 12px;
 }
 
-.card-Track:hover{
+.card-Track:hover {
   background-color: #1f1f1f;
 }
 
-.list-hover{
+.list-hover {
   cursor: pointer;
-  border-radius: 12px; 
+  border-radius: 12px;
 }
 
-.list-hover:hover{
+.list-hover:hover {
   background-color: #1f1f1f7a;
 }
 
-.link-card{
+.link-card {
   text-decoration: none;
   color: #fefefe;
   opacity: 0.7;
 }
 
-.link-card:hover{
+.link-card:hover {
   opacity: 1;
   text-decoration: none;
 }
 
-
 /*ALBUM INIZIO*/
--hero{
-  box-shadow: 0px 50px 100px 50px #DC3545;
+-hero {
+  box-shadow: 0px 50px 100px 50px #dc3545;
 }
-.titolo{
+.titolo {
   font-size: 4.5em;
-  font-weight:900;
+  font-weight: 900;
 }
-h2, .hero p, .hero img{
+h2,
+.hero p,
+.hero img {
   padding: 10px;
 }
-#imgAlbum{
+#imgAlbum {
   padding: 0;
   max-width: 250px;
   display: block;
@@ -305,92 +308,100 @@ h2, .hero p, .hero img{
   margin-bottom: 20px;
   box-shadow: 7px 7px 10px #1f1f1f;
 }
-#imgBand{
+#imgBand {
   width: 30%;
   max-width: 90px;
   border-radius: 50px;
   display: inline-block;
 }
-.imgSong{
+.imgSong {
   max-width: 40px;
   border-radius: 8px;
   display: inline-block;
 }
-.dropdown-item:hover{
+.dropdown-item:hover {
   background-color: grey;
 }
-ol{
+ol {
   padding-left: 50px;
 }
 ol li {
   margin-bottom: 10px;
   font-size: x-large;
 }
-ol li p{
+ol li p {
   margin-left: 20%;
 }
-#sidebar{
+#sidebar {
   display: none;
 }
 
-@media screen and (min-width:768px){
-  ol li{
-      font-size: larger;
+@media screen and (min-width: 768px) {
+  ol li {
+    font-size: larger;
   }
-  .visual, .time{
-      display: inline-block !important;
+  .visual,
+  .time {
+    display: inline-block !important;
   }
-  .more{
-      display: none;
+  .more {
+    display: none;
   }
-  #sidebar{
-      display: block;
-  }
-}
-@media screen and (min-width:992px){
-  ol li{
-      font-size: larger;
-  }
-  #imgBand{
-      width: 40%;
-  }
-  #imgAlbum{
-      max-width: 300px;
+  #sidebar {
+    display: block;
   }
 }
-.col-index{
+@media screen and (min-width: 992px) {
+  ol li {
+    font-size: larger;
+  }
+  #imgBand {
+    width: 40%;
+  }
+  #imgAlbum {
+    max-width: 300px;
+  }
+}
+.col-index {
   width: 1em;
 }
 
-#songList p{
+#songList p {
   margin-bottom: 0px;
 }
 
 /*ALBUM FINE*/
 
 /*ARTIST INIZIO*/
-#heroSection{
-  min-height:35vh;
+#heroSection {
+  min-height: 40vh;
   width: 100%;
-  
 }
-.hero-custom{
+
+.aaa {
+  height: 40vh;
   width: 100%;
+}
+
+.hero-custom {
+  width: 100%;
+  height: 40vh;
   object-fit: cover;
-  
-  
+  object-position: center 35%;
 }
-.heroText-Custom{
+
+
+.heroText-Custom {
   left: 15px;
-  bottom:15px;
+  bottom: 15px;
 }
-#heroArtistName{
+#heroArtistName {
   font-size: 4.5em;
   margin-bottom: 0px !important;
-  
-  
 }
-#heroArtistName,#verifiedArtist,#heroArtistView{
+#heroArtistName,
+#verifiedArtist,
+#heroArtistView {
   text-shadow: 2px 2px 2px#1f1f1f7a;
 }
 
@@ -402,7 +413,6 @@ ol li p{
   color: #a1a1a1;
   font-size: 2em;
   margin: 0 0.2em;
-
 }
 
 #music-player i:hover {
@@ -415,7 +425,7 @@ ol li p{
 
 #artist-name {
   font-size: 70%;
-  color: #a1a1a1
+  color: #a1a1a1;
 }
 
 #current-song-img {
@@ -423,83 +433,79 @@ ol li p{
 }
 /*fine player*/
 
-.fs-small{
+.fs-small {
   font-size: 0.7em;
 }
 
-.library-scroll{
+.library-scroll {
   overflow: scroll;
 }
 
-
- * {
+* {
   scrollbar-width: auto;
-  scrollbar-color: #363636 #121212;}
+  scrollbar-color: #363636 #121212;
+}
 
- 
-  *::-webkit-scrollbar {
-    width: 0px;
-  }
+*::-webkit-scrollbar {
+  width: 0px;
+}
 
-  *::-webkit-scrollbar-track {
-    background: #121212;
-  }
+*::-webkit-scrollbar-track {
+  background: #121212;
+}
 
-  *::-webkit-scrollbar-thumb {
-    background-color: #363636;
-    border-radius: px;
-    border: px none #000000;
-  }
+*::-webkit-scrollbar-thumb {
+  background-color: #363636;
+  border-radius: px;
+  border: px none #000000;
+}
 
-  .custom-text-library{
-    display: -webkit-box;
-    -webkit-box-direction: horizontal;
-    -webkit-box-orient: horizontal;
-    overflow: hidden;
-    max-width: 15em;
-  }
+.custom-text-library {
+  display: -webkit-box;
+  -webkit-box-direction: horizontal;
+  -webkit-box-orient: horizontal;
+  overflow: hidden;
+  max-width: 15em;
+}
 
-  .progress-bar{
-    background-color: transparent !important;
-  }
+.progress-bar {
+  background-color: transparent !important;
+}
 
 /*per eliminare le impostazioni di default dei browser*/
-  input[type="range"] {
-    appearance: none; 
-    
+input[type="range"] {
+  appearance: none;
 }
 
 /*custom per barra*/
 input[type="range"]::-webkit-slider-runnable-track {
-    height: 10px;
-    background: #ffffff;
-    border-radius: 5px;
-   
+  height: 10px;
+  background: #ffffff;
+  border-radius: 5px;
 }
 
 /* Personalizzazione del cursore (chrome) */
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 10px;
-    border-radius: 25px;
-    background: #198754; /* Colore del cursore */
-    border: none; /* Bordo bianco per farlo risaltare */
-    cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 10px;
+  border-radius: 25px;
+  background: #198754; /* Colore del cursore */
+  border: none; /* Bordo bianco per farlo risaltare */
+  cursor: pointer;
 }
 
 /* Personalizzazione del cursore per Firefox */
 input[type="range"]::-moz-range-thumb {
-    background: #ffffff;
-    cursor: pointer;
+  background: #ffffff;
+  cursor: pointer;
 }
 
-input[type="range"]:focus::-webkit-slider-runnable-track{
-background: rgb(255, 255, 255);
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: rgb(255, 255, 255);
 }
 input[type="range"]:hover::-webkit-slider-thumb {
-    background: #198754; 
-    transform: scale(1.5);
-
+  background: #198754;
+  transform: scale(1.5);
 }
