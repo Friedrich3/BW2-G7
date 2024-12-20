@@ -30,7 +30,6 @@ All'interno della SideBar, sulla sinistra della pagina, troviamo la libreria del
 PLAYER
 In fondo ad ogni pagina, è presente la barra del player come elemento fisso. E' composta da:
 -sezione "brano" composta dall'immagine relativa all'album che contiene il brano in riproduzione, titolo del brano e artista;
--accanto a questi tre elementi troviamo l'icona preferiti (funzionante?), tramite la quale si aggiungono i brani sulla lista all'interno della sidebar;
 -il player vero e proprio contiene 5 icone tipiche di ogni player, di cui soltanto l'icona centrale "play" è funzionante e permette di avviare e/o interrompere il brano;
 -sotto la sezione delle icone è presente la progress bar funzionante che si riempie con lo scorrere dei secondi del brano (che può anche essere portato avanti o indietro con il mouse) con accanto il conteggio dei minuti/secondi trascorsi in riproduzione;
 -una sezione "audio" contenente tre icone, non funzionanti, e una barra che simula la regolazione del volume;
