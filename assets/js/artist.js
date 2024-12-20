@@ -275,8 +275,6 @@ function addMusic(object) {
     artistName.innerText = object.artistName;
     let songDuration = document.getElementById("songDuration");
     songDuration.innerText = "0:30";
-    let likeSongButton = document.getElementById("likeSongButton");
-    likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
 
     //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
     if (!localStorage.getItem("Canzone")) {
@@ -359,14 +357,20 @@ function printLibrary() {
         popularBody.appendChild(info);
 
         const a = document.createElement("p");
-        a.className = "m-0 ps-2 fs-small";
+        a.className = "m-0 ps-2 fs-small custom-text-library";
         a.innerText = element.artistName;
         info.appendChild(a);
 
         const b = document.createElement("p");
-        b.className = "m-0 ps-2 fs-small";
+        b.className = "m-0 ps-2 fs-small custom-text-library";
         b.innerText = element.trackTitle;
         info.appendChild(b);
+
+        const trashBtn = document.createElement('button');
+        trashBtn.className = 'btn ms-auto';
+        trashBtn.innerHTML = '<i class="bi bi-trash3 grey-icon fs-small"></i>';
+        trashBtn.setAttribute("onclick", `likeFeature(${music})`);
+        popularBody.appendChild(trashBtn);
     });
 };
 
