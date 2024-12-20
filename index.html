@@ -13,12 +13,12 @@
 
 <body class="container-fluid">
   <header class="navbar bg-black row row-cols-3">
-    <div class="flex-start col-4">
+    <div class="flex-start col-2 col-lg-4">
       <a class="navbar-brand p-2" href="./index.html">
         <i class="bi bi-spotify" style="font-size: 2.3rem; color: white"></i>
       </a>
     </div>
-    <div class="d-flex col-4">
+    <div class="d-flex col-10 col-lg-4">
       <button class="btn" type="button" onclick="window.location.href='./index.html'">
         <i class="bi bi-house-door grey-icon"></i>
       </button>
@@ -34,7 +34,7 @@
       </form>
     </div>
 
-    <div class="d-flex col-4 justify-content-end">
+    <div class="d-none d-lg-flex col-4 justify-content-end">
       <div class="dropdown">
         <button class="btn" data-bs-toggle="dropdown" type="button">
           <i class="bi bi-bell fs-3 grey-icon"></i>
@@ -449,14 +449,13 @@
     <section id="music-player" class="container-fluid bg-black pt-3">
       <audio src="" class="d-none" id="audioPlayer"></audio>
       <div class="row row-cols-4 align-items-center">
-        <div class="col-2 d-flex align-items-center p-0">
+        <div class="col-6 col-lg-3 d-flex align-items-center p-0">
           <img id="current-song-img" src="" class="img-fluid rounded-3 pe-1" />
           <div>
             <p id="song-title" class="text-white h3 m-0"></p>
             <p id="artist-name" class="text-white h4 m-0 opacity-75"></p>
           </div>
         </div>
-        <div class="col-1" id="likeSongButton"></div>
         <div id="progress-container" class="col-6 p-0">
           <div class="d-flex justify-content-center">
             <button class="btn">
@@ -492,7 +491,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3 d-flex align-items-center p-0 justify-content-center">
+        <div class="col-lg-3 d-none d-lg-flex align-items-center p-0 justify-content-center">
           <i class="bi bi-music-note-list grey-icon px-1"></i>
           <i class="bi bi-speaker-fill grey-icon px-1"></i>
           <i class="bi bi-volume-up grey-icon"></i>
