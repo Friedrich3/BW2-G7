@@ -21,7 +21,7 @@ window.addEventListener("load", init());
 function init() {
   getAlbum();
   printLibrary();
-  
+
 };
 
 async function getAlbum() {
@@ -33,12 +33,12 @@ async function getAlbum() {
       },
     });
     let data = await response.json();
-    
+
     album = { ...data };
     console.log(album)
     arraySong = data.tracks.data;
 
-      queryResult = arraySong.map((item) => ({
+    queryResult = arraySong.map((item) => ({
       trackId: item.id,
       trackTitle: item.title,
       albumId: item.album.id,
@@ -243,7 +243,7 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
 function addMusic(object) {
   let currentSongImg = document.getElementById("current-song-img");
   currentSongImg.setAttribute("src", `${object.albumCover}`);
-  currentSongImg.style.boxShadow="0.1px 0.1px 5px 1px rgba(25, 133, 83, 0.5)";
+  currentSongImg.style.boxShadow = "0.1px 0.1px 5px 1px rgba(25, 133, 83, 0.5)";
   let songTitle = document.getElementById("song-title");
   songTitle.innerText = object.trackTitle;
   let artistName = document.getElementById("artist-name");
@@ -289,64 +289,63 @@ function playPause() {
 }
 
 //FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
-function listenedSong(canzone){
+function listenedSong(canzone) {
   //console.log(canzone);
-  if(!localStorage.getItem("CanzoniRecenti")){
+  if (!localStorage.getItem("CanzoniRecenti")) {
     recentSongs.push(canzone);
     localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
     return;
-  }else{
+  } else {
     recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
-    if(recentSongs.length > 10){
-      recentSongs = recentSongs.splice(0,10);
+    if (recentSongs.length > 10) {
+      recentSongs = recentSongs.splice(0, 10);
     }
     const boolean = recentSongs.find((item) => item.trackId === canzone.trackId); //SE è TRUE l'ha trovata
-    if(!boolean){ //SE non viene trovata
+    if (!boolean) { //SE non viene trovata
       recentSongs.unshift(canzone);
       localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
       return;
-    }else{
+    } else {
       //SE POSIZIONE INDEX CANZONE = 0 RETURN ELSE FAI POP DI QUELLA CANZONE E UNSHIFT
       let index = recentSongs.findIndex((item) => item.trackId === canzone.trackId);
-      if(index == 0 ){
+      if (index == 0) {
         return;
-      }else{
-        recentSongs.splice(index,1);
+      } else {
+        recentSongs.splice(index, 1);
         recentSongs.unshift(canzone);
         localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
         return;
       }
-      
-    
+
+
     }
   }
-  };
+};
 
 
-  function likeFeature(element) {
-    const param = new URLSearchParams(window.location.search).get("search");
-    //console.log(item);
-    const song = preferiti.find((item) => item.trackId === element.trackId);
-    console.log(song);
-  
-    if (!song) {
-      preferiti.push(element);
-  
-      if (param) {
-        const fill = document.getElementById(`r${element.trackId}`);
-        fill.className = "bi bi-heart-fill mx-2 text-success";
-      }
-    } else {
-      preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-      if (param) {
-        const fill = document.getElementById(`r${element.trackId}`);
-        fill.className = "bi bi-heart mx-2 text-success";
-      }
-    }
-    localStorage.setItem("Like", JSON.stringify(preferiti));
-    printLibrary();
+function likeFeature(element) {
+  //const param = new URLSearchParams(window.location.search).get("search");
+  //console.log(item);
+  const song = preferiti.find((item) => item.trackId === element.trackId);
+  //console.log(song);
+
+  if (!song) {
+    preferiti.push(element);
+
+
+    const fill = document.getElementById(`r${element.trackId}`);
+    fill.className = "bi bi-heart-fill mx-2 text-success";
+
+  } else {
+    preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
+
+    const fill = document.getElementById(`r${element.trackId}`);
+    fill.className = "bi bi-heart mx-2 text-success";
+
   }
-
+  localStorage.setItem("Like", JSON.stringify(preferiti));
+  printLibrary();
+};
 function printLibrary() {
   const libraryList = document.getElementById("libraryList");
   libraryList.innerHTML = "";
@@ -371,7 +370,7 @@ function printLibrary() {
     popularBody.appendChild(info);
 
     const x = document.createElement("a");
-    x.className='link-card'
+    x.className = 'link-card'
     x.setAttribute("href", `artist.html?id=${element.artistId}`);
     info.appendChild(x)
 
@@ -421,17 +420,17 @@ function progressBar() {
 function formatTime(seconds) {
   let sec = seconds % 60;
   let format = parseFloat(sec.toFixed(0));
-  if (format<10){
+  if (format < 10) {
     return `0:0${format}`
-  }else{
+  } else {
     return `0:${format}`
   }
 }
 
 
-function loadMusicOnPages(){
+function loadMusicOnPages() {
   let canzone = JSON.parse(localStorage.getItem("InfoCanzone"));
   addMusic(canzone);
   audioPlayer.pause();
-  btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`; 
+  btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
 }
