@@ -693,10 +693,11 @@ function printLibrary() {
     b.innerText = element.trackTitle;
     info.appendChild(b);
 
-    const trashBtn=document.createElement('button')
-    trashBtn.className='btn ms-auto'
-    trashBtn.innerHTML='<i class="bi bi-trash3 grey-icon fs-small"></i>'
-    popularBody.appendChild(trashBtn)
+    const trashBtn=document.createElement('button');
+    trashBtn.className='btn ms-auto';
+    trashBtn.innerHTML='<i class="bi bi-trash3 grey-icon fs-small"></i>';
+    trashBtn.setAttribute("onclick","");
+    popularBody.appendChild(trashBtn);
   });
 };
 
