@@ -685,3 +685,33 @@ function printLibrary() {
     info.appendChild(b);
   });
 }
+
+
+//PROVA PROGRESS BAR//
+function updateProgressBar(audioPlayer) {
+  const progressBar = document.querySelector('.progress-bar'); 
+  const totalDuration = audioPlayer.duration * 1000; 
+  const updateInterval = 100; 
+  
+  let currentTime = 0;
+  const timeInterval = setInterval(() => {
+    currentTime = audioPlayer.currentTime * 1000; 
+    const percentage = (currentTime / totalDuration) * 100; 
+    
+    // modifica la larghezza della progress bar
+    progressBar.style.width = `${percent}%`;
+
+    // Quando la canzone finisce, ferma l'aggiornamento
+    if (currentTime >= totalDuration) {
+      clearInterval(timeInterval);
+    }
+  }, updateInterval); // Esegui l'aggiornamento ogni 100 ms
+}
+
+// Seleziona l'elemento audio
+const audio = document.getElementById('audioPlayer');
+
+// Aggiungi un evento che inizia l'aggiornamento quando la canzone inizia
+audio.addEventListener('play', function() {
+  updateProgressBar(audio); // Avvia la progress bar basata sull'elemento audio
+});
