@@ -4,7 +4,7 @@ const artist = [
   "Marco Mengoni",
   "Annalisa",
   "Lucio Corsi",
-  "Daniela Pes",
+  "Nek",
   "Lazza",
   "Elodie",
   "Maneskin",
@@ -12,7 +12,7 @@ const artist = [
   "Tananai",
   "Madame",
   "Tedua",
-  "Sfera Ebbasta",
+  "Creepy Nuts",
   "Pinguini Tattici Nucleari",
   "Giorgia",
   "Taylor Swift",
@@ -27,7 +27,7 @@ const artist = [
   "Lana Del Rey",
   "Ed Sheeran",
   "Bad Bunny",
-  "Rosalia",
+  "Maluma",
   "Sam Smith",
   "Linkin Park",
 ];
@@ -48,12 +48,11 @@ const albums = [
   "La Lunga Attesa",
   "Rush!",
   "Dawn FM",
-  "Did You Know That There's a Tunnel Under Ocean Blvd",
+  "Otonoke",
   "Midnights",
   "Happier Than Ever",
   "For All the Dogs",
   "Endless Summer Vacation",
-  "Motomami",
   "Un Verano Sin Ti",
   "Harry's House",
   "Fake News Pinguini",
@@ -116,13 +115,13 @@ function init() {
       searchContainer.classList.remove("d-none");
       searchQuery(param);
       printLibrary();
+      
     }
   };
   updateView();
 
-  
-
   window.addEventListener("popstate", updateView);
+  loadMusicOnPages();
 }
 
 document.getElementById("searchBtn").addEventListener("click", (e) => {
@@ -338,6 +337,7 @@ let uniqueAlbum;
 let uniqueArtist;
 
 async function searchQuery(query) {
+  document.title = `Spotify - Search`;
   const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
     " ",
     "-"
@@ -482,12 +482,10 @@ function printSearch(item) {
     popularBody.appendChild(popTitle);
 
     const popIconContainer = document.createElement("div");
-    popIconContainer.className =
-      "col-2 text-end align-content-center";
-    popIconContainer.innerHTML = ``
-                      
-    popRow.appendChild(popIconContainer);
+    popIconContainer.className = "col-2 text-end align-content-center";
+    popIconContainer.innerHTML = ``;
 
+    popRow.appendChild(popIconContainer);
 
     const popDurataContainer = document.createElement("div");
     popDurataContainer.className = "col-1 text-end d-flex";
@@ -562,7 +560,7 @@ function printSearch(item) {
 
     const heart = document.createElement("i");
     heart.className = "bi bi-heart mx-2 text-success";
-    heart.setAttribute("id", item[i].trackId);
+    heart.setAttribute("id", `r${item[i].trackId}`);
     heartButton.appendChild(heart);
     //console.log(item[i])
 
@@ -579,7 +577,7 @@ function printSearch(item) {
   songList.appendChild(collapseContainer);
   //BOTTONE COLLAPSE
   const show = document.createElement("button");
-  show.className = "btn mt-3";
+  show.className = "btn mt-3 text-light";
   show.setAttribute("type", "button");
   show.setAttribute("data-bs-toggle", "collapse");
   show.setAttribute("data-bs-target", "#collapseList");
@@ -590,17 +588,15 @@ function printSearch(item) {
 
 //ARRIVA IN INPUT L'URL della canzone da eseguire
 function addMusic(object) {
-
   let currentSongImg = document.getElementById("current-song-img");
   currentSongImg.setAttribute("src", `${object.albumCover}`);
+  currentSongImg.style.boxShadow="0.1px 0.1px 5px 1px rgba(25, 133, 83, 0.5)";
   let songTitle = document.getElementById("song-title");
   songTitle.innerText = object.trackTitle;
   let artistName = document.getElementById("artist-name");
   artistName.innerText = object.artistName;
   let songDuration = document.getElementById("songDuration");
   songDuration.innerText = "0:30";
-  let likeSongButton = document.getElementById("likeSongButton");
-  likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
 
   //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
   if (!localStorage.getItem("Canzone")) {
@@ -612,6 +608,7 @@ function addMusic(object) {
     localStorage.setItem("InfoCanzone", canzone);
     listenedSong(object);
     printRecentSong();
+    progressBar();
     return;
   } else {
     audioPlayer.pause();
@@ -624,6 +621,7 @@ function addMusic(object) {
     localStorage.setItem("InfoCanzone", canzone);
     listenedSong(object);
     printRecentSong();
+    progressBar();
     return;
   }
 }
@@ -643,17 +641,24 @@ function playPause() {
 
 //FUNZIONE PER METTERE I LIKE
 function likeFeature(element) {
+  const param = new URLSearchParams(window.location.search).get("search");
   //console.log(item);
   const song = preferiti.find((item) => item.trackId === element.trackId);
+  console.log(song);
 
   if (!song) {
     preferiti.push(element);
-    const fill = document.getElementById(`${element.trackId}`);
-    fill.className = "bi bi-heart-fill mx-2 text-success";
+
+    if (param) {
+      const fill = document.getElementById(`r${element.trackId}`);
+      fill.className = "bi bi-heart-fill mx-2 text-success";
+    }
   } else {
     preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-    const fill = document.getElementById(`${element.trackId}`);
-    fill.className = "bi bi-heart mx-2 text-success";
+    if (param) {
+      const fill = document.getElementById(`r${element.trackId}`);
+      fill.className = "bi bi-heart mx-2 text-success";
+    }
   }
   localStorage.setItem("Like", JSON.stringify(preferiti));
   printLibrary();
@@ -665,10 +670,8 @@ function printLibrary() {
   //console.log(preferiti)
   preferiti.forEach((element) => {
     let music = JSON.stringify(element);
-
     const popularBody = document.createElement("div");
     popularBody.className = "d-flex mb-2 hover-custom";
-    popularBody.setAttribute("onclick", `addMusic(${music})`);
     libraryList.appendChild(popularBody);
 
     //SECONDA SEZIONE: COVER ALBUM + TITOLO
@@ -677,133 +680,164 @@ function printLibrary() {
     popCover.setAttribute("src", element.albumCover);
     popCover.setAttribute("width", "25px");
     popCover.setAttribute("height", "25px");
+    popCover.setAttribute("onclick", `addMusic(${music})`);
     popularBody.appendChild(popCover);
 
     const info = document.createElement("div");
     info.className = "m-0 ps-2";
     popularBody.appendChild(info);
 
+    const x = document.createElement("a");
+    x.className='link-card'
+    x.setAttribute("href", `artist.html?id=${element.artistId}`);
+    info.appendChild(x)
+
     const a = document.createElement("p");
-    a.className = "m-0 ps-2 fs-small";
+    a.className = "m-0 ps-2 fs-small custom-text-library";
     a.innerText = element.artistName;
-    info.appendChild(a);
+    x.appendChild(a);
+
 
     const b = document.createElement("p");
-    b.className = "m-0 ps-2 fs-small";
+    b.className = "m-0 ps-2 fs-small custom-text-library";
     b.innerText = element.trackTitle;
     info.appendChild(b);
 
-    const trashBtn=document.createElement('button')
-    trashBtn.className='btn ms-auto'
-    trashBtn.innerHTML='<i class="bi bi-trash3 grey-icon fs-small"></i>'
-    popularBody.appendChild(trashBtn)
+    const trashBtn = document.createElement("button");
+    trashBtn.className = "btn ms-auto";
+    trashBtn.innerHTML = '<i class="bi bi-trash3 grey-icon fs-small"></i>';
+    trashBtn.setAttribute("onclick", `likeFeature(${music})`);
+    popularBody.appendChild(trashBtn);
   });
-};
-
+}
 
 //FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
 function listenedSong(canzone) {
   if (!localStorage.getItem("CanzoniRecenti")) {
-      recentSongs.push(canzone);
+    recentSongs.push(canzone);
+    localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+    return;
+  } else {
+    recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+    if (recentSongs.length > 10) {
+      recentSongs = recentSongs.splice(0, 10);
+    }
+    const boolean = recentSongs.find(
+      (item) => item.trackId === canzone.trackId
+    ); //SE è TRUE l'ha trovata
+    if (!boolean) {
+      //SE non viene trovata
+      recentSongs.unshift(canzone);
       localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
       return;
-  } else {
-      recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
-      if (recentSongs.length > 10) {
-          recentSongs = recentSongs.splice(0, 10);
-      }
-      const boolean = recentSongs.find((item) => item.trackId === canzone.trackId); //SE è TRUE l'ha trovata
-      if (!boolean) { //SE non viene trovata
-          recentSongs.unshift(canzone);
-          localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
-          return;
+    } else {
+      //SE POSIZIONE INDEX CANZONE = 0 RETURN ELSE FAI POP DI QUELLA CANZONE E UNSHIFT
+      let index = recentSongs.findIndex(
+        (item) => item.trackId === canzone.trackId
+      );
+      if (index == 0) {
+        return;
       } else {
-          //SE POSIZIONE INDEX CANZONE = 0 RETURN ELSE FAI POP DI QUELLA CANZONE E UNSHIFT
-          let index = recentSongs.findIndex((item) => item.trackId === canzone.trackId);
-          if (index == 0) {
-              return;
-          } else {
-              recentSongs.splice(index, 1);
-              recentSongs.unshift(canzone);
-              localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
-              return;
-          }
+        recentSongs.splice(index, 1);
+        recentSongs.unshift(canzone);
+        localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+        return;
       }
+    }
   }
-};
+}
 
-function printRecentSong(){
+function printRecentSong() {
   let recentSongsTitle = document.getElementById("recentSongsTitle");
   let recentSongWrapper = document.getElementById("recentSongWrapper");
   let recentArray = [];
   recentSongWrapper.innerHTML = "";
 
-    recentArray = JSON.parse(localStorage.getItem("CanzoniRecenti"));
-    let maxlength;
-    if(!localStorage.getItem("CanzoniRecenti")){
-      recentSongsTitle.innerHTML = "";
-      return;
-    }
-    else if(recentArray.length > 6){
-      maxlength = 6; 
-    }else{
-      maxlength = recentArray.length;
-    };
-    for(let i = 0 ; i < maxlength; i++){
-      let music = JSON.stringify(recentArray[i]);
-      let recentSongCard = document.createElement("div")
-      recentSongCard.className="col-4 d-flex rounded-4 p-0 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
-
-      let indexContainer = document.createElement("div");
-      let indexPar = document.createElement("p");
-      indexContainer.className = "col-index align-content-center text-end ms-3";
-      indexPar.innerText = `${i + 1}.`;
-      indexContainer.appendChild(indexPar);
-
-      let titleContainer = document.createElement("div");
-      titleContainer.className = "col-8 d-flex align-items-center";
-      titleContainer.setAttribute("onclick", `addMusic(${music})`);
-      let titleImage = document.createElement("img");
-      titleImage.className = "imgSong";
-      titleImage.setAttribute("alt", "Cover");
-      titleImage.setAttribute("src", `${recentArray[i].albumCover}`);
-      let titlePar = document.createElement("p");
-      titlePar.className = "ps-2";
-      titlePar.innerText = `${recentArray[i].trackTitle}`;
-      titleContainer.append(titleImage, titlePar);
-
-      let iconContainer = document.createElement("div");
-      iconContainer.className = "col-2 text-end align-content-center icon-hover";
-      iconContainer.innerHTML = `<i class="bi bi-plus-lg mx-2"></i>`;
-
-      let heartButton = document.createElement("button");
-      heartButton.className = "btn";
-      heartButton.setAttribute("type", "button");
-      heartButton.setAttribute("onclick", `likeFeature(${music})`);
-      iconContainer.appendChild(heartButton);
-
-      let heart = document.createElement("i");
-      heart.className = "bi bi-heart mx-2 text-success";
-      heart.setAttribute("id", recentArray[i].trackId);
-      heartButton.appendChild(heart);
-
-
-      let durataContainer = document.createElement("div");
-      durataContainer.className = "col-1 text-end align-content-center";
-      let durataPar = document.createElement("p");
-      durataPar.innerText = `${convertToMinSec(recentArray[i].duration, false)}`;
-      durataContainer.appendChild(durataPar);
-
-      recentSongCard.append(
-          indexContainer,
-          titleContainer,
-          iconContainer,
-          durataContainer
-      );
-      recentSongWrapper.appendChild(recentSongCard);
+  recentArray = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+  let maxlength;
+  if (!localStorage.getItem("CanzoniRecenti")) {
+    recentSongsTitle.innerHTML = "";
+    return;
+  } else if (recentArray.length > 6) {
+    maxlength = 6;
+  } else {
+    maxlength = recentArray.length;
   }
+  for (let i = 0; i < maxlength; i++) {
+    let music = JSON.stringify(recentArray[i]);
+    let recentSongCard = document.createElement("div");
+    recentSongCard.className = "col-sm-12 col-lg-6 col-xl-4 d-flex rounded-4 card-Track recent-height ";//MODIFICARE QUA LE CARTE PER LA GRAFICA
 
+    // let indexContainer = document.createElement("div");
+    // let indexPar = document.createElement("p");
+    // indexContainer.className = "col-index align-content-center text-end";
+    // indexPar.innerText = `${i + 1}.`;
+    // indexContainer.appendChild(indexPar);
 
+    let titleContainer = document.createElement("div");
+    titleContainer.className = "col-9 d-flex align-items-center";
+    titleContainer.setAttribute("onclick", `addMusic(${music})`);
+    let titleImage = document.createElement("img");
+    titleImage.className = "imgSong ps-1";
+    titleImage.setAttribute("alt", "Cover");
+    titleImage.setAttribute("src", `${recentArray[i].albumCover}`);
+    let titlePar = document.createElement("p");
+    titlePar.className = "ps-2 fs-5 card-recent";
+    titlePar.innerText = `${recentArray[i].trackTitle}`;
+    titleContainer.append(titleImage, titlePar);
 
-    }
+    let durataContainer = document.createElement("div");
+    durataContainer.className = "col-3 text-center align-content-center";
+    let durataPar = document.createElement("p");
+    durataPar.innerText = `${convertToMinSec(recentArray[i].duration, false)}`;
+    durataContainer.appendChild(durataPar);
 
+    recentSongCard.append(
+      //indexContainer,
+      titleContainer,
+      durataContainer
+    );
+    recentSongWrapper.appendChild(recentSongCard);
+  }
+}
+
+//FUNZIONE PER FAR FUNZIONARE LA PROGRESS BAR
+function progressBar() {
+  const audioPlayer = document.getElementById("audioPlayer");
+  const Barra = document.getElementById("Barra");
+  const currentTime = document.getElementById("currentTime");
+  currentTime.innerText = "ciao";
+
+  audioPlayer.addEventListener("loadedmetadata", () => {
+    Barra.min = 0;
+    Barra.max = Math.min(29, audioPlayer.duration);
+    Barra.value = 0;
+    //console.log( audioPlayer.currentTime);
+  });
+
+  Barra.addEventListener("input", () => {
+    audioPlayer.currentTime = Barra.value;
+  });
+
+  audioPlayer.addEventListener("timeupdate", () => {
+    Barra.value = audioPlayer.currentTime;
+    currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
+  });
+}
+
+function formatTime(seconds) {
+  let sec = seconds % 60;
+  let format = parseFloat(sec.toFixed(0));
+  if (format < 10) {
+    return `0:0${format}`;
+  } else {
+    return `0:${format}`;
+  }
+}
+
+function loadMusicOnPages() {
+  let canzone = JSON.parse(localStorage.getItem("InfoCanzone"));
+  addMusic(canzone);
+  audioPlayer.pause();
+  btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+}

@@ -27,6 +27,7 @@ async function getArtist() {
         let object = { ...data };
         printHero(object);
         getDatas(data.name);
+        document.title = object.name;
     } catch (error) {
         console.log("Error: " + error);
     }
@@ -59,9 +60,10 @@ async function getDatas(name) {
         }));
         printSongList(queryResult);
         printRecomendedAlbum(object[0]);
-        filterAlbum(object)
+        filterAlbum(object);
+        loadMusicOnPages(); //CARICA CANZONE CORRENTE NEL PLAYER
 
-        console.log(queryResult);
+        //console.log(queryResult);
     } catch (error) {
         console.log("Error: " + error);
     }
@@ -126,7 +128,7 @@ function printSongList(object) {
 
         let heart = document.createElement("i");
         heart.className = "bi bi-heart mx-2 text-success";
-        heart.setAttribute("id", object[i].trackId);
+        heart.setAttribute("id", `r${object[i].trackId}`);
         heartButton.appendChild(heart);
 
 
@@ -269,14 +271,13 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
 function addMusic(object) {
     let currentSongImg = document.getElementById("current-song-img");
     currentSongImg.setAttribute("src", `${object.albumCover}`);
+    currentSongImg.style.boxShadow="0.1px 0.1px 5px 1px rgba(25, 133, 83, 0.5)";
     let songTitle = document.getElementById("song-title");
     songTitle.innerText = object.trackTitle;
     let artistName = document.getElementById("artist-name");
     artistName.innerText = object.artistName;
     let songDuration = document.getElementById("songDuration");
     songDuration.innerText = "0:30";
-    let likeSongButton = document.getElementById("likeSongButton");
-    likeSongButton.innerHTML = `<i class="bi bi-heart" onclick=("aggiungereFunzione")></i>`;
 
     //PUNTA il Tag AUDIO E se c'è una canzone in corso la interrompe e riproduce la selezionata , altrimenti mette la canzone selezionata
     if (!localStorage.getItem("Canzone")) {
@@ -287,6 +288,7 @@ function addMusic(object) {
         let canzone = JSON.stringify(object);
         localStorage.setItem("InfoCanzone", canzone);
         listenedSong(object);
+        progressBar();
         return;
     } else {
         audioPlayer.pause();
@@ -298,6 +300,7 @@ function addMusic(object) {
         let canzone = JSON.stringify(object);
         localStorage.setItem("InfoCanzone", canzone);
         listenedSong(object);
+        progressBar();
         return;
     }
 }
@@ -321,11 +324,11 @@ function likeFeature(element) {
 
     if (!song) {
         preferiti.push(element);
-        const fill = document.getElementById(`${element.trackId}`);
+        const fill = document.getElementById(`r${element.trackId}`);
         fill.className = "bi bi-heart-fill mx-2 text-success";
     } else {
         preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-        const fill = document.getElementById(`${element.trackId}`);
+        const fill = document.getElementById(`r${element.trackId}`);
         fill.className = "bi bi-heart mx-2 text-success";
     }
     localStorage.setItem("Like", JSON.stringify(preferiti));
@@ -357,20 +360,26 @@ function printLibrary() {
         popularBody.appendChild(info);
 
         const a = document.createElement("p");
-        a.className = "m-0 ps-2 fs-small";
+        a.className = "m-0 ps-2 fs-small custom-text-library";
         a.innerText = element.artistName;
         info.appendChild(a);
 
         const b = document.createElement("p");
-        b.className = "m-0 ps-2 fs-small";
+        b.className = "m-0 ps-2 fs-small custom-text-library";
         b.innerText = element.trackTitle;
         info.appendChild(b);
+
+        const trashBtn = document.createElement('button');
+        trashBtn.className = 'btn ms-auto';
+        trashBtn.innerHTML = '<i class="bi bi-trash3 grey-icon fs-small"></i>';
+        trashBtn.setAttribute("onclick", `likeFeature(${music})`);
+        popularBody.appendChild(trashBtn);
     });
 };
 
 //FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
 function listenedSong(canzone) {
-    console.log(canzone);
+    //console.log(canzone);
     if (!localStorage.getItem("CanzoniRecenti")) {
         recentSongs.push(canzone);
         localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
@@ -392,7 +401,6 @@ function listenedSong(canzone) {
                 return;
             } else {
                 recentSongs.splice(index, 1);
-                console.log(canzone);
                 recentSongs.unshift(canzone);
                 localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
                 return;
@@ -402,3 +410,45 @@ function listenedSong(canzone) {
         }
     }
 };
+
+//FUNZIONE PER FAR FUNZIONARE LA PROGRESS BAR
+function progressBar() {
+    const audioPlayer = document.getElementById("audioPlayer");
+    const Barra = document.getElementById("Barra");
+    const currentTime = document.getElementById("currentTime");
+    currentTime.innerText = "ciao";
+
+    audioPlayer.addEventListener("loadedmetadata", () => {
+        Barra.min = 0;
+        Barra.max = Math.min(29, audioPlayer.duration);
+        Barra.value = 0;
+        //console.log( audioPlayer.currentTime);
+    });
+
+    Barra.addEventListener("input", () => {
+        audioPlayer.currentTime = Barra.value;
+    });
+
+    audioPlayer.addEventListener("timeupdate", () => {
+        Barra.value = audioPlayer.currentTime;
+        currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
+    });
+}
+
+function formatTime(seconds) {
+    let sec = seconds % 60;
+    let format = parseFloat(sec.toFixed(0));
+    if (format < 10) {
+        return `0:0${format}`;
+    } else {
+        return `0:${format}`;
+    }
+}
+
+
+function loadMusicOnPages() {
+    let canzone = JSON.parse(localStorage.getItem("InfoCanzone"));
+    addMusic(canzone);
+    audioPlayer.pause();
+    btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
+}
