@@ -74,6 +74,7 @@ let preferiti = JSON.parse(localStorage.getItem("Like")) || [];
 
 let newArtistArray = [];
 let newAlbumArray = [];
+let recentSongs = []; //ARRAY POPOLATO CON LE CANZONI IN LOCAL STORAGE
 
 class NewObject {
   constructor(
@@ -732,13 +733,18 @@ function listenedSong(canzone) {
 };
 
 function printRecentSong(){
+  let recentSongsTitle = document.getElementById("recentSongsTitle");
   let recentSongWrapper = document.getElementById("recentSongWrapper");
   let recentArray = [];
   recentSongWrapper.innerHTML = "";
 
     recentArray = JSON.parse(localStorage.getItem("CanzoniRecenti"));
     let maxlength;
-    if(recentArray.length > 6){
+    if(!localStorage.getItem("CanzoniRecenti")){
+      recentSongsTitle.innerHTML = "";
+      return;
+    }
+    else if(recentArray.length > 6){
       maxlength = 6; 
     }else{
       maxlength = recentArray.length;
@@ -794,7 +800,7 @@ function printRecentSong(){
           iconContainer,
           durataContainer
       );
-      recentSongWrapper.appendChild(recentSongCard)
+      recentSongWrapper.appendChild(recentSongCard);
   }
 
 
