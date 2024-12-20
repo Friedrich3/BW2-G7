@@ -434,7 +434,9 @@ ol li p{
 
 #current-song-img {
   max-width: 4em;
+  box-shadow: 0.1px 0.1px 10px 1px #c2c2c2;
 }
+
 /*fine player*/
 
 .fs-small{
