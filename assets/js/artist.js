@@ -285,6 +285,7 @@ function addMusic(object) {
         let canzone = JSON.stringify(object);
         localStorage.setItem("InfoCanzone", canzone);
         listenedSong(object);
+        progressBar();
         return;
     } else {
         audioPlayer.pause();
@@ -296,6 +297,7 @@ function addMusic(object) {
         let canzone = JSON.stringify(object);
         localStorage.setItem("InfoCanzone", canzone);
         listenedSong(object);
+        progressBar();
         return;
     }
 }
@@ -406,3 +408,39 @@ function listenedSong(canzone) {
         }
     }
 };
+
+//FUNZIONE PER FAR FUNZIONARE LA PROGRESS BAR
+function progressBar() {
+    const audioPlayer = document.getElementById("audioPlayer");
+    const Barra = document.getElementById("Barra");
+    const currentTime = document.getElementById("currentTime");
+    currentTime.innerText = "ciao";
+  
+    audioPlayer.addEventListener("loadedmetadata", () => {
+      Barra.min = 0;
+      Barra.max = Math.min(29, audioPlayer.duration);
+      Barra.value = 0;
+      //console.log( audioPlayer.currentTime);
+    });
+  
+    Barra.addEventListener("input", () => {
+      audioPlayer.currentTime = Barra.value;
+    });
+  
+    audioPlayer.addEventListener("timeupdate", () => {
+      Barra.value = audioPlayer.currentTime;
+      console.log(Barra.value);
+      currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
+    });
+  }
+  
+  function formatTime(seconds) {
+    let sec = seconds % 60;
+    let format = parseFloat(sec.toFixed(0));
+    if (format<10){
+      return `0:0${format}`
+    }else{
+      return `0:${format}`
+    }
+  }
+  

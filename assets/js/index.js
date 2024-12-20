@@ -120,8 +120,6 @@ function init() {
   };
   updateView();
 
-  
-
   window.addEventListener("popstate", updateView);
 }
 
@@ -482,12 +480,10 @@ function printSearch(item) {
     popularBody.appendChild(popTitle);
 
     const popIconContainer = document.createElement("div");
-    popIconContainer.className =
-      "col-2 text-end align-content-center";
-    popIconContainer.innerHTML = ``
-                      
-    popRow.appendChild(popIconContainer);
+    popIconContainer.className = "col-2 text-end align-content-center";
+    popIconContainer.innerHTML = ``;
 
+    popRow.appendChild(popIconContainer);
 
     const popDurataContainer = document.createElement("div");
     popDurataContainer.className = "col-1 text-end d-flex";
@@ -609,6 +605,7 @@ function addMusic(object) {
     localStorage.setItem("InfoCanzone", canzone);
     listenedSong(object);
     printRecentSong();
+    progressBar();
     return;
   } else {
     audioPlayer.pause();
@@ -621,6 +618,7 @@ function addMusic(object) {
     localStorage.setItem("InfoCanzone", canzone);
     listenedSong(object);
     printRecentSong();
+    progressBar();
     return;
   }
 }
@@ -689,118 +687,154 @@ function printLibrary() {
     b.innerText = element.trackTitle;
     info.appendChild(b);
 
+
     const trashBtn=document.createElement('button');
     trashBtn.className='btn ms-auto';
     trashBtn.innerHTML='<i class="bi bi-trash3 grey-icon fs-small"></i>';
     trashBtn.setAttribute("onclick",`likeFeature(${music})`);
     popularBody.appendChild(trashBtn);
   });
-};
-
+}
 
 //FUNZIONE CHE PERMETTE IL SALVATAGGIO NEL LOCAL STORAGE DELLE CANZONE RECENTEMENTE ASCOLTATE
 function listenedSong(canzone) {
   if (!localStorage.getItem("CanzoniRecenti")) {
-      recentSongs.push(canzone);
+    recentSongs.push(canzone);
+    localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+    return;
+  } else {
+    recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+    if (recentSongs.length > 10) {
+      recentSongs = recentSongs.splice(0, 10);
+    }
+    const boolean = recentSongs.find(
+      (item) => item.trackId === canzone.trackId
+    ); //SE è TRUE l'ha trovata
+    if (!boolean) {
+      //SE non viene trovata
+      recentSongs.unshift(canzone);
       localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
       return;
-  } else {
-      recentSongs = JSON.parse(localStorage.getItem("CanzoniRecenti"));
-      if (recentSongs.length > 10) {
-          recentSongs = recentSongs.splice(0, 10);
-      }
-      const boolean = recentSongs.find((item) => item.trackId === canzone.trackId); //SE è TRUE l'ha trovata
-      if (!boolean) { //SE non viene trovata
-          recentSongs.unshift(canzone);
-          localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
-          return;
+    } else {
+      //SE POSIZIONE INDEX CANZONE = 0 RETURN ELSE FAI POP DI QUELLA CANZONE E UNSHIFT
+      let index = recentSongs.findIndex(
+        (item) => item.trackId === canzone.trackId
+      );
+      if (index == 0) {
+        return;
       } else {
-          //SE POSIZIONE INDEX CANZONE = 0 RETURN ELSE FAI POP DI QUELLA CANZONE E UNSHIFT
-          let index = recentSongs.findIndex((item) => item.trackId === canzone.trackId);
-          if (index == 0) {
-              return;
-          } else {
-              recentSongs.splice(index, 1);
-              recentSongs.unshift(canzone);
-              localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
-              return;
-          }
+        recentSongs.splice(index, 1);
+        recentSongs.unshift(canzone);
+        localStorage.setItem("CanzoniRecenti", JSON.stringify(recentSongs));
+        return;
       }
+    }
   }
-};
+}
 
-function printRecentSong(){
+function printRecentSong() {
   let recentSongsTitle = document.getElementById("recentSongsTitle");
   let recentSongWrapper = document.getElementById("recentSongWrapper");
   let recentArray = [];
   recentSongWrapper.innerHTML = "";
 
-    recentArray = JSON.parse(localStorage.getItem("CanzoniRecenti"));
-    let maxlength;
-    if(!localStorage.getItem("CanzoniRecenti")){
-      recentSongsTitle.innerHTML = "";
-      return;
-    }
-    else if(recentArray.length > 6){
-      maxlength = 6; 
-    }else{
-      maxlength = recentArray.length;
-    };
-    for(let i = 0 ; i < maxlength; i++){
-      let music = JSON.stringify(recentArray[i]);
-      let recentSongCard = document.createElement("div")
-      recentSongCard.className="col col d-flex rounded-4 p-0 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
 
-      let indexContainer = document.createElement("div");
-      let indexPar = document.createElement("p");
-      indexContainer.className = "col-index align-content-center text-end ms-3";
-      indexPar.innerText = `${i + 1}.`;
-      indexContainer.appendChild(indexPar);
+  recentArray = JSON.parse(localStorage.getItem("CanzoniRecenti"));
+  let maxlength;
+  if (!localStorage.getItem("CanzoniRecenti")) {
+    recentSongsTitle.innerHTML = "";
+    return;
+  } else if (recentArray.length > 6) {
+    maxlength = 6;
+  } else {
+    maxlength = recentArray.length;
 
-      let titleContainer = document.createElement("div");
-      titleContainer.className = "col-8 d-flex align-items-center";
-      titleContainer.setAttribute("onclick", `addMusic(${music})`);
-      let titleImage = document.createElement("img");
-      titleImage.className = "imgSong";
-      titleImage.setAttribute("alt", "Cover");
-      titleImage.setAttribute("src", `${recentArray[i].albumCover}`);
-      let titlePar = document.createElement("p");
-      titlePar.className = "ps-2";
-      titlePar.innerText = `${recentArray[i].trackTitle}`;
-      titleContainer.append(titleImage, titlePar);
-
-      let iconContainer = document.createElement("div");
-      iconContainer.className = "col-2 text-end align-content-center icon-hover";
-      iconContainer.innerHTML = `<i class="bi bi-plus-lg mx-2"></i>`;
-
-      let heartButton = document.createElement("button");
-      heartButton.className = "btn";
-      heartButton.setAttribute("type", "button");
-      heartButton.setAttribute("onclick", `likeFeature(${music})`);
-      iconContainer.appendChild(heartButton);
-
-      let heart = document.createElement("i");
-      heart.className = "bi bi-heart mx-2 text-success";
-      heart.setAttribute("id", recentArray[i].trackId);
-      heartButton.appendChild(heart);
-
-
-      let durataContainer = document.createElement("div");
-      durataContainer.className = "col-1 text-end align-content-center";
-      let durataPar = document.createElement("p");
-      durataPar.innerText = `${convertToMinSec(recentArray[i].duration, false)}`;
-      durataContainer.appendChild(durataPar);
-
-      recentSongCard.append(
-          indexContainer,
-          titleContainer,
-          iconContainer,
-          durataContainer
-      );
-      recentSongWrapper.appendChild(recentSongCard);
   }
+  for (let i = 0; i < maxlength; i++) {
+    let music = JSON.stringify(recentArray[i]);
+    let recentSongCard = document.createElement("div");
+    recentSongCard.className = "col-4 d-flex rounded-4 p-0 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
 
+    let indexContainer = document.createElement("div");
+    let indexPar = document.createElement("p");
+    indexContainer.className = "col-index align-content-center text-end ms-3";
+    indexPar.innerText = `${i + 1}.`;
+    indexContainer.appendChild(indexPar);
 
+    let titleContainer = document.createElement("div");
+    titleContainer.className = "col-8 d-flex align-items-center";
+    titleContainer.setAttribute("onclick", `addMusic(${music})`);
+    let titleImage = document.createElement("img");
+    titleImage.className = "imgSong";
+    titleImage.setAttribute("alt", "Cover");
+    titleImage.setAttribute("src", `${recentArray[i].albumCover}`);
+    let titlePar = document.createElement("p");
+    titlePar.className = "ps-2";
+    titlePar.innerText = `${recentArray[i].trackTitle}`;
+    titleContainer.append(titleImage, titlePar);
 
-    }
+    let iconContainer = document.createElement("div");
+    iconContainer.className = "col-2 text-end align-content-center icon-hover";
+    iconContainer.innerHTML = `<i class="bi bi-plus-lg mx-2"></i>`;
 
+    let heartButton = document.createElement("button");
+    heartButton.className = "btn";
+    heartButton.setAttribute("type", "button");
+    heartButton.setAttribute("onclick", `likeFeature(${music})`);
+    iconContainer.appendChild(heartButton);
+
+    let heart = document.createElement("i");
+    heart.className = "bi bi-heart mx-2 text-success";
+    heart.setAttribute("id", recentArray[i].trackId);
+    heartButton.appendChild(heart);
+
+    let durataContainer = document.createElement("div");
+    durataContainer.className = "col-1 text-end align-content-center";
+    let durataPar = document.createElement("p");
+    durataPar.innerText = `${convertToMinSec(recentArray[i].duration, false)}`;
+    durataContainer.appendChild(durataPar);
+
+    recentSongCard.append(
+      indexContainer,
+      titleContainer,
+      iconContainer,
+      durataContainer
+    );
+    recentSongWrapper.appendChild(recentSongCard);
+  }
+}
+
+//FUNZIONE PER FAR FUNZIONARE LA PROGRESS BAR
+function progressBar() {
+  const audioPlayer = document.getElementById("audioPlayer");
+  const Barra = document.getElementById("Barra");
+  const currentTime = document.getElementById("currentTime");
+  currentTime.innerText = "ciao";
+
+  audioPlayer.addEventListener("loadedmetadata", () => {
+    Barra.min = 0;
+    Barra.max = Math.min(29, audioPlayer.duration);
+    Barra.value = 0;
+    //console.log( audioPlayer.currentTime);
+  });
+
+  Barra.addEventListener("input", () => {
+    audioPlayer.currentTime = Barra.value;
+  });
+
+  audioPlayer.addEventListener("timeupdate", () => {
+    Barra.value = audioPlayer.currentTime;
+    console.log(Barra.value);
+    currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
+  });
+}
+
+function formatTime(seconds) {
+  let sec = seconds % 60;
+  let format = parseFloat(sec.toFixed(0));
+  if (format<10){
+    return `0:0${format}`
+  }else{
+    return `0:${format}`
+  }
+}
