@@ -4,7 +4,7 @@ const artist = [
   "Marco Mengoni",
   "Annalisa",
   "Lucio Corsi",
-  "Daniela Pes",
+  "Nek",
   "Lazza",
   "Elodie",
   "Maneskin",
@@ -27,7 +27,7 @@ const artist = [
   "Lana Del Rey",
   "Ed Sheeran",
   "Bad Bunny",
-  "Rosalia",
+  "Maluma",
   "Sam Smith",
   "Linkin Park",
 ];
@@ -53,7 +53,6 @@ const albums = [
   "Happier Than Ever",
   "For All the Dogs",
   "Endless Summer Vacation",
-  "Motomami",
   "Un Verano Sin Ti",
   "Harry's House",
   "Fake News Pinguini",
@@ -119,6 +118,7 @@ function init() {
     }
   };
   updateView();
+
 
   window.addEventListener("popstate", updateView);
 }
