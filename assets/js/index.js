@@ -4,7 +4,7 @@ const artist = [
   "Marco Mengoni",
   "Annalisa",
   "Lucio Corsi",
-  "Daniela Pes",
+  "Nek",
   "Lazza",
   "Elodie",
   "Maneskin",
@@ -12,7 +12,7 @@ const artist = [
   "Tananai",
   "Madame",
   "Tedua",
-  "Sfera Ebbasta",
+  "Creepy Nuts",
   "Pinguini Tattici Nucleari",
   "Giorgia",
   "Taylor Swift",
@@ -27,7 +27,7 @@ const artist = [
   "Lana Del Rey",
   "Ed Sheeran",
   "Bad Bunny",
-  "Rosalia",
+  "Maluma",
   "Sam Smith",
   "Linkin Park",
 ];
@@ -48,12 +48,11 @@ const albums = [
   "La Lunga Attesa",
   "Rush!",
   "Dawn FM",
-  "Did You Know That There's a Tunnel Under Ocean Blvd",
+  "Otonoke",
   "Midnights",
   "Happier Than Ever",
   "For All the Dogs",
   "Endless Summer Vacation",
-  "Motomami",
   "Un Verano Sin Ti",
   "Harry's House",
   "Fake News Pinguini",
@@ -116,11 +115,13 @@ function init() {
       searchContainer.classList.remove("d-none");
       searchQuery(param);
       printLibrary();
+      
     }
   };
   updateView();
 
   window.addEventListener("popstate", updateView);
+  loadMusicOnPages();
 }
 
 document.getElementById("searchBtn").addEventListener("click", (e) => {
@@ -336,6 +337,7 @@ let uniqueAlbum;
 let uniqueArtist;
 
 async function searchQuery(query) {
+  document.title = `Spotify - Search`;
   const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
     " ",
     "-"
@@ -558,7 +560,7 @@ function printSearch(item) {
 
     const heart = document.createElement("i");
     heart.className = "bi bi-heart mx-2 text-success";
-    heart.setAttribute("id", item[i].trackId);
+    heart.setAttribute("id", `r${item[i].trackId}`);
     heartButton.appendChild(heart);
     //console.log(item[i])
 
@@ -575,7 +577,7 @@ function printSearch(item) {
   songList.appendChild(collapseContainer);
   //BOTTONE COLLAPSE
   const show = document.createElement("button");
-  show.className = "btn mt-3";
+  show.className = "btn mt-3 text-light";
   show.setAttribute("type", "button");
   show.setAttribute("data-bs-toggle", "collapse");
   show.setAttribute("data-bs-target", "#collapseList");
@@ -638,17 +640,24 @@ function playPause() {
 
 //FUNZIONE PER METTERE I LIKE
 function likeFeature(element) {
+  const param = new URLSearchParams(window.location.search).get("search");
   //console.log(item);
   const song = preferiti.find((item) => item.trackId === element.trackId);
+  console.log(song);
 
   if (!song) {
     preferiti.push(element);
-    const fill = document.getElementById(`${element.trackId}`);
-    fill.className = "bi bi-heart-fill mx-2 text-success";
+
+    if (param) {
+      const fill = document.getElementById(`r${element.trackId}`);
+      fill.className = "bi bi-heart-fill mx-2 text-success";
+    }
   } else {
     preferiti = preferiti.filter((x) => x.trackId !== element.trackId);
-    const fill = document.getElementById(`${element.trackId}`);
-    fill.className = "bi bi-heart mx-2 text-success";
+    if (param) {
+      const fill = document.getElementById(`r${element.trackId}`);
+      fill.className = "bi bi-heart mx-2 text-success";
+    }
   }
   localStorage.setItem("Like", JSON.stringify(preferiti));
   printLibrary();
@@ -677,21 +686,26 @@ function printLibrary() {
     info.className = "m-0 ps-2";
     popularBody.appendChild(info);
 
+    const x = document.createElement("a");
+    x.className='link-card'
+    x.setAttribute("href", `artist.html?id=${element.artistId}`);
+    info.appendChild(x)
+
     const a = document.createElement("p");
     a.className = "m-0 ps-2 fs-small custom-text-library";
     a.innerText = element.artistName;
-    info.appendChild(a);
+    x.appendChild(a);
+
 
     const b = document.createElement("p");
     b.className = "m-0 ps-2 fs-small custom-text-library";
     b.innerText = element.trackTitle;
     info.appendChild(b);
 
-
-    const trashBtn=document.createElement('button');
-    trashBtn.className='btn ms-auto';
-    trashBtn.innerHTML='<i class="bi bi-trash3 grey-icon fs-small"></i>';
-    trashBtn.setAttribute("onclick",`likeFeature(${music})`);
+    const trashBtn = document.createElement("button");
+    trashBtn.className = "btn ms-auto";
+    trashBtn.innerHTML = '<i class="bi bi-trash3 grey-icon fs-small"></i>';
+    trashBtn.setAttribute("onclick", `likeFeature(${music})`);
     popularBody.appendChild(trashBtn);
   });
 }
@@ -738,7 +752,6 @@ function printRecentSong() {
   let recentArray = [];
   recentSongWrapper.innerHTML = "";
 
-
   recentArray = JSON.parse(localStorage.getItem("CanzoniRecenti"));
   let maxlength;
   if (!localStorage.getItem("CanzoniRecenti")) {
@@ -748,56 +761,39 @@ function printRecentSong() {
     maxlength = 6;
   } else {
     maxlength = recentArray.length;
-
   }
   for (let i = 0; i < maxlength; i++) {
     let music = JSON.stringify(recentArray[i]);
     let recentSongCard = document.createElement("div");
-    recentSongCard.className = "col-4 d-flex rounded-4 p-0 card-Track"; //MODIFICARE QUA LE CARTE PER LA GRAFICA
+    recentSongCard.className = "col-sm-12 col-lg-6 col-xl-4 d-flex rounded-4 card-Track recent-height ";//MODIFICARE QUA LE CARTE PER LA GRAFICA
 
-    let indexContainer = document.createElement("div");
-    let indexPar = document.createElement("p");
-    indexContainer.className = "col-index align-content-center text-end ms-3";
-    indexPar.innerText = `${i + 1}.`;
-    indexContainer.appendChild(indexPar);
+    // let indexContainer = document.createElement("div");
+    // let indexPar = document.createElement("p");
+    // indexContainer.className = "col-index align-content-center text-end";
+    // indexPar.innerText = `${i + 1}.`;
+    // indexContainer.appendChild(indexPar);
 
     let titleContainer = document.createElement("div");
-    titleContainer.className = "col-8 d-flex align-items-center";
+    titleContainer.className = "col-9 d-flex align-items-center";
     titleContainer.setAttribute("onclick", `addMusic(${music})`);
     let titleImage = document.createElement("img");
-    titleImage.className = "imgSong";
+    titleImage.className = "imgSong ps-1";
     titleImage.setAttribute("alt", "Cover");
     titleImage.setAttribute("src", `${recentArray[i].albumCover}`);
     let titlePar = document.createElement("p");
-    titlePar.className = "ps-2";
+    titlePar.className = "ps-2 fs-5 card-recent";
     titlePar.innerText = `${recentArray[i].trackTitle}`;
     titleContainer.append(titleImage, titlePar);
 
-    let iconContainer = document.createElement("div");
-    iconContainer.className = "col-2 text-end align-content-center icon-hover";
-    iconContainer.innerHTML = `<i class="bi bi-plus-lg mx-2"></i>`;
-
-    let heartButton = document.createElement("button");
-    heartButton.className = "btn";
-    heartButton.setAttribute("type", "button");
-    heartButton.setAttribute("onclick", `likeFeature(${music})`);
-    iconContainer.appendChild(heartButton);
-
-    let heart = document.createElement("i");
-    heart.className = "bi bi-heart mx-2 text-success";
-    heart.setAttribute("id", recentArray[i].trackId);
-    heartButton.appendChild(heart);
-
     let durataContainer = document.createElement("div");
-    durataContainer.className = "col-1 text-end align-content-center";
+    durataContainer.className = "col-3 text-center align-content-center";
     let durataPar = document.createElement("p");
     durataPar.innerText = `${convertToMinSec(recentArray[i].duration, false)}`;
     durataContainer.appendChild(durataPar);
 
     recentSongCard.append(
-      indexContainer,
+      //indexContainer,
       titleContainer,
-      iconContainer,
       durataContainer
     );
     recentSongWrapper.appendChild(recentSongCard);
@@ -824,7 +820,6 @@ function progressBar() {
 
   audioPlayer.addEventListener("timeupdate", () => {
     Barra.value = audioPlayer.currentTime;
-    console.log(Barra.value);
     currentTime.innerText = `${formatTime(audioPlayer.currentTime)}`;
   });
 }
@@ -832,9 +827,16 @@ function progressBar() {
 function formatTime(seconds) {
   let sec = seconds % 60;
   let format = parseFloat(sec.toFixed(0));
-  if (format<10){
-    return `0:0${format}`
-  }else{
-    return `0:${format}`
+  if (format < 10) {
+    return `0:0${format}`;
+  } else {
+    return `0:${format}`;
   }
+}
+
+function loadMusicOnPages() {
+  let canzone = JSON.parse(localStorage.getItem("InfoCanzone"));
+  addMusic(canzone);
+  audioPlayer.pause();
+  btnPlayPause.innerHTML = `<i class="bi bi-play-circle-fill text-success"></i>`;
 }
