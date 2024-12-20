@@ -590,6 +590,7 @@ function printSearch(item) {
 function addMusic(object) {
   let currentSongImg = document.getElementById("current-song-img");
   currentSongImg.setAttribute("src", `${object.albumCover}`);
+  currentSongImg.style.boxShadow="0.1px 0.1px 5px 1px rgba(25, 133, 83, 0.5)";
   let songTitle = document.getElementById("song-title");
   songTitle.innerText = object.trackTitle;
   let artistName = document.getElementById("artist-name");
