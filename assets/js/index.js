@@ -115,6 +115,7 @@ function init() {
       searchContainer.classList.remove("d-none");
       searchQuery(param);
       printLibrary();
+      
     }
   };
   updateView();
@@ -337,6 +338,7 @@ let uniqueAlbum;
 let uniqueArtist;
 
 async function searchQuery(query) {
+  document.title = `Spotify - Search`;
   const queryUrl = `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query.replaceAll(
     " ",
     "-"
