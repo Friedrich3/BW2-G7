@@ -593,6 +593,7 @@ function addMusic(object) {
 
   let currentSongImg = document.getElementById("current-song-img");
   currentSongImg.setAttribute("src", `${object.albumCover}`);
+  currentSongImg.style.boxShadow="0.1px 0.1px 10px 1px #c2c2c2"
   let songTitle = document.getElementById("song-title");
   songTitle.innerText = object.trackTitle;
   let artistName = document.getElementById("artist-name");
